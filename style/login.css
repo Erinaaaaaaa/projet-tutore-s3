@@ -1,0 +1,47 @@
+html {
+    font-family: sans-serif;
+}
+
+h1  {
+    margin-top: 0;
+    text-align: center;
+}
+
+div#contents {
+    margin-top: 200px;
+}
+
+@media screen and (min-width: 640px){
+
+    html {
+        background-color: silver;
+    }
+
+    div#contents {
+        max-width: 400px;
+        margin: auto;
+        margin-top: 200px;
+        background-color: white;
+        border-radius: 16px; 
+        padding: 16px;
+        box-shadow: 0px 8px 16px rgba(0,0,0,0.4);
+    }
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+div.buttons {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+div.buttons input {
+    margin-left: 8px;
+}
+
+form {
+    margin: 0;
+}

@@ -1,0 +1,26 @@
+form{
+	margin: 0 auto;
+	width : 400px;
+	padding: 1em;
+	border : 1px solid #CCC;
+}
+
+
+label{
+	display: inline-block;
+	width  : 90px;
+	text-align: left;
+}
+
+h3{
+	text-align: center;
+}
+
+input:not([type = reset]):not([type = submit]):focus, textarea:focus, select:focus {
+  border-color: #000;
+}
+
+textarea {
+  vertical-align: top;
+  height: 5em;
+}
