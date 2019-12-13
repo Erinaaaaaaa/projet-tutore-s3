@@ -1,0 +1,5 @@
+Verifier qu'il y a une connexion avant d'accèder au prototype. Si une personne ne s'est pas connecté, renvoyer sur le formulaire
+Avec sessions de login (pas que sessions_start() mais aussi les SESSION[])
+De façon à ce qu'un utilisateur soit redirigé vers la page de connexion mêmes'il enre dans la barre de recherche prototype.php
+
+

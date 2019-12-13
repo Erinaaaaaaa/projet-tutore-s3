@@ -10,29 +10,50 @@
 
 				<fieldset>
 					
-					<form method="POST">
+					<!--<form method="POST">-->
 						<table align='center' border>
 							<tr>
 								<td>
-									<textarea name="travail effectué"></textarea>
+									travail effectué
 								</td>
 								<td>
-									<textarea name="travail à faire"></textarea>
+									travail à faire
 								</td>
 								<td>
-									<input type="file" accept=/*>
+									Ajouter une nouvelle séance
 								</td>
 								<td>
-									<input type="button" name="travail effectué+" value="Nouvel événement" />
+								</td>
+								<!--<td>
+									<input type="reset" name="renit" value="Effacer">
+								</td>-->
+							</tr>
+							<tr>
+								<form method = "POST">
+									<td>
+										<textarea name="travail effectué"></textarea><br>
+										<input type="file" accept=/*><br/>
+										<input type="reset" name="renit" value="Effacer">
+									</td>
+								</form>
+							<form method="POST">
+								<td>
+									<textarea name="travail à faire"></textarea><br>
+									<input type="file" accept=/*><br/>
+									<input type="reset" name="renit" value="Effacer">
+								</td>
+							</form>
+								<td>
+									<input type="button" name="travail effectué+" value="Nouvelle séance" />
 								</td>
 								<td>
 									<input type="submit" name="ok" value="Valider">
 								</td>
-								<td>
+								<!--<td>
 									<input type="reset" name="renit" value="Effacer">
-								</td>
+								</td>-->
 							</tr>
-				</form>
+				<!--</form>-->
 			</fieldset>
 
 		</fieldset>
