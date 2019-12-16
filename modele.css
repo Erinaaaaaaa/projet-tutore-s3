@@ -1,0 +1,15 @@
+table{
+	width: 100%;
+}
+
+th{
+	font-size: 20px;
+}
+
+td {
+	text-align: center;
+}
+
+.createur{
+	width: 50%;
+}

@@ -1,7 +1,15 @@
+<?php
+session_start();
+	if (!isset($_SESSION['login']))
+	{
+		header("Location: erreurSess.php");
+	}
+?>
 <html>
 	<head>
 	</head>
 	<body>
+		<?php echo $_SESSION['login']; ?>
 		<fieldset align="center">
 			<form action="page_interm.php" method="POST">
 				<br/><br/><br/><br/>

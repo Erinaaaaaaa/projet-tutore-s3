@@ -1,8 +1,19 @@
+<?php
+session_start();
+	if (!isset($_SESSION['login']))
+	{
+		//header("Location: erreurSess.php");
+		echo 'Variable de session "login" non définie';
+	}
+	else
+	{
+?>
 <html>
 	<head>
 		<title>Cahier de texte</title>
 	</head>
 	<body>
+		<h1><?php echo $_SESSION['login']; ?></h1>
 		<fieldset>
 			<fieldset>
 				<p align="center">Cahier de texte</p>
@@ -55,6 +66,9 @@
 							</tr>
 				<!--</form>-->
 			</fieldset>
+			<form action="Deconnexion.php" method="POST">
+		<input type="submit" name="Deco" value="Deconnexion">
+		</form>
 
 		</fieldset>
 
@@ -62,3 +76,5 @@
 	</body>
 </html>
 
+<?php 
+}
