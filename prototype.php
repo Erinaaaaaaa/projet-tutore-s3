@@ -13,7 +13,6 @@ session_start();
 		<title>Cahier de texte</title>
 	</head>
 	<body>
-		<h1><?php echo $_SESSION['login']; ?></h1>
 		<fieldset>
 			<fieldset>
 				<p align="center">Cahier de texte</p>

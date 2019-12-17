@@ -6,11 +6,13 @@
 
     if(isUtilisateurOk($_REQUEST['login'], $_REQUEST['mdp']))
     {
+    	session_start();
+    	$_SESSION['login'] = $_REQUEST['login'];
         echo "<meta http-equiv=\"refresh\" content=\"0;url=accueil.php\">";
     }
     else
     {
-        require_once( "../Twig-1.35.3/lib/Twig/Autoloader.php" );
+        require_once( "./Twig/lib/Twig/Autoloader.php" );
 
         Twig_Autoloader::register();
         $twig = new Twig_Environment( new Twig_Loader_Filesystem("./tpl"));

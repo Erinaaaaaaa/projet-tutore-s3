@@ -9,7 +9,6 @@ session_start();
 	<head>
 	</head>
 	<body>
-		<?php echo $_SESSION['login']; ?>
 		<fieldset align="center">
 			<form action="page_interm.php" method="POST">
 				<br/><br/><br/><br/>
@@ -20,6 +19,10 @@ session_start();
 				<input type="submit" name="ok" value="Valider">
 				&nbsp;&nbsp;
 				<input type="reset" name="renit" value="Effacer">
+			</form>
+
+			<form action="inscription.php">
+				<input type="submit" name="creaUser" value="Créer un utilisateur">				
 			</form>
 		</fieldset>
 		</form>
