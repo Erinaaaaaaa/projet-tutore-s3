@@ -1,14 +1,12 @@
 <?php 
 	session_start();
-	if(isset($_SESSION['login']) && $_POST['Deco'])
-	{
-		session_destroy();
-		echo 'coucou';
-		echo "<meta http-equiv=\"refresh\" content=\"5;url=index.html\">";
-	}
-	else 
-	{
-		echo 'oh no<br>';
+	session_destroy();
 
-	}
-?>
+    require_once("./PHP/Twig/lib/Twig/Autoloader.php");
+
+    Twig_Autoloader::register();
+    $twig = new Twig_Environment( new Twig_Loader_Filesystem("./tpl"));
+
+    $tpl = $twig->loadTemplate( "templateConnexion.twig" );
+
+    echo $tpl->render( array("Erreur"=>"Revenez vite ! ... UwU <3 "));

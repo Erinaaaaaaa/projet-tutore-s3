@@ -12,8 +12,8 @@ create table Utilisateur
 	id_utilisateur varchar(25) primary key,
 	nom     varchar(25),
 	prenom  varchar(25),
-	mdp     varchar(40),
-	role    char,
+	mdp     varchar(60),
+	role    varchar(5),
 	groupe  varchar(25),
 	cree_le date,
 	maj_le  date

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <!-- Styles -->
+    <link href="style/base.css" type="text/css" rel="stylesheet"/>
+    <link href="style/base.wide.css" type="text/css" rel="stylesheet"/>
+    {% block css %}
+    {% endblock %}
+
+    <!-- Scripts -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script>
+        function toggleMenu(force = null) {
+            let body = $("body");
+            if (force != null)
+            {
+                if (force)
+                    body.addClass("menu");
+                else
+                    body.removeClass("menu");
+            }
+            else {
+                body.toggleClass("menu");
+            }
+        }
+    </script>
+
+    <!-- Meta -->
+    <title>{{titre}}</title>
+    <meta charset="utf-8"/>
+</head>
+
+<body>
+
+<header>
+    <div class="left"><a href="javascript:toggleMenu()"><img src="images/menu.svg" alt="Menu"></a></div>
+    <div class="center"><h1>{{titre}}</h1></div>
+    <div class="right">
+        <img src="images/di2009.gif" alt="Logo Université"/>
+    </div>
+</header>
+
+<nav>
+    <div class="anchor-top">
+        <span style="font-weight: bold;">{{ user.getPrenom() ~ " " ~ user.getNom() }}</span>
+        <span>{{ user.role }}</span>
+    </div>
+    <div class="sections">
+        {% for f in sections %}
+        <a href="{{ f.url }}">{{ f.nom }}</a>
+        {% endfor %}
+    </div>
+    <div class="options">
+        {% for f in options %}
+            <a href="{{ f.url }}">{{ f.nom }}</a>
+        {% endfor %}
+    </div>
+    <div class="anchor-bottom">
+        <a href="Deconnexion.php" class="logoff">Se déconnecter</a>
+    </div>
+</nav>
+
+<div class="shade" onclick="toggleMenu(false)"></div>
+
+<div id="content">
+    {% block contenu %}
+    {% endblock %}
+</div>
+
+<footer>
+    {% block footer %}
+    {% endblock %}
+</footer>
+
+</body>
+
+</html>

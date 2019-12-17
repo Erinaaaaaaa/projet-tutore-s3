@@ -4,7 +4,7 @@
 	</head>
 	<body>
 		<?php
-			include 'foncVisualisation.php';
+			include 'PHP/foncVisualisation.php';
 
 			visualisation();
 		?>

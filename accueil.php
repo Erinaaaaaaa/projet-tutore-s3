@@ -1,30 +1,28 @@
 <?php
 session_start();
+
 	if (!isset($_SESSION['login']))
 	{
 		header("Location: erreurSess.php");
 	}
-?>
-<html>
-	<head>
-	</head>
-	<body>
-		<fieldset align="center">
-			<form action="page_interm.php" method="POST">
-				<br/><br/><br/><br/>
-				<input type="radio" name="choix" value="saisie">Saisie
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="radio" name="choix" value="etat">Etat
-				<br/><br/><br/><br/>
-				<input type="submit" name="ok" value="Valider">
-				&nbsp;&nbsp;
-				<input type="reset" name="renit" value="Effacer">
-			</form>
 
-			<form action="inscription.php">
-				<input type="submit" name="creaUser" value="Créer un utilisateur">				
-			</form>
-		</fieldset>
-		</form>
-	</body>
-</html>
+    require_once("../Twig-1.35.3/lib/Twig/Autoloader.php");
+
+    Twig_Autoloader::register();
+    $twig = new Twig_Environment(new Twig_Loader_Filesystem("./tpl"));
+
+    $tpl = $twig->loadTemplate("accueil.twig");
+
+    echo $tpl->render(array());
+
+
+    if(isset($_POST['choix']) )
+    {
+        if($_POST['choix']=='saisie')
+        {
+            header('location:prototype.php');
+        }
+        else if ($_POST['choix'] == 'etat') {header('location:visualisation.php');}
+    }
+
+?>
