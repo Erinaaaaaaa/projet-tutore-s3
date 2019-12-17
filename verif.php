@@ -1,8 +1,13 @@
 <?php
 
-	include "fonc.verif.php";
+	include "PHP/consultUtilisateur.php";
 
-	include "consultUtilisateur.php";
+require_once("./PHP/Twig/lib/Twig/Autoloader.php");
+
+Twig_Autoloader::register();
+$twig = new Twig_Environment( new Twig_Loader_Filesystem("./tpl"));
+
+$tpl = $twig->loadTemplate( "templateConnexion.tpl" );
 
     if(isUtilisateurOk($_REQUEST['login'], $_REQUEST['mdp']))
     {
@@ -12,20 +17,14 @@
     }
     else
     {
-        require_once( "./Twig/lib/Twig/Autoloader.php" );
-
-        Twig_Autoloader::register();
-        $twig = new Twig_Environment( new Twig_Loader_Filesystem("./tpl"));
-
-        $tpl = $twig->loadTemplate( "templateConnexion.tpl" );
-
-        echo $tpl->render( array("Erreur"=>"Identifiant ou mot de passe incorrect."));
-
+        if(empty($_REQUEST['login']) || empty($_REQUEST['mdp']))
+        {
+            echo $tpl->render( array("Erreur"=>"Entrez une valeur dans chaque rubrique"));
+        }
+        else {
+            echo $tpl->render(array("Erreur" => "Identifiant ou mot de passe incorrect."));
+        }
     }
 
-    if((empty($_REQUEST['login']) && empty($_REQUEST['mdp'])))
-    {
-        echo 'Entrez une valeur dans chaque rubrique';
-    }
 
-?>
+

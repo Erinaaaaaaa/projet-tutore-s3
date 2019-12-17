@@ -41,7 +41,7 @@
 
 <html>
 <head>
-	 <link href="modele.css" rel="stylesheet" media="all" type="text/css">
+	 <link href="style/modele.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 	<?php
