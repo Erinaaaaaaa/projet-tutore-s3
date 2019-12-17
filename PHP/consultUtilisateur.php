@@ -1,6 +1,5 @@
 <?php
 
-require "fctAuth.inc.php";
 require "DB/DB.inc.php";
 
 function isUtilisateurOk($id,$mdp)
@@ -25,8 +24,8 @@ function isUtilisateurOk($id,$mdp)
             ini_set('display_errors', 1);
             error_reporting(E_ALL);
 
-            $isok = isMdpOk($tabUtilisateur[0]->getMdp(), $mdp);
-            return $isok;
+            return password_verify($mdp, $tabUtilisateur[0]->getMdp());
+            //$isok = isMdpOk($tabUtilisateur[0]->getMdp(), $mdp);return $isok;
 
         }
         catch (Exception $e) {
