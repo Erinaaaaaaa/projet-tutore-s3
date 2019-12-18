@@ -53,7 +53,31 @@ class Utilisateur {
     public function getMajLe() { return $this->maj_le; }
 
 
-
+    public function getRoleCplt()
+    {
+        $res = $this->getRole();
+        if($res == 'A')
+        {
+            return 'Administrateur';
+        }
+        else if($res == 'E')
+        {
+            return 'Enseignant';
+        }
+        else if($res == 'T')
+        {
+            return 'Tuteur';
+        }
+        if($res == 'AE')
+        {
+            return 'Administrateur-Enseignant';
+        }
+        else
+        {
+            return 'Pas de role defini!';
+        }
+    }
+    //<input type="button" onclick="javascript:history.back(-1);" value="Retour" />
     public function __toString() {
         $res = "id_utilisateur:".$this->id_utilisateur."\n";
         $res = $res ."nom:".$this->nom."\n";
