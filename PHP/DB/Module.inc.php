@@ -1,7 +1,7 @@
 <?php
 
 /*classe permettant de representer les tuples de la table Utilisateur */
-class Modules {
+class Module {
     /*avec PDO, il faut que les noms attributs soient les mêmes que ceux de la table*/
     private $id_module;
     private $valeur;

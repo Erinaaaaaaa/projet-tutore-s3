@@ -8,11 +8,10 @@
     empty-cells: show;
     }
 
-    th, td {padding-left: 8px;
-    padding-right: 8px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    border: solid 1px lightseagreen;}
+    th, td {
+        padding: 2px 8px;
+        border: solid 1px lightseagreen;
+    }
 
     tr:nth-child(odd) {
         background-color: #FFC; /* jaune */
@@ -59,7 +58,7 @@
         <td>{{ user.getGroupe() }}</td>
         <td>{{ user.getCreeLe() }}</td>
         <td>{{ user.getMajLe() }}</td>
-        <td><a href="UpdateUtilisateur.php?id={{user.getIdUtilisateur()}}"><img src="images/edit.png" alt="Modifier l'utilisateur"/></a></td>
+        <td><a href="updateUtilisateur.php?id={{user.getIdUtilisateur()}}"><img src="images/edit.png" alt="Modifier l'utilisateur"/></a></td>
         <!-- deleteUtilisateur.php?id={{user.getIdUtilisateur()}} -->
         <td><a href="javascript:verifSuppression('{{user.getIdUtilisateur()}}')"><img src="images/delete.jpeg" alt="Supprimer l'utilisateur"/></a></td>
         <!-- Ajouter bouton pour modifier la row (update)-->

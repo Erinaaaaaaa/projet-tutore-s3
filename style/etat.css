@@ -39,7 +39,7 @@ div .hidden {
 }
 
 div.expanded .hidden {
-    display: block;
+    display: grid;
 }
 
 /* Semaines */
@@ -82,6 +82,6 @@ div.expanded .hidden {
     flex-grow: 1;
 }
 
-a.expander {
-    flex-grow: 0 !important;
+.info a.expander {
+    flex-grow: 0;
 }

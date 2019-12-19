@@ -20,6 +20,13 @@ body.menu {
     overflow: hidden;
 }
 
+a {
+    text-decoration: none;
+    color: #a155d4;
+    font-weight: 600;
+    transition: background-color 0.1s linear;
+}
+
 /* block */
 
 header, nav, .block {
@@ -150,5 +157,5 @@ body.menu #content {
 /* Footer */
 
 footer {
-    text-align: center;
+    text-align: center  ;
 }

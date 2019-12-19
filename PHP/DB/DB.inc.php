@@ -1,11 +1,12 @@
 <?php
 
 require 'Groupe.inc.php';
-require 'Modules.inc.php';
+require 'Module.inc.php';
 require 'Affectation.inc.php';
 require 'Utilisateur.inc.php';
 require 'Seance.inc.php';
 require 'Evenement.inc.php';
+require 'Typeseance.inc.php';
 
 class DB {
     private static $instance = null; //mémorisation de l'instance de DB pour appliquer le pattern Singleton
@@ -17,7 +18,7 @@ class DB {
     /************************************************************************/
     private function __construct() {
         // Connexion à la base de données
-        $connStr = 'pgsql:host=platea.moe port=5432 dbname=diskus'; // A MODIFIER !
+        $connStr = 'pgsql:host=diskus.top port=5432 dbname=diskus'; // A MODIFIER !
         try {
             // Connexion à la base
             $this->connect = new PDO($connStr, 'diskus', 'tutorat_diskusapp'); //A MODIFIER !
@@ -124,7 +125,11 @@ class DB {
 
     //Gestion des utilisateurs
 
-    // TODO: Retourner un objet utilisateur et pas un tableau
+
+    public function utilisateurExiste($id) {
+        return $this->getUtilisateur($id) != null;
+    }
+
     public function getAllUtilisateur(){
         $requete = 'select * from utilisateur';
         return $this->execQuery($requete,null,'Utilisateur');
@@ -132,7 +137,11 @@ class DB {
 
     public function getUtilisateur($id) {
         $requete = 'select * from utilisateur where id_utilisateur = ?';
-        return $this->execQuery($requete,array($id),'Utilisateur');
+        $tmp = $this->execQuery($requete,array($id),'Utilisateur');
+        if (sizeof($tmp) == 1)
+            return $tmp[0];
+        else
+            return null;
     }
 
     public function getUtilisateurNom($nom) {
@@ -189,7 +198,7 @@ class DB {
     public function insertModule($id_module,$valeur,$libelle,$couleur,$droit) {
         $requete = 'insert into modules values(?,?,?,?,?)';
         $tparam = array($id_module,$valeur,$libelle,$couleur,$droit);
-        return $this->execQuery($requete,$tparam);
+        return $this->execMaj($requete,$tparam);
     }
 
     public function deleteModule($id) {
@@ -205,8 +214,12 @@ class DB {
         return $this->execQuery($requete,null,'Groupe');
     }
 
+    public function groupeExiste($grp) {
+        return sizeof($this->getGroupe($grp)) != 0;
+    }
+
     public function getGroupe($grp) {
-        $requete = 'select * from groupe where groupe.groupe = ?';
+        $requete = 'select * from groupe where groupe = ?';
         return $this->execQuery($requete,array($grp),'Groupe');
     }
 
@@ -242,11 +255,11 @@ class DB {
         return $this->execMaj($requete,$tparam);
     }
 
-    //Gestion des Groupes
+    //Gestion des Seances
 
-    public function getSeance($id) {
+    public function getSeance($utilisateur) {
         $requete = 'select * from seance where id_utilisateur = ?';
-        return $this->execQuery($requete,array($id),'Seance');
+        return $this->execQuery($requete,array($utilisateur),'Seance');
     }
 
     public function insertSeance($module,$date_creation,$type,$groupe,$id_utilisateur) {
@@ -257,7 +270,7 @@ class DB {
     }
 
     public function deleteSeance($id) {
-        $requete = 'delete from seance where id_utilisateur = ?';
+        $requete = 'delete from seance where id_seance = ?';
         $tparam = array($id);
         return $this->execMaj($requete,$tparam);
     }
@@ -271,7 +284,7 @@ class DB {
 
     public function insertEvenement($categorie,$description,$pj,$temps,$pour_le,$id_seance) {
 
-        $requete = 'insert into evenement values (?,?,?,?,?,?)';
+        $requete = 'insert into evenement (categorie,description,pj,temps,pour_le,id_seance) values (?,?,?,?,?,?)';
         $tparam = array($categorie,$description,$pj,$temps,$pour_le,$id_seance);
         return $this->execMaj($requete,$tparam);
     }
@@ -282,6 +295,68 @@ class DB {
         return $this->execMaj($requete,$tparam);
     }
 
+    //Gestion des Types de seances
+
+    public function typeSeanceExiste($id) {
+        return $this->getTypeSeance($id) != null;
+    }
+
+    public function getTypesSeance() {
+        $requete = 'select * from typeseance';
+        return $this->execQuery($requete,null,'Typeseance');
+    }
+
+    public function getTypeSeance($id) {
+        $requete = 'select * from typeseance where id_typeseance = ?';
+        $tmp = $this->execQuery($requete,array($id),'Typeseance');
+        if (sizeof($tmp) == 0)
+            return null;
+        else return $tmp[0];
+    }
+
+    public function insertTypeSeance($libelle) {
+
+        $requete = 'insert into typeseance(libelle) values (?)';
+        $tparam = array($libelle);
+        return $this->execMaj($requete,$tparam);
+    }
+
+    public function deleteTypeSeance($id) {
+        $requete = 'delete from typeseance where id_typeseance = ?';
+        $tparam = array($id);
+        return $this->execMaj($requete,$tparam);
+    }
+
+    //Gestion des Types d'évènements
+
+    public function typeEvenementExiste($id) {
+        return $this->getTypeEvenement($id) != null;
+    }
+
+    public function getTypesEvenement() {
+        $requete = 'select * from typeevenements';
+        return $this->execQuery($requete,null,'Typeevenement');
+    }
+
+    public function getTypeEvenement($id) {
+        $requete = 'select * from typeevenements where id_typeseance = ?';
+        $tmp = $this->execQuery($requete,array($id),'Typeevenement');
+        if (sizeof($tmp) == 0) return null;
+        else return $tmp[0];
+    }
+
+    public function insertTypeEvenement($libelle, $roles) {
+
+        $requete = 'insert into typeevenements(libelle, roles) values (?,?)';
+        $tparam = array($libelle, $roles);
+        return $this->execMaj($requete,$tparam);
+    }
+
+    public function deleteTypeEvenement($id) {
+        $requete = 'delete from typeevenements where id_typeseance = ?';
+        $tparam = array($id);
+        return $this->execMaj($requete,$tparam);
+    }
 } //fin classe DB
 
 ?>

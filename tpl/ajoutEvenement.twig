@@ -1,0 +1,68 @@
+{% extends "base.twig" %}
+
+{% block css %}
+    <style>
+        span.obligatoire {
+            color: red;
+        }
+    </style>
+{% endblock %}
+
+{% block contenu %}
+    <form action="" method="post">
+        <fieldset>
+            <span>{{ message }}</span>
+            <table>
+                <tr>
+                    <td>
+                        Catégorie: <span class="obligatoire">*</span>
+                    </td>
+                    <td>
+                        <select name="Categorie">
+                            {% for type in types %}
+                                <option value="{{ type.getIdTypeSeance() }}">{{ type.libelle }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Description du travail: <span class="obligatoire">*</span>
+                    </td>
+                    <td>
+                        <input type="text" name="Description" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Temps:
+                    </td>
+                    <td>
+                        <input type="time" name="Temps" min="00:00" max="99:59">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Pour le:
+                    </td>
+                    <td>
+                        <input type="date" name="Date" value="aaaa-mm-jj">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        (<span class="obligatoire">*</span> champs obligatoires)
+                    </td>
+                    <td>
+                        <input type="submit" name="valider" value="Valider">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        Vous pourrez ajouter des pièces jointes une fois l'évènement créé
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+{% endblock %}

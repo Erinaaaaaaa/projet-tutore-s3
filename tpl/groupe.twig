@@ -1,0 +1,44 @@
+{% extends "base.twig"%}
+
+{% block css %}
+{% endblock %}
+
+
+{% block contenu %}
+
+    <form action="creationGroupe.php" method="POST" class="block">
+        <fieldset>
+            <legend>Groupe</legend>
+            <fieldset>
+                <table>
+                    <tr>
+                        <td>Nom du Groupe</td>
+                        <td>
+                            <input type="text" name="nomGroupe" value="{{gp.getGroupe()}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select name="groupePere">
+                                {% for groupe in allGroupes %}
+                                    <option value="{{groupe.getGroupe()}}"
+                                            {% if groupe.groupe == gp.groupePere %}
+                                                selected
+                                            {% endif %}
+                                    >
+                                        {{groupe.groupe}}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" name="ok" value="Valider"></td>
+                        <td><input type="reset" name="renit" value="Effacer"></td>
+                        <td>{{ErreurInscription}}</td>
+                    </tr>
+                </table>
+            </fieldset>
+        </fieldset>
+    </form>
+{% endblock %}
