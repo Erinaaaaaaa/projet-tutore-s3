@@ -4,6 +4,8 @@ require 'Groupe.inc.php';
 require 'Modules.inc.php';
 require 'Affectation.inc.php';
 require 'Utilisateur.inc.php';
+require 'Seance.inc.php';
+require 'Evenement.inc.php';
 
 class DB {
     private static $instance = null; //mémorisation de l'instance de DB pour appliquer le pattern Singleton
@@ -127,7 +129,7 @@ class DB {
         $requete = 'select * from utilisateur';
         return $this->execQuery($requete,null,'Utilisateur');
     }
-    
+
     public function getUtilisateur($id) {
         $requete = 'select * from utilisateur where id_utilisateur = ?';
         return $this->execQuery($requete,array($id),'Utilisateur');
@@ -174,6 +176,11 @@ class DB {
 
     //Gestion des modules
 
+    public function getModules() {
+        $requete = 'select * from modules';
+        return $this->execQuery($requete,null,'Modules');
+    }
+
     public function getModule($id) {
         $requete = 'select * from modules where id_module = ?';
         return $this->execQuery($requete,array($id),'Modules');
@@ -193,15 +200,14 @@ class DB {
 
     //Gestion des Groupe
 
+    public function getGroupes() {
+        $requete = 'select * from groupe';
+        return $this->execQuery($requete,null,'Groupe');
+    }
+
     public function getGroupe($grp) {
         $requete = 'select * from groupe where groupe.groupe = ?';
         return $this->execQuery($requete,array($grp),'Groupe');
-    }
-
-    public function getGroupes()
-    {
-        $requete = 'Select * from Groupe';
-        return $this->execQuery($requete,null, 'Groupe');
     }
 
     public function insertGroupe($groupe,$groupePere) {
@@ -227,7 +233,7 @@ class DB {
 
         $requete = 'insert into affectation values (?,?)';
         $tparam = array($id,$mod);
-        return $this->execQuery($requete,$tparam);
+        return $this->execMaj($requete,$tparam);
     }
 
     public function deleteAffectation($id) {
@@ -236,7 +242,45 @@ class DB {
         return $this->execMaj($requete,$tparam);
     }
 
+    //Gestion des Groupes
 
+    public function getSeance($id) {
+        $requete = 'select * from seance where id_utilisateur = ?';
+        return $this->execQuery($requete,array($id),'Seance');
+    }
+
+    public function insertSeance($module,$date_creation,$type,$groupe,$id_utilisateur) {
+
+        $requete = 'insert into seance (module, date_creation, type, groupe, id_utilisateur) values (?,?,?,?,?)';
+        $tparam = array($module,$date_creation,$type,$groupe,$id_utilisateur);
+        return $this->execMaj($requete,$tparam);
+    }
+
+    public function deleteSeance($id) {
+        $requete = 'delete from seance where id_utilisateur = ?';
+        $tparam = array($id);
+        return $this->execMaj($requete,$tparam);
+    }
+
+    //Gestion des Evenements
+
+    public function getEvenement($id) {
+        $requete = 'select * from evenement where id_seance = ?';
+        return $this->execQuery($requete,array($id),'Evenement');
+    }
+
+    public function insertEvenement($categorie,$description,$pj,$temps,$pour_le,$id_seance) {
+
+        $requete = 'insert into evenement values (?,?,?,?,?,?)';
+        $tparam = array($categorie,$description,$pj,$temps,$pour_le,$id_seance);
+        return $this->execMaj($requete,$tparam);
+    }
+
+    public function deleteEvenement($id) {
+        $requete = 'delete from evenement where id_seance = ?';
+        $tparam = array($id);
+        return $this->execMaj($requete,$tparam);
+    }
 
 } //fin classe DB
 

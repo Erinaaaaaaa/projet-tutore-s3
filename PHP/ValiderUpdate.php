@@ -74,6 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 }
 
-// header("Location : GestionUtilisateur.php");
+// header("Location : listUtilisateurs.php");
 
 

@@ -30,7 +30,7 @@ echo $tpl->render(array("user"=>$user, "titre"=>"Accueil",
         ),
         array(
             "nom"=>"Parametrage",
-            "url"=>"GestionUtilisateur.php"
+            "url"=>"listUtilisateurs.php"
         )
     )));
 

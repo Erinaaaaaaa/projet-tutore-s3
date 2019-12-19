@@ -58,7 +58,7 @@
 </head>
 <body>
 	<fieldset>
-		<form action = "verifGroupeP.php" method="POST">
+		<form action = "PHP/verif/verifGroupeP.php" method="POST">
 		<table align="center">
 			<tr>
 				<td>Groupe Père</td>

@@ -3,3 +3,6 @@ Avec sessions de login (pas que sessions_start() mais aussi les SESSION[])
 De façon à ce qu'un utilisateur soit redirigé vers la page de connexion mêmes'il enre dans la barre de recherche prototype.php
 
 
+
+
+- Table pour les types d'évènement

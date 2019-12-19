@@ -1,3 +1,1 @@
-<?php
-	echo 'vous n\'êtes pas connecté';
-?>
+vous n'êtes pas connecté

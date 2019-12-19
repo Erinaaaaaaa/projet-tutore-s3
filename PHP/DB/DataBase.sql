@@ -3,6 +3,8 @@ drop table Utilisateur cascade;
 drop table Modules     cascade;
 drop table Affectation cascade;
 drop table Groupe      cascade;
+drop table Seance      cascade;
+drop table Evenement   cascade;
 
 
 /* Table Utilisateur */
@@ -24,8 +26,7 @@ create table Utilisateur
 create table Modules
 (
 	id_module varchar(7) primary key,
-	valeur    varchar(10),
-	libellé   varchar(25),
+	libelle   varchar(25),
 	couleur   varchar(6),
 	droit     varchar(3)
 );
@@ -43,9 +44,29 @@ create table Affectation
 create table Groupe
 (
 	groupe 		varchar(7) primary key,
-	groupePere  varchar(7)	
+	groupePere  varchar(7)
 );
 
+/* Table Seance */
 
+create table Seance
+(
+	id_seance      serial primary key ,
+	module         varchar(25),
+	date_creation  varchar(10),
+	type           varchar(17),
+	groupe         varchar(7),
+	id_utilisateur varchar(25) REFERENCES Utilisateur(id_utilisateur)
+);
 
+/* Table Evenement */
 
+create table Evenement
+(
+	id_evenement serial primary key,
+	categorie    varchar(10),
+	description  varchar(100),
+	temps        varchar(5),
+	pour_le      varchar(10),
+	id_seance    integer REFERENCES Seance(id_seance)
+);

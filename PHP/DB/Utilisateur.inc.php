@@ -46,7 +46,6 @@ class Utilisateur {
     public function getNom(){return $this->nom;}
     public function getPrenom() { return $this->prenom; }
     public function getMdp() { return $this->mdp; }
-    //TODO:faire une methode qui ecrit le role complet en fonction de getRole()
     public function getRole() { return $this->role; }
     public function getGroupe() { return $this->groupe; }
     public function getCreeLe() { return $this->cree_le; }
