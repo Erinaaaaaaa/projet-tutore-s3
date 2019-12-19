@@ -4,7 +4,7 @@ session_start();
 require_once "PHP/DB/DB.inc.php";
 
 if (!isset($_SESSION['login'])) {
-    header("Location: erreurSess.php");
+    header("Location: index.php");
 }
 
 $db = DB::getInstance();

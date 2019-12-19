@@ -16,7 +16,7 @@
 					<td>
 						<select name="groupePere">
 							<?php 
-								include 'DB.inc.php';
+								include 'PHP/DB/DB.inc.php';
 
 								$db = DB::getInstance();
 								$groupes = $db->getGroupes();

@@ -25,7 +25,7 @@
 		echo '</tr>';
 		echo '</form>';
 		echo '</fieldset>';
-		echo '<form action="../Deconnexion.php" method="POST">';
+		echo '<form action="../deconnexion.php" method="POST">';
 		echo '<input type="submit" name="Deco" value="Deconnexion">';
 		echo '</form>';
 		echo '</fieldset>';

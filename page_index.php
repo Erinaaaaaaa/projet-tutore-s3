@@ -15,10 +15,11 @@ $tpl = $twig->resolveTemplate("tplLogin.twig");
 if ($_SERVER['REQUEST_METHOD'] == "POST")
 {
     if (isUtilisateurOk($_REQUEST['login'], $_REQUEST['mdp'])) {
-        // session_start();
         $_SESSION['login'] = $_REQUEST['login'];
+
         // Redirection vers la page d'accueil
-        echo "<meta http-equiv=\"refresh\" content=\"0;url=page_accueil.php\">";
+        header("Location: accueil.php");
+        die();
     } else {
         if (empty($_REQUEST['login']) || empty($_REQUEST['mdp'])) {
             echo $tpl->render(array(

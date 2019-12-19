@@ -2,7 +2,7 @@
 <head>
 </head>
 <body>
-<form action="Creation.php" method="POST">
+<form action="PHP/page_ValiderUpdate.php" method="POST">
     <fieldset>
         <legend>Inscription</legend>
         <fieldset>

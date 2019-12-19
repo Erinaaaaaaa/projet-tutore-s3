@@ -2,8 +2,8 @@
 session_start();
 	if (!isset($_SESSION['login']))
 	{
-		//header("Location: erreurSess.php");
-		echo 'Variable de session "login" non définie';
+		header("Location: index.php");
+
 	}
 	else
 	{
@@ -65,7 +65,7 @@ session_start();
 							</tr>
 				<!--</form>-->
 			</fieldset>
-			<form action="Deconnexion.php" method="POST">
+			<form action="deconnexion.php" method="POST">
 		<input type="submit" name="Deco" value="Deconnexion">
 		</form>
 
