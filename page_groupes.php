@@ -6,7 +6,7 @@
 <head>
 </head>
 <body>
-	<form action="../insererGroupe.php">
+	<form action="page_insererGroupe.php">
 
 		<fieldset>
 			<input type="submit" name = "inserer" value="inserer un groupe"/>

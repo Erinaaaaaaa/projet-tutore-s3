@@ -4,7 +4,7 @@
 </head>
 <body>
 	<fieldset>
-		<form action="ajoutG.php" method="POST">
+		<form action="PHP/DB/ajoutG.php" method="POST">
 			<table>
 				<tr>
 					<td>Nom du Groupe</td>

@@ -11,7 +11,7 @@
 	}
 
 	if ($existeDeja) {
-		header ('Location: formAffecter.php?erreur=L\'affectation existe déjà');
+		header ('Location: page_formAffecter.php?erreur=L\'affectation existe déjà');
 	}
 	else {
 		$db->insertAffectation($_GET['Enseignant'], $_GET['Module']);

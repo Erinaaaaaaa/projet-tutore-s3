@@ -29,7 +29,7 @@
         function verifSuppression(id) {
             if (confirm('Voulez-vous vraiment supprimer l\'utilisateur d\'identifiant "' + id + '"?')) {
                 alert("ok deleting " + id);
-                document.location.href = "deleteUtilisateur.php?id=" + id;
+                document.location.href = "PHP/deleteUtilisateur.php?id=" + id;
             } else {
                 alert("ok pas de souci l'ami");
             }

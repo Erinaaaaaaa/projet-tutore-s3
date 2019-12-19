@@ -1,7 +1,7 @@
 <?php
 
-require 'PHP/consultUtilisateur.php';
-require_once 'PHP/DB/DB.inc.php';
+require 'consultUtilisateur.php';
+require_once 'DB/DB.inc.php';
 
 
 // TODO: à transformer en fonction
@@ -13,7 +13,7 @@ require_once 'PHP/DB/DB.inc.php';
     } else {
         try {
             $db->deleteUtilisateur($_GET['id']);
-            echo '<meta http-equiv="refresh" content="0;URL=listUtilisateurs.php">';
+            echo '<meta http-equiv="refresh" content="0;URL=page_listUtilisateurs.php">';
 
         } catch (Exception $e) {
             echo "ça MARCHE PAS: " . $e->getMessage();

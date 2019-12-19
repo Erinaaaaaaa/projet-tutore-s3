@@ -2,7 +2,7 @@
 include "DB/DB.inc.php";
 
 	if (empty($_GET['Description'])) {
-		header ('Location: formAjouterEvenement.php?erreur=Description Obligatoire');
+		header ('Location: page_formAjouterEvenement.php?erreur=Description Obligatoire');
 	}
 	else {
 		$db = DB::getInstance();

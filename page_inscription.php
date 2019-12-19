@@ -63,7 +63,7 @@
                 <td><input type="submit" name="ok"     value="Valider"></td>
                 <td><input type="reset"  name="renit"  value="Effacer"></td>
 </form>
-                <td><a href='accueil.php' class="retour">Retour</a></td>
+                <td><a href='page_accueil.php' class="retour">Retour</a></td>
                 <td><button onclick="window.history.back()">Retour2</button></td>
             </tr>
         </table>
