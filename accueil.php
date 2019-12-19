@@ -11,7 +11,7 @@ $login = $_SESSION['login'];
 $db = DB::getInstance();
 $user = $db->getUtilisateur($login)[0];
 
-require_once("../Twig-1.35.3/lib/Twig/Autoloader.php");
+require_once("PHP/Twig/lib/Twig/Autoloader.php");
 
 Twig_Autoloader::register();
 $twig = new Twig_Environment(new Twig_Loader_Filesystem("./tpl"));
@@ -33,14 +33,5 @@ echo $tpl->render(array("user"=>$user, "titre"=>"Accueil",
             "url"=>"GestionUtilisateur.php"
         )
     )));
-
-
-/*if (isset($_POST['choix'])) {
-    if ($_POST['choix'] == 'saisie') {
-        header('location:prototype.php');
-    } else if ($_POST['choix'] == 'etat') {
-        header('location:visualisation.php');
-    }
-}*/
 
 ?>

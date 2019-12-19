@@ -3,14 +3,14 @@
 require 'PHP/consultUtilisateur.php';
 require_once 'PHP/DB/DB.inc.php';
 
-require_once("../Twig-1.35.3/lib/Twig/Autoloader.php");
+require_once("./Twig/lib/Twig/Autoloader.php");
 
 Twig_Autoloader::register();
 $twig = new Twig_Environment(new Twig_Loader_Filesystem("./tpl"));
 
 $tpl = $twig->loadTemplate("inscription.twig");
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+/*if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $db = DB::getInstance();
     if ($db == null) {
@@ -33,6 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     echo $tpl->render(array());
 
-}
+}*/
 
 ?>

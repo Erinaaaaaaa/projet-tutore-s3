@@ -58,12 +58,14 @@
                 </tr>
             </table>
         </fieldset>
-        <table>
+        <table align="center">
             <tr>
-                <td><input type="submit" name="ok" value="Valider"></td>
-                <td><input type="reset" name="renit" value="Effacer"></td>
+                <td><input type="submit" name="ok"     value="Valider"></td>
+                <td><input type="reset"  name="renit"  value="Effacer"></td>
+</form>
+                <td><a href='accueil.php' class="retour">Retour</a></td>
+                <td><button onclick="window.history.back()">Retour2</button></td>
             </tr>
         </table>
-</form>
 </body>
 </html>

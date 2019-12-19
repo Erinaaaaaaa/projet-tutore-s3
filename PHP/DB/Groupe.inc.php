@@ -22,7 +22,7 @@ class Groupe {
         $this->groupe = $groupe;
         $this->groupePere = $groupePere;
     }
-
+    
     public function getGroupe(){return $this->groupe;}
     public function getGroupePere(){return $this->groupePere;}
 

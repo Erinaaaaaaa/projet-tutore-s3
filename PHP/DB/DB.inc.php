@@ -198,10 +198,16 @@ class DB {
         return $this->execQuery($requete,array($grp),'Groupe');
     }
 
+    public function getGroupes()
+    {
+        $requete = 'Select * from Groupe';
+        return $this->execQuery($requete,null, 'Groupe');
+    }
+
     public function insertGroupe($groupe,$groupePere) {
         $requete = 'insert into groupe values(?,?)';
         $tparam = array($groupe,$groupePere);
-        return $this->execQuery($requete,$tparam);
+        return $this->execMaj($requete,$tparam);
     }
 
     public function deleteGroupe($grp) {
