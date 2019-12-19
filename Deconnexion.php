@@ -7,6 +7,6 @@
     Twig_Autoloader::register();
     $twig = new Twig_Environment( new Twig_Loader_Filesystem("./tpl"));
 
-    $tpl = $twig->loadTemplate( "templateConnexion.twig" );
+    $tpl = $twig->loadTemplate( "tplLogin.twig" );
 
     echo $tpl->render( array("Erreur"=>"Revenez vite ! ... UwU <3 "));

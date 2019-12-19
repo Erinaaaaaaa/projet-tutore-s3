@@ -43,7 +43,7 @@ class Utilisateur {
     }
 
     public function getIdUtilisateur() { return $this->id_utilisateur; }
-    public function getNon(){return $this->nom;}
+    public function getNom(){return $this->nom;}
     public function getPrenom() { return $this->prenom; }
     public function getMdp() { return $this->mdp; }
     //TODO:faire une methode qui ecrit le role complet en fonction de getRole()

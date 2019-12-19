@@ -1,0 +1,87 @@
+/* block */
+.block {
+    margin-bottom: 8px;
+}
+
+/* bloc de mois */
+.month {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.month h2 {
+    text-align: center;
+    flex-basis: 100%;
+    flex-grow: 1;
+    margin: 0 0 8px;
+}
+
+.month input {
+    flex-grow: 1;
+    line-height: 200%;
+}
+
+.month input[data-tag="prev"] {
+    order: 2;
+    margin-right: 5px;
+}
+
+.month input[data-tag="next"] {
+    order: 3;
+    margin-left: 5px;
+}
+
+/* Expanders */
+
+div .hidden {
+    display: none;
+}
+
+div.expanded .hidden {
+    display: block;
+}
+
+/* Semaines */
+
+.week {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.week .number{
+    margin-right: 8px;
+    font-weight: 600;
+}
+
+/* Blocs de module */
+
+.info {
+    width: 100%;
+}
+
+.info > .summary {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.info > .summary > *:not(:last-child) {
+    border-right: 1px solid silver;
+}
+
+.info > .summary * {
+    padding: 2px 4px;
+    flex-basis: 0;
+    flex-grow: 5;
+}
+
+.info > .summary *.small {
+    padding: 2px 4px;
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
+a.expander {
+    flex-grow: 0 !important;
+}

@@ -122,6 +122,12 @@ class DB {
 
     //Gestion des utilisateurs
 
+    // TODO: Retourner un objet utilisateur et pas un tableau
+    public function getAllUtilisateur(){
+        $requete = 'select * from utilisateur';
+        return $this->execQuery($requete,null,'Utilisateur');
+    }
+    
     public function getUtilisateur($id) {
         $requete = 'select * from utilisateur where id_utilisateur = ?';
         return $this->execQuery($requete,array($id),'Utilisateur');
@@ -137,18 +143,28 @@ class DB {
         return $this->execQuery($requete,array($prenom),'Utilisateur');
     }
 
-    public function insertUtilisateur($id_utilisateur,$nom,$prenom,$mdp,$role,$groupe,$cree_le,$maj_le) {
-        $requete = 'insert into utilisateur values(?,?,?,?,?,?,?,?)';
-        $tparam = array($id_utilisateur,$nom,$prenom,$mdp,$role,$groupe,$cree_le,$maj_le);
+    public function insertUtilisateur($id_utilisateur,$nom,$prenom,$mdp,$role,$groupe) {
+        $requete = 'insert into utilisateur values(?,?,?,?,?,?,now(),now())';
+        $tparam = array($id_utilisateur,$nom,$prenom,$mdp,$role,$groupe);
         return $this->execQuery($requete,$tparam,"Utilisateur");
     }
 
-    //TODO: A voir pour remplacer avec un trieur
-    public function updateUtilisateur($id,$maj) {
-        $requete = 'update utilisateur set maj_le = ? where id_utilisateur = ?';
-        $tparam = array($maj,$id);
+    /*public function updateUtilisateur($id,$colonne,$valeur)
+    {
+        $requete = "update utilisateur set $colonne = ? where id_utilisateur = ?";
+        $tparam = array($valeur,$id);
+        return $this->execMaj($requete,$tparam);
+    }*/
+
+    public function updateUtilisateur($oldId,$id,$nom,$prenom,$mdp,$role,$groupe)
+    {
+        $requete = "update utilisateur set id_utilisateur = ?, nom= ?, prenom=?,mdp=?,role=?,groupe=? where id_utilisateur = ?";
+        $tparam = array($id,$nom,$prenom,$mdp,$role,$groupe,$oldId);
         return $this->execMaj($requete,$tparam);
     }
+
+    //TODO: A voir pour remplacer avec un trieur
+
 
     public function deleteUtilisateur($id) {
         $requete = 'delete from utilisateur where id_utilisateur = ?';

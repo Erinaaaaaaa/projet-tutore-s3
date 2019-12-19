@@ -1,8 +1,12 @@
-<html>
-<head>
-</head>
-<body>
-<form action="Creation.php" method="POST">
+{% extends "base.twig"%}
+
+{% block css %}
+{% endblock %}
+
+
+{% block contenu %}
+
+<form action="ValiderUpdate.php" method="POST" class="block">
     <fieldset>
         <legend>Inscription</legend>
         <fieldset>
@@ -12,7 +16,8 @@
                     <th align = "left">id</th>
                 </tr>
                 <tr>
-                    <td><input type="text" name="id"></td>
+                    <td><input type="text" name="id" value="{{ id }}"></td>
+                    <td><input type=hidden name="oldId" value="{{ id }}" > </td>
                 </tr>
                 <tr>
                     <th align = "left">nom</th>
@@ -20,9 +25,9 @@
                     <th align = "left">mot de passe</th>
                 </tr>
                 <tr>
-                    <td><input type="text"     name="nom"></td>
-                    <td><input type="text"     name="prenom"></td>
-                    <td><input type="password" name="mdp"></td>
+                    <td><input type="text"     name="nom" value="{{ nom }}"></td>
+                    <td><input type="text"     name="prenom" value="{{ prenom }}"></td>
+                    <td><input type="password" name="mdp" ></td>
                 </tr>
             </table>
         </fieldset>
@@ -35,14 +40,12 @@
                     <th align = "left">groupe</th>
                 </tr>
                 <tr>
-                    <td><select name="roles">
-                            <option value="A">Administrateur</option>
-                            <option value="AE">Administrateur/Enseignant</option>
-                            <option value="E">Enseignant</option>
-                            <option value="T">Tuteur</option>
-                        </select>
+                            <input type="radio" name="role" value="A" {%  if role == "A" %} checked {% endif %}>Administrateur<br>
+                            <input type="radio" name="role" value="AE"{%  if role == "AE" %} checked {% endif %}>Administrateur/Enseignant<br>
+                            <input type="radio" name="role" value="E" {%  if role == "E" %} checked {% endif %}>Enseignant<br>
+                            <input type="radio" name="role" value="T" {%  if role == "T" %} checked {% endif %}>Tuteur<br>
                     </td>
-                    <td><input type="text" name="groupe"></td>
+                    <td><input type="text" name="groupe" value="{{ groupe }}"></td>
                 </tr>
             </table>
         </fieldset>
@@ -53,8 +56,8 @@
                     <th align = "left">mis à jour le</th>
                 </tr>
                 <tr>
-                    <td><input type="date" name="crea" value="2019-12-16"></td>
-                    <td><input type="date" name="maj" value="2019-12-16"></td>
+                    <td><input type="date" name="crea" value="{{ cree_le }}" disabled></td>
+                    <td><input type="date" name="maj" value="{{ maj_le }}" disabled></td>
                 </tr>
             </table>
         </fieldset>
@@ -65,6 +68,6 @@
                 <td>{{ErreurInscription}}</td>
             </tr>
         </table>
+    </fieldset>
 </form>
-</body>
-</html>
+{% endblock %}

@@ -1,4 +1,5 @@
 @import url('https://rsms.me/inter/inter.css');
+@import url('items.css');
 
 html {
     font-family: 'Inter', sans-serif;
@@ -11,14 +12,12 @@ html {
 
 body {
     z-index: 0;
-    margin: 60px -4px -4px;
+    margin: 66px 0 0;
+    overflow-x: hidden;
 }
 
-a {
-    text-decoration: none;
-    color: #a155d4;
-    font-weight: 600;
-    transition: background-color 0.1s linear;
+body.menu {
+    overflow: hidden;
 }
 
 /* block */
@@ -53,9 +52,16 @@ header * {
     z-index: 20;
 }
 
-header > .left { text-align: left; }
+header > .center {
+    flex-grow: 2;
+}
+
+header > .left {
+    flex-grow: 1;
+    text-align: left; }
 
 header > .right {
+    flex-grow: 1;
     display: flex;
     flex-direction: row-reverse;
 }
@@ -66,13 +72,21 @@ header > .right > * {
     flex-basis: auto;
 }
 
+.top-gradient {
+    z-index: 9;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 72px;
+    background: linear-gradient(#ADBFCF 25%, #ADBFCF00 75%);
+}
+
 /* Nav */
 
 nav {
     z-index: 20;
     position: fixed;
     top: 74px;
-    left: -325px;
+    left: -340px;
     padding-left: 20px;
     bottom: 8px;
     width: 300px;
@@ -125,12 +139,16 @@ body.menu .shade {
 
 /* Content */
 #content {
-    overflow: hidden;
-    padding: 12px;
+    padding: 8px;
+    transition: transform 0.5s cubic-bezier(.17,.84,.44,1);
+}
+
+body.menu #content {
+    transform: translateX(150px);
 }
 
 /* Footer */
 
 footer {
-    text-align: center  ;
+    text-align: center;
 }

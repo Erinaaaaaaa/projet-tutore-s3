@@ -1,0 +1,76 @@
+{% extends "base.twig" %}
+
+{% block css %}
+    <link href="style/etat.css" rel="stylesheet" type="text/css">
+    <link href="style/etat.wide.css" rel="stylesheet" type="text/css">
+    <link href="style/table.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block js %}
+<script>
+    $(document).ready(function() {
+       $("a.expander").click(function(){
+          $(this).closest(".info").toggleClass("expanded");
+       });
+    });
+</script>
+{% endblock %}
+
+{% block contenu %}
+
+    <div class="block month">
+        <input type="submit" name="month" value="Précédent" data-tag="prev" disabled/>
+        <h2>Décembre 2019</h2>
+        <input type="submit" name="month" value="Suivant" data-tag="next" disabled/>
+    </div>
+
+    <div class="block week">
+        <div class="number">
+            43
+        </div>
+        <div class="info">
+            <div class="summary">
+                <div>
+                    <span class="icon">&#x26AB;</span>
+                    Expression
+                </div>
+                <span>Mercredi 23/10/2019</span>
+                <span class="small">TD</span>
+                <span class="small">I</span>
+                <span>Laurence Nivet</span>
+                <a href="#" class="expander">Détails</a>
+            </div>
+            <div class="table hidden">
+                <div class="row">
+                    <div class="td">Type</div>
+                    <div class="td">Contenu</div>
+                    <div class="td">PJ</div>
+                    <div class="td">Durée</div>
+                    <div class="td">Échéance</div>
+                </div>
+                <div>
+                    <div class="td">Fait</div>
+                    <div class="td">Communication visuelle / communication non-verbale</div>
+                    <div class="td"></div>
+                    <div class="td"></div>
+                    <div class="td"></div>
+                </div>
+                <div>
+                    <div class="td">A faire</div>
+                    <div class="td">Réviser pour le DS (ils ont les consignes sur Eureka)</div>
+                    <div class="td"></div>
+                    <div class="td"></div>
+                    <div class="td">Vendredi 25/10/2019</div>
+                </div>
+                <div>
+                    <div class="td">A faire</div>
+                    <div class="td">Travail groupe (comm visuelle)</div>
+                    <div class="td">[1]</div>
+                    <div class="td"></div>
+                    <div class="td">Lundi 11/11/2019</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

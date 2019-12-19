@@ -25,13 +25,19 @@
             }
         }
     </script>
+    {% block js %}
+    {% endblock %}
 
     <!-- Meta -->
     <title>{{titre}}</title>
     <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
 </head>
 
 <body>
+
+<div class="shade" onclick="toggleMenu(false)"></div>
+<div class="top-gradient"></div>
 
 <header>
     <div class="left"><a href="javascript:toggleMenu()"><img src="images/menu.svg" alt="Menu"></a></div>
@@ -44,7 +50,7 @@
 <nav>
     <div class="anchor-top">
         <span style="font-weight: bold;">{{ user.getPrenom() ~ " " ~ user.getNom() }}</span>
-        <span>{{ user.role }}</span>
+        <span>{{ user.getRoleCplt() }}</span>
     </div>
     <div class="sections">
         {% for f in sections %}
@@ -61,7 +67,7 @@
     </div>
 </nav>
 
-<div class="shade" onclick="toggleMenu(false)"></div>
+
 
 <div id="content">
     {% block contenu %}

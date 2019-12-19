@@ -1,34 +1,7 @@
-@media screen and (min-width: 1280px) {
-
-    body {
-        margin: 72px 0 0;
-    }
-
+@media screen and (min-width: 960px) {
     #content {
-        max-width: 1280px;
-        margin: auto;
-    }
-
-    .shade, body.menu .shade {
-        display: none;
-    }
-
-    nav {
-        float: left;
-        margin-left: -330px;
-        margin-top: 8px;
-        margin-bottom: -6px;
-        position: static;
-        height: 100%;
-        display: block;
-    }
-
-    nav .options {
-        overflow-y: unset;
-    }
-
-    body.menu nav {
-        margin-left: -25px;
-        margin-right: 8px;
+        max-width: 960px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
