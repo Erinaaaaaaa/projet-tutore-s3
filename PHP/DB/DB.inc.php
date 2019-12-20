@@ -254,9 +254,9 @@ class DB {
         return $this->execMaj($requete,$tparam);
     }
 
-    public function deleteAffectation($id) {
-        $requete = 'delete from affectation where id_utilisateur = ?';
-        $tparam = array($id);
+    public function deleteAffectation($id, $idModule) {
+        $requete = 'delete from affectation where id_utilisateur = ? and id_module = ?';
+        $tparam = array($id, $idModule);
         return $this->execMaj($requete,$tparam);
     }
 
