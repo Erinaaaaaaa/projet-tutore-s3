@@ -31,7 +31,7 @@ $profs = array();
 
 /* @var $user Utilisateur */
 foreach ($users as $user) {
-    if (strpos($user->getRole(), "E")) {
+    if (!(strpos($user->getRole(), "E")===false)) {
         $profs[] = $user;
     }
 }
@@ -44,5 +44,3 @@ echo $tpl->render(array(
     "modules"=>$modules,
     "erreur"=>$message
 ));
-
-
