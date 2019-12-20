@@ -187,12 +187,12 @@ class DB {
 
     public function getModules() {
         $requete = 'select * from modules';
-        return $this->execQuery($requete,null,'Modules');
+        return $this->execQuery($requete,null,'Module');
     }
 
     public function getModule($id) {
         $requete = 'select * from modules where id_module = ?';
-        return $this->execQuery($requete,array($id),'Modules');
+        return $this->execQuery($requete,array($id),'Module');
     }
 
     public function insertModule($id_module,$valeur,$libelle,$couleur,$droit) {
@@ -237,7 +237,12 @@ class DB {
 
     //Gestion des Affectations
 
-    public function getAffectation($id) {
+	public function getAllAffectation() {
+        $requete = 'select * from affectation';
+        return $this->execQuery($requete,null,'Affectation');
+    }
+
+	public function getAffectation($id) {
         $requete = 'select * from affectation where id_utilisateur = ?';
         return $this->execQuery($requete,array($id),'Affectation');
     }
