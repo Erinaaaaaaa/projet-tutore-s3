@@ -14,7 +14,7 @@
                     <select name="Module">
                         {% for module in modules %}
 
-                            <option value="{{ module.id_module }}">{{ module.libelle }}</option>
+                            <option value="{{ module.getIdModule() }}">{{ module.libelle }}</option>
 
                         {% endfor %}
 
