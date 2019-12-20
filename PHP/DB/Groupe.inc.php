@@ -4,7 +4,7 @@
 class Groupe {
     /*avec PDO, il faut que les noms attributs soient les mêmes que ceux de la table*/
     private $groupe;
-    private $groupePere;
+    private $groupepere; // avant: groupePere
 
     /* Les méthodes qui commencent par __ sont des methodes magiques */
     /* Elles sont appelées automatiquement par php suite à certains événements. */
@@ -15,21 +15,21 @@ class Groupe {
     /**
      * Groupe constructor.
      * @param $groupe
-     * @param $groupePere
+     * @param $groupepere
      */
-    public function __construct($groupe="", $groupePere="")
+    public function __construct($groupe="", $groupepere="")
     {
         $this->groupe = $groupe;
-        $this->groupePere = $groupePere;
+        $this->groupepere = $groupepere;
     }
 
     public function getGroupe(){return $this->groupe;}
-    public function getGroupePere(){return $this->groupePere;}
+    public function getGroupePere(){return $this->groupepere;}
 
 
     public function __toString() {
         $res = "groupe:".$this->groupe."\n";
-        $res = $res ."groupePere:".$this->groupePere."\n";
+        $res = $res ."groupePere:".$this->groupepere."\n";
         $res = $res ."<br/>";
         return $res;
     }
