@@ -223,6 +223,12 @@ class DB {
         return $this->execQuery($requete,array($grp),'Groupe');
     }
 
+    public function getGroupePere($grp)
+    {
+        $requete = 'select groupePere from Groupe where groupe = ?';
+        return $this->execMaj($requete,$grp);
+    }
+
     public function insertGroupe($groupe,$groupePere) {
         $requete = 'insert into groupe values(?,?)';
         $tparam = array($groupe,$groupePere);
@@ -233,6 +239,13 @@ class DB {
         $requete = 'delete from groupe where groupe.groupe = ?';
         $tparam = array($grp);
         return $this->execMaj($requete,$tparam);
+    }
+
+    public function updateGroupe($groupe, $pere, $oldNomGroupe)
+    {
+        $requete = 'update Groupe set groupe = ?, groupePere = ? where groupe = ?';
+        $tparam = array($groupe, $pere, $oldNomGroupe);
+        return $this->execMaj($requete, $tparam);
     }
 
     //Gestion des Affectations

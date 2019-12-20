@@ -30,15 +30,43 @@ function getGroupe(string $id) {
     }
 }
 
+function getGroupePere(string $id) {
+    $db = DB::getInstance();
+
+    try {
+        $tmp = $db->getGroupePere($id);
+        if (sizeof($tmp) == 0) return null;
+        else return $tmp[0];
+    } catch (PDOException $e) {
+        echo "exception".$e->getMessage();
+        return null;
+    }
+}
+
 function insertGroupe(string $groupe, string $pere) {
     $db = DB::getInstance();
 
-    if (!$db->groupeExiste($pere)) {
+    if ($db->groupeExiste($groupe)) {
         return false;
     }
 
     try {
         $db->insertGroupe($groupe, $pere);
+    } catch (PDOException $e) {
+echo "exception".$e->getMessage();
+        echo $e->getMessage() . "<br>" . $e->getTraceAsString();
+        return false;
+    }
+
+    return true;
+}
+
+function updateGroupe(string $groupe, string $pere, string $oldNomGroupe)
+{
+    $db = DB::getInstance();
+
+    try {
+        $db->updateGroupe($groupe, $pere, $oldNomGroupe);
     } catch (PDOException $e) {
 echo "exception".$e->getMessage();
         echo $e->getMessage() . "<br>" . $e->getTraceAsString();

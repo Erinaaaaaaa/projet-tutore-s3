@@ -6,7 +6,7 @@
 
 {% block contenu %}
 
-    <form action="creationGroupe.php" method="POST" class="block">
+    <form action="" method="POST" class="block">
         <fieldset>
             <legend>Groupe</legend>
             <fieldset>
@@ -15,14 +15,16 @@
                         <td>Nom du Groupe</td>
                         <td>
                             <input type="text" name="nomGroupe" value="{{gp.getGroupe()}}">
+                            <input type="hidden" name="oldNomGroupe" value="{{gp.getGroupe()}}">
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <select name="groupePere">
+                            <option value="">aucun</option>
                                 {% for groupe in allGroupes %}
                                     <option value="{{groupe.getGroupe()}}"
-                                            {% if groupe.groupe == gp.groupePere %}
+                                            {% if groupe.groupe == gp.groupepere %}
                                                 selected
                                             {% endif %}
                                     >
