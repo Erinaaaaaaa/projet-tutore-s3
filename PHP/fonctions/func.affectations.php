@@ -15,6 +15,21 @@ echo "exception".$e->getMessage();
     }
 }
 
+/**
+ * @return array Retourne un tableau contenant toutes les affectations.
+ * Le tableau est vide en cas d'erreur de connexion à la base de données.
+ */
+function getAllAffectation() {
+    $db = DB::getInstance();
+
+    try {
+        return $db->getAllAffectation();
+    } catch (PDOException $e) {
+echo "exception".$e->getMessage();
+        return array();
+    }
+}
+
 function affectationExiste(string $id, string $module) {
     $db = DB::getInstance();
 
