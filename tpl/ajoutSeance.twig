@@ -2,7 +2,7 @@
 
 
 {% block contenu %}
-<form action="" method="POST">
+<form action="" method="post">
     <fieldset style="margin-left:25%;margin-right:25%">
         <span class="message">{{ message }}</span>
         <table align="center">
@@ -14,7 +14,7 @@
                     <select name="Module">
                         {% for module in modules %}
 
-                            <option value="{{ module.getIdModule() }}">{{ module.libelle }}</option>
+                            <option value="{{ module.getIdModule() }}" {% if id_mod==module.getIdModule() %}selected{% endif %}>{{ module.libelle }}</option>
 
                         {% endfor %}
 
@@ -38,7 +38,7 @@
                     <select name="Type">
                         {% for type in types %}
 
-                        <option value="{{ type.getIdTypeSeance() }}">{{ type.libelle }}</option>
+                        <option value="{{ type.getIdTypeSeance() }}" {% if typeActuel==type.getIdTypeSeance() %}selected{% endif %}>{{ type.libelle }}</option>
 
                         {% endfor %}
                     </select>
@@ -52,7 +52,7 @@
                     <select name="Groupe">
                         {% for groupe in groupes %}
 
-                            <option value="{{ groupe.groupe }}">{{ groupe.groupe }}</option>
+                            <option value="{{ groupe.groupe }}" {% if groupeActuel==groupe.groupe %}selected{% endif %}>{{ groupe.groupe }}</option>
 
                         {% endfor %}
                     </select>
