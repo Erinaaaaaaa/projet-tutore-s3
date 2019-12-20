@@ -29,6 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $message = "Impossible d'ajouter cet évènement";
     } else {
         $message = "Évènement enregistré avec succès!";
+        header("Location: listEvenement.php");
+        die();
     }
 
 

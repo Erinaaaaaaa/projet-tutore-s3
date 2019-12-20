@@ -288,7 +288,22 @@ class DB {
 
     //Gestion des Evenements
 
-    public function getEvenement($id) {
+    public function evenementExiste($id) {
+        return $this->getEvenement($id) != null;
+    }
+
+    public function getEvenements(){
+        $requete = 'select * from evenement';
+        return $this->execQuery($requete,null,'Evenement');
+    }
+
+    public function getEvenement($id){
+        $requete = 'select * from evenement where id_evenement = ?';
+        $tparam = array($id);
+        return $this->execQuery($requete,$tparam,'Evenement');
+    }
+
+    public function getEvenementPourSceance($id) {
         $requete = 'select * from evenement where id_seance = ?';
         return $this->execQuery($requete,array($id),'Evenement');
     }
@@ -301,8 +316,14 @@ class DB {
     }
 
     public function deleteEvenement($id) {
-        $requete = 'delete from evenement where id_seance = ?';
+        $requete = 'delete from evenement where id_evenement = ?';
         $tparam = array($id);
+        return $this->execMaj($requete,$tparam);
+    }
+
+    public function updateEvenement($id,$categorie,$description,$temps,$pour_le){
+        $requete = "update evenement set categorie = ?, description= ?, temps=?,pour_le=? where id_evenement = ?";
+        $tparam = array($categorie,$description,$temps,$pour_le,$id);
         return $this->execMaj($requete,$tparam);
     }
 
