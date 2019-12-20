@@ -14,7 +14,12 @@ echo "exception".$e->getMessage();
 function addSeance(string $module, string $date_creation, string $type,
                    string $groupe, string $id_utilisateur) {
     try {
-        DB::getInstance()->insertSeance($module, $date_creation, $type, $groupe, $id_utilisateur);
+        $db = DB::getInstance();
+		$db->insertSeance($module, $date_creation, $type, $groupe, $id_utilisateur);
+		$utilisateurs = $db->getAllUtilisateur();
+		foreach ($utilisateurs as $utilisateur) {
+			$db->insertSemaphore($db->getIdDerniereSeance()[0][0], $utilisateur->getIdUtilisateur());
+		}
         return true;
     } catch (PDOException $e) {
 echo "exception".$e->getMessage();
@@ -24,7 +29,9 @@ echo "exception".$e->getMessage();
 
 function deleteSeance(int $id) {
     try {
-        DB::getInstance()->deleteTypeSeance($id);
+        $db = DB::getInstance();
+		$db->deleteTypeSeance($id);
+		$db->deleteSemaphore($id);
         return true;
     } catch (PDOException $e) {
 echo "exception".$e->getMessage();
