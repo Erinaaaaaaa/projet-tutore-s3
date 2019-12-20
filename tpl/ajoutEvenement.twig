@@ -14,13 +14,14 @@
             <span>{{ message }}</span>
             <table>
                 <tr>
+                    <td><input type=hidden name="id" value="{{ id }}" > </td>
                     <td>
                         Catégorie: <span class="obligatoire">*</span>
                     </td>
                     <td>
                         <select name="Categorie">
                             {% for type in types %}
-                                <option value="{{ type.getIdTypeSeance() }}">{{ type.libelle }}</option>
+                                <option value="{{ type.id_typeevenement }}" {% if categorie == type.id_typeevenement %} selected {% endif %}> {{ type.libelle }}</option>
                             {% endfor %}
                         </select>
                     </td>
@@ -30,7 +31,7 @@
                         Description du travail: <span class="obligatoire">*</span>
                     </td>
                     <td>
-                        <input type="text" name="Description" value="">
+                        <input type="text" name="Description" value="{{ description }}">
                     </td>
                 </tr>
                 <tr>
@@ -38,7 +39,7 @@
                         Temps:
                     </td>
                     <td>
-                        <input type="time" name="Temps" min="00:00" max="99:59">
+                        <input type="time" name="Temps" min="00:00" max="99:59" value="{{ temps }}">
                     </td>
                 </tr>
                 <tr>
@@ -46,7 +47,7 @@
                         Pour le:
                     </td>
                     <td>
-                        <input type="date" name="Date" value="aaaa-mm-jj">
+                        <input type="date" name="Date" value="{{ pour_le }}">
                     </td>
                 </tr>
                 <tr>

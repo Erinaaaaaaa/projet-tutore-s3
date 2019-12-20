@@ -1,0 +1,71 @@
+{% extends "base.twig"%}
+
+{% block css %}
+    <style>
+        table {border: solid 5px lightseagreen;
+            border-collapse: collapse;
+            font-size: medium;
+            empty-cells: show;
+        }
+
+        th, td {
+            padding: 2px 8px;
+            border: solid 1px lightseagreen;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #FFC; /* jaune */
+        }
+
+        table img {
+            height: 12px;
+        }
+    </style>
+{% endblock %}
+
+{% block js %}
+    <script>
+        function verifSuppression(id) {
+            if (confirm('Voulez-vous vraiment supprimer l\'evenement d\'identifiant "' + id + '"?')) {
+                alert("ok deleting " + id);
+                document.location.href = "PHP/deleteEvenement.php?id=" + id;
+            } else {
+                alert("Annuler");
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block contenu %}
+    <table>
+        <tr>
+            <th>id_evenement</th>
+            <th>categorie</th>
+            <th>description</th>
+            <th>temps</th>
+            <th>pour_le</th>
+            <th>id_seance</th>
+        </tr>
+
+
+        {% for even in tabEven %}
+            <tr>
+                <td>{{ even.getIdEvenement() }}</td>
+                <td>{{ even.getCategorie() }}</td>
+                <td>{{ even.getDescription() }}</td>
+              <!--  <td>{{ even.getPj() }}</td> -->
+                <td>{{ even.getTemps() }}</td>
+                <td>{{ even.getPourLe() }}</td>
+                <td>{{ even.getIdSeance() }}</td>
+                <td><a href="updateEvenement.php?id={{even.getIdEvenement()}}"><img src="images/edit.png" alt="Modifier l'evenement"/></a></td>
+                <!-- deleteEvenement.php?id={{even.getIdEvenement()}} -->
+                <td><a href="javascript:verifSuppression('{{even.getIdEvenement()}}')"><img src="images/delete.jpeg" alt="Supprimer l'evenement"/></a></td>
+                <!-- Ajouter bouton pour modifier la row (update)-->
+
+            </tr>
+        {% endfor %}
+    </table>
+
+    <a class="button" href="formAjouterEvenement.php">Ajouter un evenement</a>
+
+{% endblock %}
