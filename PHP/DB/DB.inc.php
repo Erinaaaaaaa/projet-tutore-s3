@@ -7,6 +7,7 @@ require 'Utilisateur.inc.php';
 require 'Seance.inc.php';
 require 'Evenement.inc.php';
 require 'Typeseance.inc.php';
+require 'Semaphore.inc.php';
 
 class DB {
     private static $instance = null; //mémorisation de l'instance de DB pour appliquer le pattern Singleton
@@ -262,6 +263,11 @@ class DB {
 
     //Gestion des Seances
 
+	public function getIdDerniereSeance() {
+		$requete = 'select max(id_seance) from seance';
+        return $this->execQuery($requete,null,'');
+	}
+
     public function getSeance($utilisateur) {
         $requete = 'select * from seance where id_utilisateur = ?';
         return $this->execQuery($requete,array($utilisateur),'Seance');
@@ -332,7 +338,7 @@ class DB {
         return $this->execMaj($requete,$tparam);
     }
 
-    //Gestion des Types d'évènements
+	//Gestion des Types d'évènements
 
     public function typeEvenementExiste($id) {
         return $this->getTypeEvenement($id) != null;
@@ -360,6 +366,28 @@ class DB {
     public function deleteTypeEvenement($id) {
         $requete = 'delete from typeevenements where id_typeseance = ?';
         $tparam = array($id);
+        return $this->execMaj($requete,$tparam);
+    }
+
+	//Gestion des Sémaphores
+
+    public function getSemaphore($id) {
+        $requete = 'select * from semaphore where id_utilisateur = ?';
+        $tmp = $this->execQuery($requete,array($id),'Semaphore');
+        if (sizeof($tmp) == 0) return null;
+        else return $tmp[0];
+    }
+
+    public function insertSemaphore($id_seance, $id_utilisateur) {
+
+        $requete = 'insert into semaphore values (?,?,?)';
+        $tparam = array($id_seance, $id_utilisateur, 'false');
+        return $this->execMaj($requete,$tparam);
+    }
+
+    public function deleteSemaphore($id_seance) {
+        $requete = 'delete from semaphore where id_seance = ?';
+        $tparam = array($id_seance);
         return $this->execMaj($requete,$tparam);
     }
 } //fin classe DB
