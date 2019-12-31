@@ -24,7 +24,7 @@
     <p>
         Sélectionnez un de ces boutons pour commencer:
     </p>
-
+    {% if 'A' in user.getRole() %}
 <div class="select">
     <!--<a class="button" href="visualisation.php">Etat</a>
     <a class="button" href="saisie.php">Saisie</a>-->
@@ -41,4 +41,12 @@
 
 
 </div>
+{%endif%}
+{% if 'E' in user.getRole() %}
+<div class="select">
+    <p>Enseignant</p>
+
+
+</div>
+{%endif%}
 {% endblock %}
