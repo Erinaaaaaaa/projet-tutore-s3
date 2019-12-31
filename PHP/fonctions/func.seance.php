@@ -2,6 +2,35 @@
 
 require_once "PHP/DB/DB.inc.php";
 
+function seanceExiste(string $id) {
+    $db = DB::getInstance();
+
+    try {
+        return $db->seanceExiste($id);
+    } catch (PDOException $e) {
+        echo "exception".$e->getMessage();
+        return false;
+    }
+}
+
+function getSeances() {
+    try {
+        return DB::getInstance()->getSeances();
+    } catch (PDOException $e) {
+echo "exception".$e->getMessage();
+        return array();
+    }
+}
+
+function getSeanceIdSc($id_seance) {
+    try {
+        return DB::getInstance()->getSeanceIdSc($id_seance);
+    } catch (PDOException $e) {
+echo "exception".$e->getMessage();
+        return array();
+    }
+}
+
 function getSeancesPourUtilisateur(string $utilisateur) {
     try {
         return DB::getInstance()->getSeance($utilisateur);
@@ -23,6 +52,20 @@ function addSeance(string $module, string $date_creation, string $type,
         return true;
     } catch (PDOException $e) {
 echo "exception".$e->getMessage();
+        return false;
+    }
+}
+
+function updateSeance($id,$idModule,$idType,$goupe){
+    try {
+        $result = DB::getInstance()->updateSeance($id,$idModule,$idType,$goupe);
+        if ($result == 0) {
+            echo "oh no";
+            return false;
+        }
+        return true;
+    } catch (PDOException $e) {
+        echo "exception" . $e->getMessage();
         return false;
     }
 }

@@ -230,12 +230,6 @@ class DB {
         return $this->execQuery($requete,array($grp),'Groupe');
     }
 
-    public function getGroupePere($grp)
-    {
-        $requete = 'select groupePere from Groupe where groupe = ?';
-        return $this->execMaj($requete,$grp);
-    }
-
     public function insertGroupe($groupe,$groupePere) {
         $requete = 'insert into groupe values(?,?)';
         $tparam = array($groupe,$groupePere);
@@ -246,13 +240,6 @@ class DB {
         $requete = 'delete from groupe where groupe.groupe = ?';
         $tparam = array($grp);
         return $this->execMaj($requete,$tparam);
-    }
-
-    public function updateGroupe($groupe, $pere, $oldNomGroupe)
-    {
-        $requete = 'update Groupe set groupe = ?, groupePere = ? where groupe = ?';
-        $tparam = array($groupe, $pere, $oldNomGroupe);
-        return $this->execMaj($requete, $tparam);
     }
 
     //Gestion des Affectations
@@ -282,14 +269,28 @@ class DB {
 
     //Gestion des Seances
 
+	public function seanceExiste($id) {
+        return $this->getSeanceIdSc($id) != null;
+    }
+
 	public function getIdDerniereSeance() {
 		$requete = 'select max(id_seance) from seance';
         return $this->execQuery($requete,null,'');
 	}
 
-    public function getSeance($utilisateur) {
+	public function getSeances() {
+        $requete = 'select * from seance';
+        return $this->execQuery($requete,null,'Seance');
+    }
+
+	public function getSeance($utilisateur) {
         $requete = 'select * from seance where id_utilisateur = ?';
         return $this->execQuery($requete,array($utilisateur),'Seance');
+    }
+
+	public function getSeanceIdSc($id_seance) {
+        $requete = 'select * from seance where id_seance = ?';
+        return $this->execQuery($requete,array($id_seance),'Seance');
     }
 
     public function insertSeance($module,$date_creation,$type,$groupe,$id_utilisateur) {
@@ -302,6 +303,12 @@ class DB {
     public function deleteSeance($id) {
         $requete = 'delete from seance where id_seance = ?';
         $tparam = array($id);
+        return $this->execMaj($requete,$tparam);
+    }
+
+	public function updateSeance($id,$idModule,$idType,$groupe){
+        $requete = "update seance set module = ?, type = ?, groupe = ? where id_seance = ?";
+        $tparam = array($idModule,$idType,$groupe,$id);
         return $this->execMaj($requete,$tparam);
     }
 
@@ -334,9 +341,15 @@ class DB {
         return $this->execMaj($requete,$tparam);
     }
 
-    public function deleteEvenement($id) {
+    public function deleteEvenement($id_ev) {
         $requete = 'delete from evenement where id_evenement = ?';
-        $tparam = array($id);
+        $tparam = array($id_ev);
+        return $this->execMaj($requete,$tparam);
+    }
+
+	public function deleteEvenements($id_se) {
+        $requete = 'delete from evenement where id_seance = ?';
+        $tparam = array($id_se);
         return $this->execMaj($requete,$tparam);
     }
 
@@ -425,7 +438,7 @@ class DB {
         return $this->execMaj($requete,$tparam);
     }
 
-    public function deleteSemaphore($id_seance) {
+    public function deleteSemaphores($id_seance) {
         $requete = 'delete from semaphore where id_seance = ?';
         $tparam = array($id_seance);
         return $this->execMaj($requete,$tparam);
