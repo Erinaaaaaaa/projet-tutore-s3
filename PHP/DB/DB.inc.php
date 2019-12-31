@@ -161,6 +161,12 @@ class DB {
         return $this->execQuery($requete,$tparam,"Utilisateur");
     }
 
+    /*public function getRoleUtilisateur($id) {
+        $requete = 'select role into utilisateur where id_utilisateur = ?';
+        $tparam = array($id_utilisateur);
+        return $this->execQuery($requete,$tparam,"Utilisateur");
+    }*/
+
     /*public function updateUtilisateur($id,$colonne,$valeur)
     {
         $requete = "update utilisateur set $colonne = ? where id_utilisateur = ?";
