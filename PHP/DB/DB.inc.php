@@ -294,9 +294,9 @@ class DB {
     }
 
     public function insertSeance($module,$date_creation,$type,$groupe,$id_utilisateur) {
-
-        $requete = 'insert into seance (module, date_creation, type, groupe, id_utilisateur) values (?,?,?,?,?)';
-        $tparam = array($module,$date_creation,$type,$groupe,$id_utilisateur);
+		$date_modif = date("Y-m-d");
+        $requete = 'insert into seance (module, date_creation, date_modif, type, groupe, id_utilisateur) values (?,?,?,?,?,?)';
+        $tparam = array($module,$date_creation,$date_modif,$type,$groupe,$id_utilisateur);
         return $this->execMaj($requete,$tparam);
     }
 
@@ -307,8 +307,9 @@ class DB {
     }
 
 	public function updateSeance($id,$idModule,$idType,$groupe){
-        $requete = "update seance set module = ?, type = ?, groupe = ? where id_seance = ?";
-        $tparam = array($idModule,$idType,$groupe,$id);
+		$date_modif = date("Y-m-d");
+        $requete = "update seance set module = ?, date_modif = ?, type = ?, groupe = ? where id_seance = ?";
+        $tparam = array($idModule,$date_modif,$idType,$groupe,$id);
         return $this->execMaj($requete,$tparam);
     }
 
@@ -335,7 +336,9 @@ class DB {
     }
 
     public function insertEvenement($categorie,$description,$pj,$temps,$pour_le,$id_seance) {
-
+		$requete = "update seance set date_modif = ? where id_seance = $id_seance";
+		$tparam  = array(date("Y-m-d"));
+		$this->execMaj($requete, $tparam);
         $requete = 'insert into evenement (categorie,description,pj,temps,pour_le,id_seance) values (?,?,?,?,?,?)';
         $tparam = array($categorie,$description,$pj,$temps,$pour_le,$id_seance);
         return $this->execMaj($requete,$tparam);
