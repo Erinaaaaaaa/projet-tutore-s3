@@ -24,7 +24,7 @@ function getModule(string $id) {
     $module = $db->getModule($id);
 
     if (sizeof($module) == 1)
-        return $module[1];
+        return $module[0];
     else
         return null;
 }
