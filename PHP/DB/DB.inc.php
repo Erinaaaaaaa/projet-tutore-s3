@@ -192,25 +192,37 @@ class DB {
 
     //Gestion des modules
 
-    public function getModules() {
-        $requete = 'select * from modules';
-        return $this->execQuery($requete,null,'Module');
-    }
-
     public function getModule($id) {
         $requete = 'select * from modules where id_module = ?';
-        return $this->execQuery($requete,array($id),'Module');
+        return $this->execQuery($requete,array($id),'Modules');
+    }
+    
+    public function getModules() {
+        $requete = 'select * from modules;';
+        return $this->execQuery($requete,array(),'Modules');
     }
 
-    public function insertModule($id_module,$valeur,$libelle,$couleur,$droit) {
-        $requete = 'insert into modules values(?,?,?,?,?)';
-        $tparam = array($id_module,$valeur,$libelle,$couleur,$droit);
+    public function getIdModule($libelle) {
+        $requete = 'select * from modules where libelle = ?';
+        $tparam = array($libelle);
+        return $this->execQuery($requete,$tparam,'Modules');
+    }
+
+    public function insertModule($id_module,$libelle,$couleur,$droit) {
+        $requete = 'insert into modules values(?,?,?,?,DATE(NOW()),DATE(NOW()))';
+        $tparam = array($id_module,$libelle,$couleur,$droit);
         return $this->execMaj($requete,$tparam);
     }
 
     public function deleteModule($id) {
         $requete = 'delete from modules where id_module = ?';
         $tparam = array($id);
+        return $this->execMaj($requete,$tparam);
+    }
+    
+    public function updateModule($maj, $col, $val, $id) {
+        $requete = "update modules set date_modif = ?, $col = ? where id_module = ?";
+        $tparam = array($maj, $val, $id);
         return $this->execMaj($requete,$tparam);
     }
 
@@ -290,6 +302,11 @@ class DB {
 
 	public function getSeanceIdSc($id_seance) {
         $requete = 'select * from seance where id_seance = ?';
+        return $this->execQuery($requete,array($id_seance),'Seance');
+    }
+
+    public function getSeanceRole($role) {
+        $requete = 'select * from seance join utilisateur where role = ?';
         return $this->execQuery($requete,array($id_seance),'Seance');
     }
 

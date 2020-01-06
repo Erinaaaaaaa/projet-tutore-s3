@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-
 // VERIFICATION SESSION
 if (!isset($_SESSION['login'])) {
     header("Location: index.php");
@@ -13,7 +12,7 @@ require_once "PHP/fonctions/func.typeseance.php";
 require_once "PHP/fonctions/func.modules.php";
 require_once "PHP/fonctions/func.groupes.php";
 require_once "PHP/fonctions/func.seance.php";
-
+require_once "PHP/fonctions/func.users.php";
 
 // PREPARATION TWIG
 Twig_Autoloader::register();
@@ -37,14 +36,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 // TODO: Vérifier que la date correspond à l'année universitaire en cours
 $dateMin = new DateTime('09/01');
 $dateMax = new DateTime('06/30');
-$dateMax->add(new DateInterval('P1Y'));
-
+$crea    = getUtilisateur($_SESSION['login'])->getCreeLe();
+list($year,$month,$day) = explode('-', $crea);
+$date2 = new DateTime();
+$date2->setDate( $year, 9, 1);
 echo $tpl->render(
     array(
         "titre"=>"Inscription d'une séance",
         "message"=>$message,
-        /*"dateMin"=>$dateMin->format("Y-m-d"),
-        "dateMax"=>$dateMax->format("Y-m-d"),*/
+        "dateMin"=>$date2->format("Y-m-d"),
+        "dateMax"=>$dateMax->format("Y-m-d"),
         "date"=>date("Y-m-d"),
         // TODO: prendre en compte l'utilisateur courant
         "groupes"=>getGroupes(),

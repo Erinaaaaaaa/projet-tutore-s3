@@ -13,7 +13,7 @@
 					<tr>
 						<td colspan="2" align="center"> 
 							<?php
-								include "DB.inc.php";
+								include "PHP/DB/DB.inc.php";
 								$db = DB::getInstance();
 								echo "<input type=\"hidden\" name=\"oldModule\" maxlength=\"8\" value=\"", $db -> getModule($_GET['Module'])[0] -> getIdModule(), "\">";
 							?>

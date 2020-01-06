@@ -8,7 +8,7 @@
 	<body>
 		<header><h1 align="center">Consultation de la table modules</h1></header>
 		<?php
-			include "DB.inc.php";
+			include "PHP/DB/DB.inc.php";
 			
 			echo "<table align=\"center\">";
 			echo "<tr>";

@@ -1,5 +1,5 @@
 <?php
-	include "DB.inc.php";
+	include "PHP/DB/DB.inc.php";
 
 	$db = DB::getInstance();
 	$idModule = $db -> getIdModule($_GET['Module'])[0] -> getIdModule();
