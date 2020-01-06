@@ -7,6 +7,7 @@ require_once "PHP/fonctions/func.typeseance.php";
 require_once "PHP/fonctions/func.modules.php";
 require_once "PHP/fonctions/func.groupes.php";
 
+
 // Vérification de session
 if (!isset($_SESSION['login'])) {
     header("Location: index.php");
@@ -44,18 +45,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     else
         header("Location: listSeance.php");
 
-} else {
-    if(isset($_GET['id_seance'])) {
+} else {   
+    
+        if(isset($_GET['id_seance'])) {
 
-        $seance = getSeanceIdSc($_GET['id_seance'])[0];
+            $seance = getSeanceIdSc($_GET['id_seance'])[0];
+            if( $seance->getIdUtilisateur() === $_SESSION['login']) {
 
-
-        echo $tpl->render(array("id" => $_GET['id_seance'], "id_mod" => $seance->getModule(), "modules" => getAllModules(),
-			"typeActuel" => $seance->getType(), "types" => getTypesSeance(),
+            echo $tpl->render(array("id" => $_GET['id_seance'], "id_mod" => $seance->getModule(), "modules" => getAllModules(),
+	   		"typeActuel" => $seance->getType(), "types" => getTypesSeance(),
             "groupeActuel" => $seance->getGroupe(), "groupes" => getGroupes()
-           ));
-
-    } else {
-        echo $tpl->render(array());
+               ));
+            }
+            else
+            {
+                header("Location: listSeance.php");
+            }
+        } else {
+            echo $tpl->render(array());
+        }
     }
-}
+    
+
+

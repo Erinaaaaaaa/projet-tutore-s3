@@ -324,6 +324,13 @@ class DB {
         return $this->execMaj($requete,$tparam);
     }
 
+    public function getCreateur($id)
+    {
+        $requete = 'select id_utilisateur from seance where id_seance = ?';
+        $tparam = array($id);
+        return $this->execMaj($requete,$tparam);
+    }
+
 	public function updateSeance($id,$idModule,$idType,$groupe){
 		$date_modif = date("Y-m-d");
         $requete = "update seance set module = ?, date_modif = ?, type = ?, groupe = ? where id_seance = ?";

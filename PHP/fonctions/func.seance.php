@@ -22,6 +22,15 @@ echo "exception".$e->getMessage();
     }
 }
 
+function getCreateur(int $id_seance) {
+    try {
+        return DB::getInstance()->getCreateur($id_seance);
+    } catch (PDOException $e) {
+echo "exception".$e->getMessage();
+        return array();
+    }
+}
+
 function getSeanceIdSc($id_seance) {
     try {
         return DB::getInstance()->getSeanceIdSc($id_seance);
