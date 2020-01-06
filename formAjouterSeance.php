@@ -37,8 +37,8 @@ echo $tpl->render(
     array(
         "titre"=>"Inscription d'une séance",
         "message"=>$message,
-        "dateMin"=>$dateMin->format("Y-m-d"),
-        "dateMax"=>$dateMax->format("Y-m-d"),
+        /*"dateMin"=>$dateMin->format("Y-m-d"),
+        "dateMax"=>$dateMax->format("Y-m-d"),*/
         "date"=>date("Y-m-d"),
         // TODO: prendre en compte l'utilisateur courant
         "groupes"=>getGroupes(),

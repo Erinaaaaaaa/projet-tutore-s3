@@ -25,16 +25,46 @@
         Sélectionnez un de ces boutons pour commencer:
     </p>
 
-	<div class="select">
+    {% if 'A' in user.getRole() %}
+<div class="select">
+    <!--<a class="button" href="visualisation.php">Etat</a>
+    <a class="button" href="saisie.php">Saisie</a>-->
+    <a class="button" href="creationGroupe.php">creationGroupe.php</a>
+	<a class="button" href="listAffectations.php">listAffectations.php</a>
+    <a class="button" href="formAjouterEvenement.php">formAjouterEvenement.php</a>
+    <a class="button" href="formAjouterSeance.php">formAjouterSeance.php</a>
+    <a class="button" href="listUtilisateurs.php">listUtilisateurs.php</a>
+    <a class="button" href="updateUtilisateur.php">updateUtilisateur.php</a>
+    <a class="button" href="deconnexion.php">Se déconnecter</a>
+    <a class="button" href="listEvenement.php">listeEvenement.php</a>
+	<a class="button" href="listSeance.php">listeSeance.php</a>
+    <a class="button" href="listTypeEvenement.php">listeTypeEvenement.php</a>
 
-		{% if 'A' in user.getRole() %}
 
-			<a class="button" href="parametrage.php">Parametrage</a>
+</div>
+{%endif%}
+{% if 'E' in user.getRole() %}
+<div class="select">
+    <p>Enseignant</p>
+    <a class="button" href="formAjouterEvenement.php">formAjouterEvenement.php</a>
+    <a class="button" href="formAjouterSeance.php">formAjouterSeance.php</a>
+    <a class="button" href="listUtilisateurs.php">listUtilisateurs.php</a>
+    <a class="button" href="deconnexion.php">Se déconnecter</a>
+    <a class="button" href="listEvenement.php">listeEvenement.php</a>
+    <a class="button" href="listSeance.php">listeSeance.php</a>
+    <a class="button" href="listTypeEvenement.php">listeTypeEvenement.php</a>
 
-		{%endif%}
 
-		<a class="button" href="saisie.php">Saisie</a>
-	    <a class="button" href="visualisation.php">Visualisation</a>
+</div>
+{%endif%}
 
-	</div>
+{% if 'T' in user.getRole() %}
+<div class="select">
+    <p>Tuteur</p>
+    <a class="button" href="tutorat.php">Création tutorat</a>
+
+
+</div>
+{%endif%}
+
 {% endblock %}
