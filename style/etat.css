@@ -50,6 +50,10 @@ div.expanded .hidden {
     align-items: center;
 }
 
+.week .seances {
+    width: 100%;
+}
+
 .week .number{
     margin-right: 8px;
     font-weight: 600;
@@ -64,6 +68,7 @@ div.expanded .hidden {
 .info > .summary {
     display: flex;
     flex-wrap: wrap;
+    color: var(--module-color);
 }
 
 .info > .summary > *:not(:last-child) {

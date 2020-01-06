@@ -7,6 +7,7 @@ require 'Utilisateur.inc.php';
 require 'Seance.inc.php';
 require 'Evenement.inc.php';
 require 'Typeseance.inc.php';
+require 'Typeevenement.inc.php';
 require 'Semaphore.inc.php';
 
 class DB {
@@ -423,7 +424,7 @@ class DB {
     }
 
     public function getTypeEvenement($id) {
-        $requete = 'select * from typeevenements where id_typeseance = ?';
+        $requete = 'select * from typeevenements where id_typeevenement = ?';
         $tmp = $this->execQuery($requete,array($id),'Typeevenement');
         if (sizeof($tmp) == 0) return null;
         else return $tmp[0];
@@ -437,7 +438,7 @@ class DB {
     }
 
     public function deleteTypeEvenement($id) {
-        $requete = 'delete from typeevenements where id_typeseance = ?';
+        $requete = 'delete from typeevenements where id_typeevenement = ?';
         $tparam = array($id);
         return $this->execMaj($requete,$tparam);
     }

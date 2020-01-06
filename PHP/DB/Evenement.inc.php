@@ -11,6 +11,8 @@ class Evenement {
     private $pour_le;
     private $id_seance;
 
+    public $nom_type;
+
 
     /* Les méthodes qui commencent par __ sont des methodes magiques */
     /* Elles sont appelées automatiquement par php suite à certains événements. */

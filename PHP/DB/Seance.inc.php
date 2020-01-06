@@ -11,6 +11,13 @@ class Seance {
     private $groupe;
     private $id_utilisateur;
 
+    // Attributs développant chaque objet
+    /* @var $obj_module Module */
+    public $obj_module;
+    public $evenements;
+    public $nom_type;
+    public $obj_user;
+
 
     /* Les méthodes qui commencent par __ sont des methodes magiques */
     /* Elles sont appelées automatiquement par php suite à certains événements. */

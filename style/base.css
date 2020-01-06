@@ -148,6 +148,7 @@ body.menu .shade {
 #content {
     padding: 8px;
     transition: transform 0.5s cubic-bezier(.17,.84,.44,1);
+
 }
 
 body.menu #content {
