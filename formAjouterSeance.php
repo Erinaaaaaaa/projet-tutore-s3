@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 // TODO: Vérifier que la date correspond à l'année universitaire en cours
 $dateMin = new DateTime('09/01');
-$dateMax = new DateTime('06/30');
+$dateMax = new DateTime();
 $crea    = getUtilisateur($_SESSION['login'])->getCreeLe();
 list($year,$month,$day) = explode('-', $crea);
 $date2 = new DateTime();
