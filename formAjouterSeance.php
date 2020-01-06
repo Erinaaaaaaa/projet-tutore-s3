@@ -1,5 +1,11 @@
 <?php
 
+session_start();
+
+// VERIFICATION SESSION
+if (!isset($_SESSION['login'])) {
+    header("Location: index.php");
+}
 
 // REQUIRES
 require_once "PHP/Twig/lib/Twig/Autoloader.php";
@@ -19,7 +25,7 @@ $message = null;
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     // TODO: vérifier que les contenus obligatoires sont présents
-    if (!addSeance($_POST['Module'], $_POST['Date'], $_POST['Type'], $_POST['Groupe'], "prof")) {
+    if (!addSeance($_POST['Module'], $_POST['Date'], $_POST['Type'], $_POST['Groupe'], $_SESSION['login'])) {
         $message = "Impossible d'enregistrer la séance.";
     }
     else {
