@@ -11,8 +11,8 @@ if ($db == null) {
     echo "Impossible de se connecter &agrave; la base de donneeacute;es !";
 } else {
     try {
-		$db->deleteEvenements($_GET['id']);
-		$db->deleteSemaphores($_GET['id']);
+		$db->deleteEvenementsForSeance($_GET['id']);
+		$db->deleteSemaphoresForSeance($_GET['id']);
 		$db->deleteSeance($_GET['id']);
         echo '<meta http-equiv="refresh" content="0;URL=../listEvenement.php">';
 

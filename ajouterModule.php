@@ -8,7 +8,7 @@
 		$db = DB::getInstance();
 		$couleur = str_replace('#', '' , $_GET['couleur']);
 		$droit = implode($_GET['droit']);
-		$db->insertModule($_GET['module'],$_GET['libelle'],$couleur,$droit);
+		$db->addModule($_GET['module'],$_GET['libelle'],$couleur,$droit);
 	
 		header("Location: formAjouterModule.php");
 	}

@@ -24,7 +24,7 @@ echo "exception".$e->getMessage();
 
 function insertTypeSeance(string $libelle) {
     try {
-        DB::getInstance()->insertTypeSeance($libelle);
+        DB::getInstance()->addTypeSeance($libelle);
         return true;
     } catch (PDOException $e) {
 echo "exception".$e->getMessage();

@@ -51,7 +51,7 @@ function insertGroupe(string $groupe, string $pere) {
     }
 
     try {
-        $db->insertGroupe($groupe, $pere);
+        $db->addGroupe($groupe, $pere);
     } catch (PDOException $e) {
 echo "exception".$e->getMessage();
         echo $e->getMessage() . "<br>" . $e->getTraceAsString();

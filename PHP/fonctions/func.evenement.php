@@ -39,7 +39,7 @@ function getEvenement(string $id) {
 
 function getEvenementsPourSeance(int $id_seance) {
     try {
-        return DB::getInstance()->getEvenementPourSceance($id_seance);
+        return DB::getInstance()->getEvenementsForSeance($id_seance);
     } catch (PDOException $e) {
         echo "exception".$e->getMessage();
         return array();
@@ -49,7 +49,7 @@ function getEvenementsPourSeance(int $id_seance) {
 // TODO: type hints
 function addEvenement($categorie,$description,$pj,$temps,$pour_le,$id_seance) {
     try {
-        DB::getInstance()->insertEvenement($categorie,$description,$pj,$temps,$pour_le,$id_seance);
+        DB::getInstance()->addEvenement($categorie,$description,$pj,$temps,$pour_le,$id_seance);
         return true;
     } catch (PDOException $e) {
         echo "exception".$e->getMessage();

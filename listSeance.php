@@ -42,7 +42,7 @@ foreach ($tabSeance as $seance) {
 	}
 }
 
-$tabUtilisateurs = $db->getAllUtilisateur();
+$tabUtilisateurs = $db->getUtilisateurs();
 $nomsPrenomsProfs = array();
 
 foreach ($tabSeance as $seance) {

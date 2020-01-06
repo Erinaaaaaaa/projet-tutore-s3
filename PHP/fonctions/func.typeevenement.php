@@ -24,7 +24,7 @@ echo "exception".$e->getMessage();
 
 function insertTypeEvenement(string $libelle, string $roles) {
     try {
-        DB::getInstance()->insertTypeEvenement($libelle, $roles);
+        DB::getInstance()->addTypeEvenement($libelle, $roles);
         return true;
     } catch (PDOException $e) {
 echo "exception".$e->getMessage();

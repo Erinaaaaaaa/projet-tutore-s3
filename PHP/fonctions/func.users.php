@@ -42,7 +42,7 @@ function getAllUtilisateurs() {
     $db = DB::getInstance();
 
     try {
-        return $db->getAllUtilisateur();
+        return $db->getUtilisateurs();
     } catch (PDOException $e) {
 echo "exception".$e->getMessage();
         return array();
@@ -65,7 +65,7 @@ function addUtilisateur(string $id, string $nom, string $prenom,
     $mdp = password_hash($mdp, PASSWORD_DEFAULT);
 
     try {
-        $db->insertUtilisateur($id, $nom, $prenom, $mdp, $role, $groupe);
+        $db->addUtilisateur($id, $nom, $prenom, $mdp, $role, $groupe);
     } catch (PDOException $e) {
 echo "exception".$e->getMessage();
         return false;

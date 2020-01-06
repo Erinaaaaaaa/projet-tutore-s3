@@ -132,7 +132,7 @@ class DB {
         return $this->getUtilisateur($id) != null;
     }
 
-    public function getAllUtilisateur(){
+    public function getUtilisateurs(){
         $requete = 'select * from utilisateur';
         return $this->execQuery($requete,null,'Utilisateur');
     }
@@ -146,34 +146,11 @@ class DB {
             return null;
     }
 
-    public function getUtilisateurNom($nom) {
-        $requete = 'select * from utilisateur where nom = ?';
-        return $this->execQuery($requete,array($nom),'Utilisateur');
-    }
-
-    public function getUtilisateurPrenom($prenom) {
-        $requete = 'select * from utilisateur where prenom = ?';
-        return $this->execQuery($requete,array($prenom),'Utilisateur');
-    }
-
-    public function insertUtilisateur($id_utilisateur,$nom,$prenom,$mdp,$role,$groupe) {
+    public function addUtilisateur($id_utilisateur, $nom, $prenom, $mdp, $role, $groupe) {
         $requete = 'insert into utilisateur values(?,?,?,?,?,?,now(),now())';
         $tparam = array($id_utilisateur,$nom,$prenom,$mdp,$role,$groupe);
         return $this->execQuery($requete,$tparam,"Utilisateur");
     }
-
-    /*public function getRoleUtilisateur($id) {
-        $requete = 'select role into utilisateur where id_utilisateur = ?';
-        $tparam = array($id_utilisateur);
-        return $this->execQuery($requete,$tparam,"Utilisateur");
-    }*/
-
-    /*public function updateUtilisateur($id,$colonne,$valeur)
-    {
-        $requete = "update utilisateur set $colonne = ? where id_utilisateur = ?";
-        $tparam = array($valeur,$id);
-        return $this->execMaj($requete,$tparam);
-    }*/
 
     public function updateUtilisateur($oldId,$id,$nom,$prenom,$mdp,$role,$groupe)
     {
@@ -181,9 +158,6 @@ class DB {
         $tparam = array($id,$nom,$prenom,$mdp,$role,$groupe,$oldId);
         return $this->execMaj($requete,$tparam);
     }
-
-    //TODO: A voir pour remplacer avec un trieur
-
 
     public function deleteUtilisateur($id) {
         $requete = 'delete from utilisateur where id_utilisateur = ?';
@@ -203,13 +177,13 @@ class DB {
         return $this->execQuery($requete,array(),'Modules');
     }
 
-    public function getIdModule($libelle) {
+    public function getModuleFromLibelle($libelle) {
         $requete = 'select * from modules where libelle = ?';
         $tparam = array($libelle);
         return $this->execQuery($requete,$tparam,'Modules');
     }
 
-    public function insertModule($id_module,$libelle,$couleur,$droit) {
+    public function addModule($id_module, $libelle, $couleur, $droit) {
         $requete = 'insert into modules values(?,?,?,?,DATE(NOW()),DATE(NOW()))';
         $tparam = array($id_module,$libelle,$couleur,$droit);
         return $this->execMaj($requete,$tparam);
@@ -243,7 +217,7 @@ class DB {
         return $this->execQuery($requete,array($grp),'Groupe');
     }
 
-    public function insertGroupe($groupe,$groupePere) {
+    public function addGroupe($groupe, $groupePere) {
         $requete = 'insert into groupe values(?,?)';
         $tparam = array($groupe,$groupePere);
         return $this->execMaj($requete,$tparam);
@@ -257,7 +231,7 @@ class DB {
 
     //Gestion des Affectations
 
-	public function getAllAffectation() {
+	public function getAffectations() {
         $requete = 'select * from affectation';
         return $this->execQuery($requete,null,'Affectation');
     }
@@ -267,7 +241,7 @@ class DB {
         return $this->execQuery($requete,array($id),'Affectation');
     }
 
-    public function insertAffectation($id,$mod) {
+    public function addAffectation($id, $mod) {
 
         $requete = 'insert into affectation values (?,?)';
         $tparam = array($id,$mod);
@@ -283,11 +257,13 @@ class DB {
     //Gestion des Seances
 
 	public function seanceExiste($id) {
-        return $this->getSeanceIdSc($id) != null;
+        return $this->getSeance($id) != null;
     }
 
-	public function getIdDerniereSeance() {
-		$requete = 'select max(id_seance) from seance';
+	public function getDerniereSeance() {
+        // Permet de récupérer le tuple complet avec le dernier ID
+		$requete = 'select max(id_seance), "module", date_creation, 
+                    date_modif, type, groupe, id_utilisateur from seance';
         return $this->execQuery($requete,null,'');
 	}
 
@@ -296,22 +272,17 @@ class DB {
         return $this->execQuery($requete,null,'Seance');
     }
 
-	public function getSeance($utilisateur) {
+	public function getSeancesForUtilisateur($utilisateur) {
         $requete = 'select * from seance where id_utilisateur = ?';
         return $this->execQuery($requete,array($utilisateur),'Seance');
     }
 
-	public function getSeanceIdSc($id_seance) {
+	public function getSeance($id_seance) {
         $requete = 'select * from seance where id_seance = ?';
         return $this->execQuery($requete,array($id_seance),'Seance');
     }
 
-    public function getSeanceRole($role) {
-        $requete = 'select * from seance join utilisateur where role = ?';
-        return $this->execQuery($requete,array($id_seance),'Seance');
-    }
-
-    public function insertSeance($module,$date_creation,$type,$groupe,$id_utilisateur) {
+    public function addSeance($module, $date_creation, $type, $groupe, $id_utilisateur) {
 		$date_modif = date("Y-m-d");
         $requete = 'insert into seance (module, date_creation, date_modif, type, groupe, id_utilisateur) values (?,?,?,?,?,?)';
         $tparam = array($module,$date_creation,$date_modif,$type,$groupe,$id_utilisateur);
@@ -320,13 +291,6 @@ class DB {
 
     public function deleteSeance($id) {
         $requete = 'delete from seance where id_seance = ?';
-        $tparam = array($id);
-        return $this->execMaj($requete,$tparam);
-    }
-
-    public function getCreateur($id)
-    {
-        $requete = 'select id_utilisateur from seance where id_seance = ?';
         $tparam = array($id);
         return $this->execMaj($requete,$tparam);
     }
@@ -355,12 +319,12 @@ class DB {
         return $this->execQuery($requete,$tparam,'Evenement');
     }
 
-    public function getEvenementPourSceance($id) {
+    public function getEvenementsForSeance($id) {
         $requete = 'select * from evenement where id_seance = ?';
         return $this->execQuery($requete,array($id),'Evenement');
     }
 
-    public function insertEvenement($categorie,$description,$pj,$temps,$pour_le,$id_seance) {
+    public function addEvenement($categorie, $description, $pj, $temps, $pour_le, $id_seance) {
 		$requete = "update seance set date_modif = ? where id_seance = $id_seance";
 		$tparam  = array(date("Y-m-d"));
 		$this->execMaj($requete, $tparam);
@@ -375,7 +339,7 @@ class DB {
         return $this->execMaj($requete,$tparam);
     }
 
-	public function deleteEvenements($id_se) {
+	public function deleteEvenementsForSeance($id_se) {
         $requete = 'delete from evenement where id_seance = ?';
         $tparam = array($id_se);
         return $this->execMaj($requete,$tparam);
@@ -406,7 +370,7 @@ class DB {
         else return $tmp[0];
     }
 
-    public function insertTypeSeance($libelle) {
+    public function addTypeSeance($libelle) {
 
         $requete = 'insert into typeseance(libelle) values (?)';
         $tparam = array($libelle);
@@ -437,7 +401,7 @@ class DB {
         else return $tmp[0];
     }
 
-    public function insertTypeEvenement($libelle, $roles) {
+    public function addTypeEvenement($libelle, $roles) {
 
         $requete = 'insert into typeevenements(libelle, roles) values (?,?)';
         $tparam = array($libelle, $roles);
@@ -459,14 +423,14 @@ class DB {
         else return $tmp[0];
     }
 
-    public function insertSemaphore($id_seance, $id_utilisateur) {
+    public function addSemaphore($id_seance, $id_utilisateur) {
 
-        $requete = 'insert into semaphore values (?,?,?)';
-        $tparam = array($id_seance, $id_utilisateur, 'false');
+        $requete = 'insert into semaphore values (?,?,false)';
+        $tparam = array($id_seance, $id_utilisateur);
         return $this->execMaj($requete,$tparam);
     }
 
-    public function deleteSemaphores($id_seance) {
+    public function deleteSemaphoresForSeance($id_seance) {
         $requete = 'delete from semaphore where id_seance = ?';
         $tparam = array($id_seance);
         return $this->execMaj($requete,$tparam);

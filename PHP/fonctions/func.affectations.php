@@ -23,7 +23,7 @@ function getAllAffectation() {
     $db = DB::getInstance();
 
     try {
-        return $db->getAllAffectation();
+        return $db->getAffectations();
     } catch (PDOException $e) {
 echo "exception".$e->getMessage();
         return array();
@@ -45,7 +45,7 @@ function affectationExiste(string $id, string $module) {
 
 function insererAffectation(string $id, string $module) {
     try {
-        DB::getInstance()->insertAffectation($id, $module);
+        DB::getInstance()->addAffectation($id, $module);
         return true;
     } catch (PDOException $e) {
 echo "exception".$e->getMessage();

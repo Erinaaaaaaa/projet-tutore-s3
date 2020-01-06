@@ -22,18 +22,9 @@ echo "exception".$e->getMessage();
     }
 }
 
-function getCreateur(int $id_seance) {
-    try {
-        return DB::getInstance()->getCreateur($id_seance);
-    } catch (PDOException $e) {
-echo "exception".$e->getMessage();
-        return array();
-    }
-}
-
 function getSeanceIdSc($id_seance) {
     try {
-        return DB::getInstance()->getSeanceIdSc($id_seance);
+        return DB::getInstance()->getSeance($id_seance);
     } catch (PDOException $e) {
 echo "exception".$e->getMessage();
         return array();
@@ -42,7 +33,7 @@ echo "exception".$e->getMessage();
 
 function getSeancesPourUtilisateur(string $utilisateur) {
     try {
-        return DB::getInstance()->getSeance($utilisateur);
+        return DB::getInstance()->getSeancesForUtilisateur($utilisateur);
     } catch (PDOException $e) {
 echo "exception".$e->getMessage();
         return array();
@@ -53,10 +44,10 @@ function addSeance(string $module, string $date_creation, string $type,
                    string $groupe, string $id_utilisateur) {
     try {
         $db = DB::getInstance();
-		$db->insertSeance($module, $date_creation, $type, $groupe, $id_utilisateur);
-		$utilisateurs = $db->getAllUtilisateur();
+		$db->addSeance($module, $date_creation, $type, $groupe, $id_utilisateur);
+		$utilisateurs = $db->getUtilisateurs();
 		foreach ($utilisateurs as $utilisateur) {
-			$db->insertSemaphore($db->getIdDerniereSeance()[0][0], $utilisateur->getIdUtilisateur());
+			$db->addSemaphore($db->getDerniereSeance()->getIdSeance(), $utilisateur->getIdUtilisateur());
 		}
         return true;
     } catch (PDOException $e) {
