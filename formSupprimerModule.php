@@ -14,7 +14,7 @@
 						<td align="right"> liste des modules : </td>
 						<td> 
 							<?php
-								include "DB.inc.php";
+								include "PHP/DB/DB.inc.php";
 								$db = DB::getInstance();
 								echo "<select name=\"Module\">";
 								$modules = $db -> getModules();

@@ -6,6 +6,7 @@ class Seance {
     private $id_seance;
     private $module;
     private $date_creation;
+	private $date_modif;
     private $type;
     private $groupe;
     private $id_utilisateur;
@@ -33,11 +34,12 @@ class Seance {
      * @param $groupe
      * @param $id_utilisateur
      */
-    public function __construct($id_seance="", $module="", $date_creation="", $type="", $groupe="", $id_utilisateur="")
+    public function __construct($id_seance="", $module="", $date_creation="", $date_modif="", $type="", $groupe="", $id_utilisateur="")
     {
         $this->id_seance = $id_seance;
         $this->module = $module;
         $this->date_creation = $date_creation;
+		$this->date_modif = $date_modif;
         $this->type = $type;
         $this->groupe = $groupe;
         $this->id_utilisateur = $id_utilisateur;
@@ -46,6 +48,7 @@ class Seance {
     public function getIdSeance() { return $this->id_seance; }
     public function getModule() { return $this->module; }
     public function getDateCreation() { return $this->date_creation; }
+	public function getDateModif() { return $this->date_modif; }
     public function getType() { return $this->type; }
     public function getGroupe() { return $this->groupe; }
     public function getIdUtilisateur() { return $this->id_utilisateur; }

@@ -193,25 +193,37 @@ class DB {
 
     //Gestion des modules
 
-    public function getModules() {
-        $requete = 'select * from modules';
-        return $this->execQuery($requete,null,'Module');
-    }
-
     public function getModule($id) {
         $requete = 'select * from modules where id_module = ?';
-        return $this->execQuery($requete,array($id),'Module');
+        return $this->execQuery($requete,array($id),'Modules');
+    }
+    
+    public function getModules() {
+        $requete = 'select * from modules;';
+        return $this->execQuery($requete,array(),'Modules');
     }
 
-    public function insertModule($id_module,$valeur,$libelle,$couleur,$droit) {
-        $requete = 'insert into modules values(?,?,?,?,?)';
-        $tparam = array($id_module,$valeur,$libelle,$couleur,$droit);
+    public function getIdModule($libelle) {
+        $requete = 'select * from modules where libelle = ?';
+        $tparam = array($libelle);
+        return $this->execQuery($requete,$tparam,'Modules');
+    }
+
+    public function insertModule($id_module,$libelle,$couleur,$droit) {
+        $requete = 'insert into modules values(?,?,?,?,DATE(NOW()),DATE(NOW()))';
+        $tparam = array($id_module,$libelle,$couleur,$droit);
         return $this->execMaj($requete,$tparam);
     }
 
     public function deleteModule($id) {
         $requete = 'delete from modules where id_module = ?';
         $tparam = array($id);
+        return $this->execMaj($requete,$tparam);
+    }
+    
+    public function updateModule($maj, $col, $val, $id) {
+        $requete = "update modules set date_modif = ?, $col = ? where id_module = ?";
+        $tparam = array($maj, $val, $id);
         return $this->execMaj($requete,$tparam);
     }
 
@@ -294,10 +306,15 @@ class DB {
         return $this->execQuery($requete,array($id_seance),'Seance');
     }
 
-    public function insertSeance($module,$date_creation,$type,$groupe,$id_utilisateur) {
+    public function getSeanceRole($role) {
+        $requete = 'select * from seance join utilisateur where role = ?';
+        return $this->execQuery($requete,array($id_seance),'Seance');
+    }
 
-        $requete = 'insert into seance (module, date_creation, type, groupe, id_utilisateur) values (?,?,?,?,?)';
-        $tparam = array($module,$date_creation,$type,$groupe,$id_utilisateur);
+    public function insertSeance($module,$date_creation,$type,$groupe,$id_utilisateur) {
+		$date_modif = date("Y-m-d");
+        $requete = 'insert into seance (module, date_creation, date_modif, type, groupe, id_utilisateur) values (?,?,?,?,?,?)';
+        $tparam = array($module,$date_creation,$date_modif,$type,$groupe,$id_utilisateur);
         return $this->execMaj($requete,$tparam);
     }
 
@@ -308,8 +325,9 @@ class DB {
     }
 
 	public function updateSeance($id,$idModule,$idType,$groupe){
-        $requete = "update seance set module = ?, type = ?, groupe = ? where id_seance = ?";
-        $tparam = array($idModule,$idType,$groupe,$id);
+		$date_modif = date("Y-m-d");
+        $requete = "update seance set module = ?, date_modif = ?, type = ?, groupe = ? where id_seance = ?";
+        $tparam = array($idModule,$date_modif,$idType,$groupe,$id);
         return $this->execMaj($requete,$tparam);
     }
 
@@ -336,7 +354,9 @@ class DB {
     }
 
     public function insertEvenement($categorie,$description,$pj,$temps,$pour_le,$id_seance) {
-
+		$requete = "update seance set date_modif = ? where id_seance = $id_seance";
+		$tparam  = array(date("Y-m-d"));
+		$this->execMaj($requete, $tparam);
         $requete = 'insert into evenement (categorie,description,pj,temps,pour_le,id_seance) values (?,?,?,?,?,?)';
         $tparam = array($categorie,$description,$pj,$temps,$pour_le,$id_seance);
         return $this->execMaj($requete,$tparam);

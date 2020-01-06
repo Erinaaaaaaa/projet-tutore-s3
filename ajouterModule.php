@@ -1,5 +1,5 @@
 <?php
-	include "DB.inc.php";
+	include "PHP/DB/DB.inc.php";
 	
 	if (empty($_GET['module']) || empty($_GET['libelle']) || empty($_GET['droit'])) {
 		header("Location: formAjouterModule.php");

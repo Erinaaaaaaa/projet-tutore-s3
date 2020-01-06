@@ -28,7 +28,9 @@ create table Modules
 	id_module varchar(7) primary key,
 	libelle   varchar(25),
 	couleur   varchar(6),
-	droit     varchar(3)
+	droit     varchar(3),
+	date_creation  varchar(10),
+	date_modif     varchar(10)
 );
 
 /* Table module/utilisateurs */
@@ -54,6 +56,7 @@ create table Seance
 	id_seance      serial primary key ,
 	module         varchar(25),
 	date_creation  varchar(10),
+	date_modif     varchar(10),
 	type           varchar(17),
 	groupe         varchar(7),
 	id_utilisateur varchar(25) REFERENCES Utilisateur(id_utilisateur)

@@ -1,9 +1,10 @@
 <?php
-
+session_start();
 // REQUIRES
 require_once "PHP/Twig/lib/Twig/Autoloader.php";
 require_once "PHP/fonctions/func.typeevenement.php";
 require_once "PHP/fonctions/func.evenement.php";
+require_once "PHP/fonctions/func.users.php";
 
 // PREPARATION TWIG
 Twig_Autoloader::register();
@@ -36,9 +37,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 }
 
+$dateMax = new DateTime('06/30');
+$crea    = getUtilisateur($_SESSION['login'])->getCreeLe();
+
+list($year,$month,$day) = explode('-', $crea);
+$dateMin = new DateTime();
+
+
+
 echo $tpl->render(array(
     "titre"=>"Inscription d'un évènement",
     "types"=>$typesSeance,
+    "dateMin"=>$dateMin->format("Y-m-d"),
+    "dateMax"=>$dateMax->format("Y-m-d"),
+    "date"=>date("Y-m-d"),
     "message"=>$message
+    
 ));
 

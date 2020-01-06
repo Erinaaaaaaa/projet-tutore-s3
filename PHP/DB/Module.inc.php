@@ -1,13 +1,14 @@
 <?php
 
 /*classe permettant de representer les tuples de la table Utilisateur */
-class Module {
+class Modules {
     /*avec PDO, il faut que les noms attributs soient les mêmes que ceux de la table*/
     private $id_module;
-    private $valeur;
     private $libelle;
     private $couleur;
     private $droit;
+    private $date_ajout;
+    private $date_modif;
 
     /* Les méthodes qui commencent par __ sont des methodes magiques */
     /* Elles sont appelées automatiquement par php suite à certains événements. */
@@ -18,32 +19,36 @@ class Module {
     /**
      * Modules constructor.
      * @param $id_module
-     * @param $valeur
      * @param $libelle
      * @param $couleur
      * @param $droit
+     * @param $date_ajout
+     * @param $date_modif
      */
-    public function __construct($id_module="", $valeur="", $libelle="", $couleur="", $droit="")
+    public function __construct($id_module="", $valeur="", $libelle="", $couleur="", $droit="", $date_ajout="", $date_modif="")
     {
         $this->id_module = $id_module;
-        $this->valeur = $valeur;
         $this->libelle = $libelle;
         $this->couleur = $couleur;
         $this->droit = $droit;
+        $this->date_ajout = $date_ajout;
+        $this->date_modif = $date_modif;
     }
     public function getIdModule(){return $this->id_module;}
-    public function getValeur(){return $this->valeur;}
     public function getLibelle(){return $this->libelle;}
     public function getCouleur(){return $this->couleur;}
     public function getDroit(){return $this->droit;}
+    public function getDateAjout(){return $this->date_ajout;}
+    public function getDateModif(){return $this->date_modif;}
 
 
     public function __toString() {
         $res = "id_module:".$this->id_module."\n";
-        $res = $res ."valeur:".$this->valeur."\n";
         $res = $res ."libelle:".$this->libelle."\n";
         $res = $res ."couleur:".$this->couleur."\n";
         $res = $res ."droit:".$this->droit."\n";
+        $res = $res ."date d'ajout:".$this->date_ajout."\n";
+        $res = $res ."date de modification:".$this->date_modif."\n";
         $res = $res ."<br/>";
         return $res;
     }

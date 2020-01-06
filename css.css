@@ -1,0 +1,28 @@
+/*fieldset{
+	height: 14em;
+}*/
+
+.gauche{
+	float:left;
+}
+
+
+.droite{
+	float:right;
+}
+
+table
+{
+	border-collapse: collapse;
+	font-size: medium;
+	empty-cells: show;
+}
+td, th
+{
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border: solid 1px silver;
+}
+
