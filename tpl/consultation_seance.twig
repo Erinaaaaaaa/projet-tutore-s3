@@ -42,6 +42,7 @@
             <th>id_seance</th>
             <th>Module</th>
             <th>Date de création</th>
+			<th>Date de modification</th>
             <th>Type</th>
             <th>Groupe</th>
             <th>Professeur</th>
@@ -53,6 +54,7 @@
                 <td>{{ seance.getIdseance() }}</td>
                 <td>{{ tabNomsModules[seance.getModule()] }}</td>
                 <td>{{ seance.getDateCreation() }}</td>
+				<td>{{ seance.getDateModif() }}</td>
               <!--  <td>{{ seance.getPj() }}</td> -->
                 <td>{{ tabTypesSeance[seance.getType()] }}</td>
                 <td>{{ seance.getGroupe() }}</td>
