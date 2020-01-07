@@ -31,7 +31,7 @@ class Semaphore {
     public function getIdUtilisateur() { return $this->id_utilisateur; }
 	public function getEtat() { return $this->etat; }
 
-
+	public function setEtat($etat) {  $this->etat = $etat; }
 
     public function __toString() {
         $res = "id_seance:".$this->id_seance."\n";
