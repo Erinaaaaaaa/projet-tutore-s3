@@ -1,6 +1,6 @@
 <?php
 chdir("..");
-require "DB/DB.inc.php";
+require_once 'PHP/DB/DB.inc.php';
 
 function isUtilisateurOk($id,$mdp)
 {

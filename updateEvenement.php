@@ -49,14 +49,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(isset($_GET['id'])) {
 
         $evenement = getEvenement($_GET['id'])[0];
-
-
-
+        $idseance = $evenement->getIdSeance();
+        $seance->getSeance($idseance)[0];
+        
+        if( $seance->getIdUtilisateur() === $_SESSION['login']) {
 
         echo $tpl->render(array("id" => $_GET['id'], "categorie" => $evenement->getCategorie(), "types" => getTypesEvenement(),
-            "description" => $evenement->getDescription(), "temps" => $evenement->getTemps(),"pour_le"=>$evenement->getPourLe()
-           ));
-
+        "description" => $evenement->getDescription(), "temps" => $evenement->getTemps(),"pour_le"=>$evenement->getPourLe()
+         ));
+        }
+        else
+        {
+            header("Location: listEvenement.php");
+        }
     } else {
         echo $tpl->render(array());
     }

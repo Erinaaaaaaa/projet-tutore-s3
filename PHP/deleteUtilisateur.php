@@ -1,7 +1,7 @@
 <?php
 chdir("..");
-require 'consultUtilisateur.php';
-require_once 'DB/DB.inc.php';
+require 'PHP/consultUtilisateur.php';
+require_once 'PHP/DB/DB.inc.php';
 
 
 // TODO: à transformer en fonction

@@ -23,7 +23,6 @@ if ($db == null) {
     	$seance = getSeanceIdSc($_GET['id'])[0];
     	echo $seance;
     	if( $seance->getIdUtilisateur() === $_SESSION['login']) {
-    		echo "c'est les memes personnes";
     		try {
 				$db->deleteEvenementsForSeance($_GET['id']);
 				$db->deleteSemaphoresForSeance($_GET['id']);
