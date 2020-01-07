@@ -56,11 +56,12 @@ if (intval($date->diff($echeanceMax)->format("%R%d")) < 0)
 	$echeanceMax->setDate(intval($echeanceMax->format("Y"))+1, 6, 30);
 
 
-$tabModules   = array();
-$tabGroupes   = array();
-$tabTypes     = array();
-$tabTypesEv   = array();
-$tabCreateurs = array();
+$tabModules    = array();
+$tabGroupes    = array();
+$tabTypes      = array();
+$tabTypesEv    = array();
+$tabCreateurs  = array();
+$tabSemaphores = array();
 
 if (isset($_POST['DateCreaMin'])) {
 	$dateCreaMin = new DateTime($_POST['DateCreaMin']);
@@ -145,6 +146,29 @@ foreach ($seancesFiltrees as $seance)
 
     $seance->nom_type   = getTypeSeance($seance->getType())->getLibelle();
     $seance->obj_user   = getUtilisateur($seance->getIdUtilisateur());
+
+	array_push($tabSemaphores, getSemaphoreSeUs($seance->getIdSeance(), $_SESSION['login']));
+}
+
+if (isset($_POST['save'])) {
+	foreach ($tabSemaphores as $semaphore) {
+		if ($semaphore !== null) {
+			if (isset($_POST['sem'])) {
+				if (in_array($semaphore->getIdSeance(), $_POST['sem'])) {
+					updateSemaphore($semaphore->getIdSeance(), $_SESSION['login'], "t");
+					$semaphore->setEtat("t");
+				}
+				else {
+					updateSemaphore($semaphore->getIdSeance(), $_SESSION['login'], "f");
+					$semaphore->setEtat("f");
+				}
+			}
+			else {
+				updateSemaphore($semaphore->getIdSeance(), $_SESSION['login'], "f");
+				$semaphore->setEtat("f");
+			}
+		}
+	}
 }
 
 echo $tpl->render(array("titre"=>"Accueil",
@@ -179,6 +203,7 @@ echo $tpl->render(array("titre"=>"Accueil",
 	"tabTypesEv"     => $tabTypesEv,
 	"tabGroupes"     => $tabGroupes,
 	"tabCreateurs"   => $tabCreateurs,
+	"tabSemaphores"  => $tabSemaphores,
 	"dateMin"        => strval($dateCreaMin->format("Y-m-d")),
 	"dateMax"        => strval($dateCreaMax->format("Y-m-d")),
 	"dateEvMin"      => strval($echeanceMin->format("Y-m-d")),
