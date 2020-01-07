@@ -14,7 +14,8 @@ class Seance {
     // Attributs développant chaque objet
     /* @var $obj_module Module */
     public $obj_module;
-    public $evenements;
+    public $allEvenements;
+	public $evenements;
     public $nom_type;
     public $obj_user;
 
