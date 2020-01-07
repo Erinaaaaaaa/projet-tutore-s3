@@ -25,7 +25,7 @@ create table Utilisateur
 
 create table Modules
 (
-	id_module varchar(7) primary key,
+	id_module varchar(8) primary key,
 	libelle   varchar(25),
 	couleur   varchar(6),
 	droit     varchar(3),
