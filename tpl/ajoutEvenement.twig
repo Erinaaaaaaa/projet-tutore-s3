@@ -5,7 +5,14 @@
         span.obligatoire {
             color: red;
         }
+        #heure {
+            width:21%;
+        }
+        #minute {
+            width:21%;
+        }
     </style>
+
 {% endblock %}
 
 {% block contenu %}
@@ -21,7 +28,7 @@
                     <td>
                         <select name="Categorie">
                             {% for type in types %}
-                                <option value="{{ type.id_typeevenement }}" {% if categorie == type.id_typeevenement %} selected {% endif %}> {{ type.libelle }}</option>
+                                <option value="{{ type.GetIdTypeEvenement() }}" {% if categorie == type.GetIdTypeEvenement() %} selected {% endif %}> {{ type.libelle }}</option>
                             {% endfor %}
                         </select>
                     </td>
@@ -36,10 +43,11 @@
                 </tr>
                 <tr>
                     <td>
-                        Temps:
+                        Durée:
                     </td>
                     <td>
-                        <input type="time" name="Temps" min="00:00" max="99:59" value="{{ temps }}">
+                        <input id="heure" type="number" name="heure" min="0">
+                        <input id="minute" type="number" name="minute" min="0" max="59" step="15">
                     </td>
                 </tr>
                 <tr>

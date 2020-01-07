@@ -21,6 +21,24 @@ $user = getUtilisateur($login);
 
 $tabEvenement = getEvenements();
 
+$heureTt = 0;
+$minTt = 0;
+foreach ($tabEvenement as $value) {
+    $duree = $value->getTemps();
+
+    list($heure,$minute) = explode(':', $duree);
+
+    $heureTt = $heureTt + intval($heure);
+    $minTt = $minTt + intval($minute);
+    if($minTt >= 60)
+    {
+        $minTt = $minTt - 60;
+        $heureTt ++;
+    }
+}
+
+$dureeTt = $heureTt.':'.$minTt;
+
 echo $tpl->render( array("user"=>$user, "titre"=>"Gestion des evenements",
     "options"=>array(
         array(
@@ -31,5 +49,6 @@ echo $tpl->render( array("user"=>$user, "titre"=>"Gestion des evenements",
             "nom"=>"Etat",
             "url"=>"https://www.ebay.com/p/1942719?iid=182754789929"
         )),
-    "tabEven"=>$tabEvenement
+    "tabEven"=>$tabEvenement,
+    "duree"=>$dureeTt
 ));

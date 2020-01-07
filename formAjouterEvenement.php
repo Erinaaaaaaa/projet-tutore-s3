@@ -24,9 +24,12 @@ $message = null;
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
+    var_dump($_POST);
+
     // TODO: Listing des séances de l'utilisateur courant
     // TODO: Investiguer les pièces jointes dans la méthode d'ajout
-    if (!addEvenement($_POST['Categorie'], $_POST['Description'], null, $_POST['Temps'], $_POST['Date'], 13)) {
+    $duree = $_POST['heure'].':'.$_POST['minute'];
+    if (!addEvenement($_POST['Categorie'], $_POST['Description'], null, $duree, $_POST['Date'], 13)) {
         $message = "Impossible d'ajouter cet évènement";
     } else {
         $message = "Évènement enregistré avec succès!";
