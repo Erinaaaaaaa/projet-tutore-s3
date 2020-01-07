@@ -21,6 +21,48 @@ require_once "PHP/fonctions/func.typeevenement.php";
 require_once "PHP/fonctions/func.seance.php";
 require_once "PHP/fonctions/func.evenement.php";
 
+
+/*
+ * changement mois et année avec boutons
+ */
+
+if (!isset($_POST['month+']) && !isset($_POST['month-']))
+{
+	$moisActuel    = intval(date('n'))-1;
+	$anneeActuelle = intval(date('Y'));
+}
+else
+{
+	$moisActuel = $_POST['month'];
+	$anneeActuelle = $_POST['year'];
+}
+
+$tabMois = array("Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre");
+
+if (isset($_POST['month+']))
+{
+	$moisActuel = $moisActuel+1;
+}
+if (isset($_POST['month-']))
+{
+	$moisActuel = $moisActuel-1;
+}
+
+if ($moisActuel < 0)
+{
+	$moisActuel    = 11;
+	$anneeActuelle = $anneeActuelle-1;
+}
+if ($moisActuel > 11)
+{
+	$moisActuel    = 0;
+	$anneeActuelle = $anneeActuelle+1;
+}
+
+///////////////////////////////////////////////////////
+
+
+
 /* @var $seances Seance */
 $allSeances     = getSeances();
 $modules        = getAllModules();
@@ -55,13 +97,17 @@ $echeanceMax  = new DateTime('06/30');
 if (intval($date->diff($echeanceMax)->format("%R%d")) < 0)
 	$echeanceMax->setDate(intval($echeanceMax->format("Y"))+1, 6, 30);
 
+///////////////////////////////////////////////////////
 
-$tabModules    = array();
-$tabGroupes    = array();
-$tabTypes      = array();
-$tabTypesEv    = array();
-$tabCreateurs  = array();
-$tabSemaphores = array();
+
+
+
+$tabModules   = array();
+$tabGroupes   = array();
+$tabTypes     = array();
+$tabTypesEv   = array();
+$tabCreateurs = array();
+
 
 if (isset($_POST['DateCreaMin'])) {
 	$dateCreaMin = new DateTime($_POST['DateCreaMin']);
@@ -91,6 +137,18 @@ if (isset($_POST['Createurs'])) {
 	$tabCreateurs = $_POST['Createurs'];
 }
 
+////////////////////////////////////////////////////////////////////
+
+if (isset($_POST['month'])) {
+	$dateCreaMin = new DateTime();
+	$dateCreaMin->setDate($anneeActuelle,$moisActuel+1,1);
+}
+if (isset($_POST['month'])) {
+	$dateCreaMax = new DateTime();
+	$dateCreaMax->setDate($anneeActuelle,$moisActuel+2,0);
+}
+
+////////////////////////////////////////////////////////////////////
 
 
 /* ajout des groupes fils à la liste des groupes sélectionnés */
@@ -121,8 +179,8 @@ foreach ($allSeances as $s) {
 /* @var $seance Seance */
 foreach ($seancesFiltrees as $seance)
 {
-    $seance->obj_module = getModule($seance->getModule());
-    $seance->allEvenements = getEvenementsPourSeance($seance->getIdSeance());
+	$seance->obj_module = getModule($seance->getModule());
+	$seance->allEvenements = getEvenementsPourSeance($seance->getIdSeance());
 
 	/* Selection des évènements par rapport aux filtres */
 
@@ -138,61 +196,38 @@ foreach ($seancesFiltrees as $seance)
 		}
 	}
 
-    /* @var $event Evenement */
-    foreach ($seance->evenements as $event)
-    {
-        $event->nom_type = getTypeEvenement($event->getCategorie())->getLibelle();
-    }
-
-    $seance->nom_type   = getTypeSeance($seance->getType())->getLibelle();
-    $seance->obj_user   = getUtilisateur($seance->getIdUtilisateur());
-
-	array_push($tabSemaphores, getSemaphoreSeUs($seance->getIdSeance(), $_SESSION['login']));
-}
-
-if (isset($_POST['save'])) {
-	foreach ($tabSemaphores as $semaphore) {
-		if ($semaphore !== null) {
-			if (isset($_POST['sem'])) {
-				if (in_array($semaphore->getIdSeance(), $_POST['sem'])) {
-					updateSemaphore($semaphore->getIdSeance(), $_SESSION['login'], "t");
-					$semaphore->setEtat("t");
-				}
-				else {
-					updateSemaphore($semaphore->getIdSeance(), $_SESSION['login'], "f");
-					$semaphore->setEtat("f");
-				}
-			}
-			else {
-				updateSemaphore($semaphore->getIdSeance(), $_SESSION['login'], "f");
-				$semaphore->setEtat("f");
-			}
-		}
+	/* @var $event Evenement */
+	foreach ($seance->evenements as $event)
+	{
+		$event->nom_type = getTypeEvenement($event->getCategorie())->getLibelle();
 	}
+
+	$seance->nom_type   = getTypeSeance($seance->getType())->getLibelle();
+	$seance->obj_user   = getUtilisateur($seance->getIdUtilisateur());
 }
 
 echo $tpl->render(array("titre"=>"Accueil",
-    "sections"=>array(
-        array(
-            "nom"=>"Visualiser",
-            "url"=>"https://hooooooooo.com/"
-        ),
-        array(
-            "nom"=>"Etat",
-            "url"=>"https://www.ebay.com/p/1942719?iid=182754789929"
-        ),
-        array(
-            "nom"=>"Parametrage",
-            "url"=>"page_listUtilisateurs.php"
-        )
-    ),
-    "options"=>array(
-        array(
-            "nom", "Google",
-            "url", "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        )
-    ),
-    "seances"        => $seancesFiltrees,
+	"sections"=>array(
+		array(
+			"nom"=>"Visualiser",
+			"url"=>"https://hooooooooo.com/"
+		),
+		array(
+			"nom"=>"Etat",
+			"url"=>"https://www.ebay.com/p/1942719?iid=182754789929"
+		),
+		array(
+			"nom"=>"Parametrage",
+			"url"=>"page_listUtilisateurs.php"
+		)
+	),
+	"options"=>array(
+		array(
+			"nom", "Google",
+			"url", "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+		)
+	),
+	"seances"        => $seancesFiltrees,
 	"modules"        => $modules,
 	"types"          => $types,
 	"groupes"        => $groupes,
@@ -203,9 +238,11 @@ echo $tpl->render(array("titre"=>"Accueil",
 	"tabTypesEv"     => $tabTypesEv,
 	"tabGroupes"     => $tabGroupes,
 	"tabCreateurs"   => $tabCreateurs,
-	"tabSemaphores"  => $tabSemaphores,
 	"dateMin"        => strval($dateCreaMin->format("Y-m-d")),
 	"dateMax"        => strval($dateCreaMax->format("Y-m-d")),
 	"dateEvMin"      => strval($echeanceMin->format("Y-m-d")),
 	"dateEvMax"      => strval($echeanceMax->format("Y-m-d")),
+	"moisActuel"     => $tabMois[$moisActuel]." ".$anneeActuelle,
+	"chiffreMois"    => $moisActuel,
+	"chiffreAnnee"   => $anneeActuelle,
 ));
