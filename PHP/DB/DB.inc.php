@@ -262,13 +262,12 @@ class DB {
 
 	public function getDerniereSeance() {
         // Permet de récupérer le tuple complet avec le dernier ID
-		$requete = 'select max(id_seance), "module", date_creation, 
-                    date_modif, type, groupe, id_utilisateur from seance';
-        return $this->execQuery($requete,null,'');
+		$requete = "select * from seance where id_seance = (select max(id_seance) from seance)";
+        return $this->execQuery($requete,null,'Seance');
 	}
 
 	public function getSeances() {
-        $requete = 'select * from seance';
+        $requete = 'select * from seance order by id_seance asc';
         return $this->execQuery($requete,null,'Seance');
     }
 
@@ -325,8 +324,8 @@ class DB {
     }
 
     public function addEvenement($categorie, $description, $pj, $temps, $pour_le, $id_seance) {
-		$requete = "update seance set date_modif = ? where id_seance = $id_seance";
-		$tparam  = array(date("Y-m-d"));
+		$requete = "update seance set date_modif = ? where id_seance = ?";
+		$tparam  = array(date("Y-m-d"), $id_seance);
 		$this->execMaj($requete, $tparam);
         $requete = 'insert into evenement (categorie,description,pj,temps,pour_le,id_seance) values (?,?,?,?,?,?)';
         $tparam = array($categorie,$description,$pj,$temps,$pour_le,$id_seance);

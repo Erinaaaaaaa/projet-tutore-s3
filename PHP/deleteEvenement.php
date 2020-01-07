@@ -1,5 +1,5 @@
 <?php
-
+chdir("..");
 require_once 'DB/DB.inc.php';
 
 

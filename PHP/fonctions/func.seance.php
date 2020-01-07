@@ -47,8 +47,8 @@ function addSeance(string $module, string $date_creation, string $type,
 		$db->addSeance($module, $date_creation, $type, $groupe, $id_utilisateur);
 		$utilisateurs = $db->getUtilisateurs();
 		foreach ($utilisateurs as $utilisateur) {
-			$db->addSemaphore($db->getDerniereSeance()->getIdSeance(), $utilisateur->getIdUtilisateur());
-		}
+			$db->addSemaphore($db->getDerniereSeance()[0]->getIdSeance(), $utilisateur->getIdUtilisateur());
+        }
         return true;
     } catch (PDOException $e) {
 echo "exception".$e->getMessage();

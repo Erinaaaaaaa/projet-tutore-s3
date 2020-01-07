@@ -1,5 +1,5 @@
 <?php
-
+chdir("..");
 require "DB/DB.inc.php";
 
 function isUtilisateurOk($id,$mdp)

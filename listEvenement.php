@@ -27,7 +27,7 @@ foreach ($tabEvenement as $value) {
     $duree = $value->getTemps();
 
     if ($duree == "" || $duree == null)
-        $duree = "0:0";
+        $duree = "0:0"; 
 
     list($heure,$minute) = explode(':', $duree);
 
