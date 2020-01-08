@@ -1,26 +1,7 @@
 {% extends "base.twig"%}
 
 {% block css %}
-    <style>
-        table {border: solid 5px lightseagreen;
-            border-collapse: collapse;
-            font-size: medium;
-            empty-cells: show;
-        }
-
-        th, td {
-            padding: 2px 8px;
-            border: solid 1px lightseagreen;
-        }
-
-        tr:nth-child(odd) {
-            background-color: #FFC; /* jaune */
-        }
-
-        table img {
-            height: 12px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/style/debug-table.css">
 {% endblock %}
 
 {% block js %}

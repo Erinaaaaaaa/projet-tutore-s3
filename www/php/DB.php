@@ -178,6 +178,11 @@ class DB
         return $this->query("SELECT * FROM Module", null, Module::class);
     }
 
+    public function deleteModule($code)
+    {
+        return $this->update("DELETE FROM Module WHERE Code = ?", array($code)) > 0;
+    }
+
     // ===== AFFECTATIONS =====
 
     public function getAffectations()

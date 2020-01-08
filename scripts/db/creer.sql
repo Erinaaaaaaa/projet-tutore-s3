@@ -49,7 +49,8 @@ CREATE TABLE Module
 (
     Code              VARCHAR(8) PRIMARY KEY,
     Libelle           VARCHAR(20),
-    Couleur           VARCHAR(7), -- Autant stocker le # avec
+    Couleur           VARCHAR(6),
+    Droits            VARCHAR(3),
     Date_Creation     DATE DEFAULT now(),
     Date_Modification DATE DEFAULT now()
 );

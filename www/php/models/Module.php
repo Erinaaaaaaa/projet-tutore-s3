@@ -7,6 +7,7 @@ class Module
     private $code;
     private $libelle;
     private $couleur;
+    private $droits;
     private $date_creation;
     private $date_modification;
 
@@ -15,10 +16,11 @@ class Module
      * @param $code
      * @param $libelle
      * @param $couleur
+     * @param $droits
      * @param $date_creation
      * @param $date_modification
      */
-    public function __construct($code="", $libelle="", $couleur="", $date_creation=null, $date_modification=null)
+    public function __construct($code="", $libelle="", $couleur="", $droits="", $date_creation=null, $date_modification=null)
     {
         $this->code = $code;
         $this->libelle = $libelle;
@@ -30,6 +32,7 @@ class Module
     public function getCode(){return $this->code;}
     public function getLibelle(){return $this->libelle;}
     public function getCouleur(){return $this->couleur;}
+    public function getDroits(){return $this->droits;}
     public function getDateCreation(){return $this->date_creation;}
     public function getDateModification(){return $this->date_modification;}
 
