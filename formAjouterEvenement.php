@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 }
 
 //Colonne Role dans la table Type Event
+$typeevenement = getTypesEvenement();
 $user = getUtilisateur($_SESSION['login']);
 $roleUser = $user->getRole(); //1
 $length = strlen($roleUser); //2
