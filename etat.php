@@ -83,7 +83,11 @@ $dateMax->setDate(date("Y"), date('m'), 1);
 if (intval($date->diff($dateMax)->format("%R%d")) < 0)
 	$dateMax->setDate(intval($dateMax->format("Y"))+1, 6, 30);
 
+$dateCreaMinMois = new DateTime();
+$dateCreaMinMois->setDate($anneeActuelle, $moisActuel+1, 1);
 
+$dateCreaMaxMois = new DateTime();
+$dateCreaMaxMois->setDate($anneeActuelle, $moisActuel+2, 1);
 
 $crea    = getUtilisateur($_SESSION['login'])->getCreeLe();
 list($year,$month,$day) = explode('-', $crea);
@@ -125,8 +129,14 @@ $tabSemaphores = array();
 if (isset($_POST['DateCreaMin'])) {
 	$dateCreaMin = new DateTime($_POST['DateCreaMin']);
 }
+else {
+	$dateCreaMin = $dateCreaMinMois;
+}
 if (isset($_POST['DateCreaMax'])) {
 	$dateCreaMax = new DateTime($_POST['DateCreaMax']);
+}
+else {
+	$dateCreaMax = $dateCreaMaxMois;
 }
 if (isset($_POST['EcheanceMin'])) {
 	$echeanceMin = new DateTime($_POST['EcheanceMin']);
@@ -301,8 +311,10 @@ echo $tpl->render(array("titre"=>"Accueil",
 	"tabSemaphores"  => $tabSemaphores,
 	"debutAnnee"     => strval($dateMin->format("Y-m-d")),
 	"finAnnee"       => strval($dateMax->format("Y-m-d")),
-	"dateMin"        => strval($dateCreaMin->format("Y-m-d")),
-	"dateMax"        => strval($dateCreaMax->format("Y-m-d")),
+	"dateCreaMinMois"=> strval($dateCreaMinMois->format("Y-m-d")),
+	"dateCreaMaxMois"=> strval($dateCreaMaxMois->format("Y-m-d")),
+	"dateCreaMin"    => strval($dateCreaMin->format("Y-m-d")),
+	"dateCreaMax"    => strval($dateCreaMax->format("Y-m-d")),
 	"dateEvMin"      => strval($echeanceMin->format("Y-m-d")),
 	"dateEvMax"      => strval($echeanceMax->format("Y-m-d")),
 	"moisActuel"     => $tabMois[$moisActuel]." ".$anneeActuelle,
