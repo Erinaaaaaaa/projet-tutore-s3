@@ -1,7 +1,6 @@
 <?php
 
 chdir("..");
-
 session_start();
 require_once "PHP/fonctions/func.seance.php";
 require_once("PHP/Twig/lib/Twig/Autoloader.php");
@@ -19,9 +18,7 @@ if ($db == null) {
 } else {
 	if(isset($_GET['id'])) {
 
-		echo 'test2';
     	$seance = getSeanceIdSc($_GET['id'])[0];
-    	echo $seance;
     	if( $seance->getIdUtilisateur() === $_SESSION['login']) {
     		try {
 				$db->deleteEvenementsForSeance($_GET['id']);

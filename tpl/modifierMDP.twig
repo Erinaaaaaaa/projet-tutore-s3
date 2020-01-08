@@ -1,0 +1,42 @@
+{% extends "base.twig" %}
+
+{% block css %}
+<style>
+    h2, p {
+        text-align: center;
+    }
+
+    .select {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        max-width: 300px;
+        margin: auto;
+    }
+    
+    input {
+    	align:center;
+    }
+
+
+</style>
+{% endblock %}
+
+{% block contenu %}
+	<form action="modifierMDP.php" method="post">
+		<div class="select">
+			Mot de passe actuel
+			<input type="password" name="oldPass">
+			Nouveau Mot de passe
+			<input type="password" name="newPass1">
+			Nouveau Mot de passe
+			<input type="password" name="newPass2">
+			<span style="color:red">{{erreur}}</span>
+			<p>
+				<input type="submit" name="ok" value="OK">
+				<input type="reset"  name="annuler" value="Annuler">
+			</p>
+		</div>
+	</form>
+{% endblock %}

@@ -1,5 +1,5 @@
 <?php
-chdir("..");
+
 require_once 'PHP/DB/DB.inc.php';
 
 function isUtilisateurOk($id,$mdp)

@@ -1,5 +1,5 @@
 <?php
-chdir("..");
+chdir(".."); 
 require 'PHP/consultUtilisateur.php';
 require_once 'PHP/DB/DB.inc.php';
 

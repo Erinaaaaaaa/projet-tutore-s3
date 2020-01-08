@@ -1,12 +1,12 @@
 <?php
 session_start();
-
+ 
 require_once "PHP/fonctions/func.seance.php";
 require_once("PHP/Twig/lib/Twig/Autoloader.php");
 require_once "PHP/fonctions/func.typeseance.php";
 require_once "PHP/fonctions/func.modules.php";
 require_once "PHP/fonctions/func.groupes.php";
-
+require_once "PHP/fonctions/func.users.php";
 
 // Vérification de session
 if (!isset($_SESSION['login'])) {
@@ -18,7 +18,6 @@ $twig = new Twig_Environment(new Twig_Loader_Filesystem("./tpl"));
 $tpl = $twig->resolveTemplate("ajoutSeance.twig");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
     $id            = $_GET['id_seance'];
     $idModule      = $_POST['Module'];
     $idType        = $_POST['Type'];
@@ -46,11 +45,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: listSeance.php");
 
 } else {   
-    
+        
         if(isset($_GET['id_seance'])) {
 
             $seance = getSeanceIdSc($_GET['id_seance'])[0];
-            if( $seance->getIdUtilisateur() === $_SESSION['login']) {
+            $utilisateur = getUtilisateur($_SESSION['login']);
+            $role = $utilisateur->getRole();
+            if( $seance->getIdUtilisateur() === $_SESSION['login'] || strpos($role, 'T') == 0) {
 
             echo $tpl->render(array("id" => $_GET['id_seance'], "id_mod" => $seance->getModule(), "modules" => getAllModules(),
 	   		"typeActuel" => $seance->getType(), "types" => getTypesSeance(),
@@ -59,9 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             else
             {
+
                 header("Location: listSeance.php");
             }
         } else {
+
             echo $tpl->render(array());
         }
     }

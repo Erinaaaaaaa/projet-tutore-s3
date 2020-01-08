@@ -32,7 +32,11 @@
 			<a class="button" href="parametrage.php">Parametrage</a>
 
 		{%endif%}
+        {% if 'T' in user.getRole() %}
 
+            <a class="button" href="parametrage.php">Parametrage</a>
+
+        {%endif%}
 		<a class="button" href="saisie.php">Saisie</a>
 	    <a class="button" href="etat.php">Visualisation</a>
 
