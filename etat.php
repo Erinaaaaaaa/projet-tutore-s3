@@ -71,21 +71,34 @@ $groupes        = getGroupes();
 $users          = getAllUtilisateurs();
 $typesEvenement = getTypesEvenement();
 
+$date = new DateTime(date("Y-m-d"));
+
 $dateMin = new DateTime('09/01');
+$dateMin->setDate(date("Y"), date('m'), 1);
+if (intval($date->diff($dateMin)->format("%R%d")) > 0)
+	$dateMin->setDate(intval($dateMin->format("Y"))-1, 9, 1);
+
 $dateMax = new DateTime('06/30');
+$dateMax->setDate(date("Y"), date('m'), 1);
+if (intval($date->diff($dateMax)->format("%R%d")) < 0)
+	$dateMax->setDate(intval($dateMax->format("Y"))+1, 6, 30);
+
+
+
 $crea    = getUtilisateur($_SESSION['login'])->getCreeLe();
 list($year,$month,$day) = explode('-', $crea);
 $date2 = new DateTime();
 $date2->setDate( $year, 9, 1);
 
 /* De façon à ne pas pourvoir entrer une date incohérente : */
-$date = new DateTime(date("Y-m-d"));
 
-$dateCreaMin  = new DateTime('09/01');
+$dateCreaMin  = new DateTime();
+$dateCreaMin->setDate(date("Y"), date('m'), 1);
 if (intval($date->diff($dateCreaMin)->format("%R%d")) > 0)
 	$dateCreaMin->setDate(intval($dateCreaMin->format("Y"))-1, 9, 1);
 
-$dateCreaMax  = new DateTime('06/30');
+$dateCreaMax  = new DateTime();
+$dateCreaMax->setDate(date("Y"), date('m')+1, 1);
 if (intval($date->diff($dateCreaMax)->format("%R%d")) < 0)
 	$dateCreaMax->setDate(intval($dateCreaMax->format("Y"))+1, 6, 30);
 
@@ -102,12 +115,12 @@ if (intval($date->diff($echeanceMax)->format("%R%d")) < 0)
 
 
 
-$tabModules   = array();
-$tabGroupes   = array();
-$tabTypes     = array();
-$tabTypesEv   = array();
-$tabCreateurs = array();
-
+$tabModules    = array();
+$tabGroupes    = array();
+$tabTypes      = array();
+$tabTypesEv    = array();
+$tabCreateurs  = array();
+$tabSemaphores = array();
 
 if (isset($_POST['DateCreaMin'])) {
 	$dateCreaMin = new DateTime($_POST['DateCreaMin']);
@@ -179,8 +192,8 @@ foreach ($allSeances as $s) {
 /* @var $seance Seance */
 foreach ($seancesFiltrees as $seance)
 {
-	$seance->obj_module = getModule($seance->getModule());
-	$seance->allEvenements = getEvenementsPourSeance($seance->getIdSeance());
+    $seance->obj_module = getModule($seance->getModule());
+    $seance->allEvenements = getEvenementsPourSeance($seance->getIdSeance());
 
 	/* Selection des évènements par rapport aux filtres */
 
@@ -196,38 +209,85 @@ foreach ($seancesFiltrees as $seance)
 		}
 	}
 
-	/* @var $event Evenement */
-	foreach ($seance->evenements as $event)
-	{
-		$event->nom_type = getTypeEvenement($event->getCategorie())->getLibelle();
-	}
+    /* @var $event Evenement */
+    foreach ($seance->evenements as $event)
+    {
+        $event->nom_type = getTypeEvenement($event->getCategorie())->getLibelle();
+    }
 
-	$seance->nom_type   = getTypeSeance($seance->getType())->getLibelle();
-	$seance->obj_user   = getUtilisateur($seance->getIdUtilisateur());
+    $seance->nom_type   = getTypeSeance($seance->getType())->getLibelle();
+    $seance->obj_user   = getUtilisateur($seance->getIdUtilisateur());
+
+	array_push($tabSemaphores, getSemaphoreSeUs($seance->getIdSeance(), $_SESSION['login']));
+}
+
+/* association des séances avec leur numero de semaine */
+
+$tabSeancesFiltrees = array();
+
+foreach ($seancesFiltrees as $seance) {
+	if (!array_key_exists(date($seance->getDateCreation()), $tabSeancesFiltrees)) {
+		$date = new DateTime(date($seance->getDateCreation()));
+		$numSemaine     = $date->format("W");
+		$seancesSemaine = array();
+
+		foreach ($seancesFiltrees as $s) {
+			$dateSeance       = new DateTime(date($s->getDateCreation()));
+			$numSemaineSeance = $dateSeance->format("W");
+			if ($numSemaineSeance == $numSemaine) {
+				array_push($seancesSemaine, $s);
+			}
+		}
+
+		$tabSeancesFiltrees[$numSemaine] = $seancesSemaine;
+	}
+}
+
+/* sauvegarde des sémaphores */
+
+if (isset($_POST['save'])) {
+	foreach ($tabSemaphores as $semaphore) {
+		if ($semaphore !== null) {
+			if (isset($_POST['sem'])) {
+				if (in_array($semaphore->getIdSeance(), $_POST['sem'])) {
+					updateSemaphore($semaphore->getIdSeance(), $_SESSION['login'], "t");
+					$semaphore->setEtat("t");
+				}
+				else {
+					updateSemaphore($semaphore->getIdSeance(), $_SESSION['login'], "f");
+					$semaphore->setEtat("f");
+				}
+			}
+			else {
+				updateSemaphore($semaphore->getIdSeance(), $_SESSION['login'], "f");
+				$semaphore->setEtat("f");
+			}
+		}
+	}
 }
 
 echo $tpl->render(array("titre"=>"Accueil",
-	"sections"=>array(
-		array(
-			"nom"=>"Visualiser",
-			"url"=>"https://hooooooooo.com/"
-		),
-		array(
-			"nom"=>"Etat",
-			"url"=>"https://www.ebay.com/p/1942719?iid=182754789929"
-		),
-		array(
-			"nom"=>"Parametrage",
-			"url"=>"page_listUtilisateurs.php"
-		)
-	),
-	"options"=>array(
-		array(
-			"nom", "Google",
-			"url", "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-		)
-	),
-	"seances"        => $seancesFiltrees,
+    "sections"=>array(
+        array(
+            "nom"=>"Visualiser",
+            "url"=>"https://hooooooooo.com/"
+        ),
+        array(
+            "nom"=>"Etat",
+            "url"=>"https://www.ebay.com/p/1942719?iid=182754789929"
+        ),
+        array(
+            "nom"=>"Parametrage",
+            "url"=>"page_listUtilisateurs.php"
+        )
+    ),
+    "options"=>array(
+        array(
+            "nom", "Google",
+            "url", "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        )
+    ),
+    "tabSeances"        => $tabSeancesFiltrees,
 	"modules"        => $modules,
 	"types"          => $types,
 	"groupes"        => $groupes,
@@ -238,6 +298,9 @@ echo $tpl->render(array("titre"=>"Accueil",
 	"tabTypesEv"     => $tabTypesEv,
 	"tabGroupes"     => $tabGroupes,
 	"tabCreateurs"   => $tabCreateurs,
+	"tabSemaphores"  => $tabSemaphores,
+	"debutAnnee"     => strval($dateMin->format("Y-m-d")),
+	"finAnnee"       => strval($dateMax->format("Y-m-d")),
 	"dateMin"        => strval($dateCreaMin->format("Y-m-d")),
 	"dateMax"        => strval($dateCreaMax->format("Y-m-d")),
 	"dateEvMin"      => strval($echeanceMin->format("Y-m-d")),
