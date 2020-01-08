@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2698e808-74dd-45b3-8959-6721cae4d93a" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="PostgreSQL - diskus2@diskus.top" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="PostgreSQL - diskus2@diskus.top" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="PostgreSQL - diskus2@diskus.top" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="diskus2: database" type="162271b6:PgImplModel$Database" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="PostgreSQL - diskus2@diskus.top" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="diskus2: database" type="162271b6:PgImplModel$Database" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="PostgreSQL - diskus2@diskus.top" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="diskus2: database" type="162271b6:PgImplModel$Database" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="PostgreSQL - diskus2@diskus.top" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="diskus2: database" type="162271b6:PgImplModel$Database" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
+        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="PostgreSQL - diskus2@diskus.top" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="diskus2: database" type="162271b6:PgImplModel$Database" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
+        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="seance: table" type="69fad909:PgImplModel$LocalTable" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1W4rihrfxXhwfsHImmgmuNPXthc" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="postgresql" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="database.data.extractors.current.id" value="SQL Inserts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/www/api" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\black\Git\projet-rewrite\www" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\black\Git\projet-rewrite\www\api" />
+      <recent name="C:\Users\black\Git\projet-rewrite\www\param" />
+      <recent name="C:\Users\black\Git\projet-rewrite\www\param\tpl" />
+      <recent name="C:\Users\black\Git\projet-rewrite\www\style" />
+      <recent name="C:\Users\black\Git\projet-rewrite\www\tpl" />
+    </key>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:PostgreSQL - diskus2@diskus.top" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:PostgreSQL - diskus2@diskus.top" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@48dd2ed4" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+            </expand>
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2698e808-74dd-45b3-8959-6721cae4d93a" name="Default Changelist" comment="" />
+      <created>1578419836299</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1578419836299</updated>
+      <workItem from="1578419838019" duration="29236000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="275" y="21" key="#Deployment" timestamp="1578420214369">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="21" key="#Deployment/0.0.1366.728@0.0.1366.728" timestamp="1578420214369" />
+    <state x="275" y="21" key="#Inspections" timestamp="1578442906683">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="21" key="#Inspections/0.0.1366.728@0.0.1366.728" timestamp="1578442906683" />
+    <state x="0" y="0" key="#Live_Templates" timestamp="1578436200716">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="0" y="0" key="#Live_Templates/0.0.1366.728@0.0.1366.728" timestamp="1578436200716" />
+    <state x="275" y="21" key="#SQL_Dialects" timestamp="1578420813551">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="21" key="#SQL_Dialects/0.0.1366.728@0.0.1366.728" timestamp="1578420813551" />
+    <state x="399" y="216" width="684" height="295" key="#com.intellij.codeInsight.template.impl.EditVariableDialog" timestamp="1578436287959">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="399" y="216" width="684" height="295" key="#com.intellij.codeInsight.template.impl.EditVariableDialog/0.0.1366.728@0.0.1366.728" timestamp="1578436287959" />
+    <state x="275" y="21" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578423746084">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="21" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1578423746084" />
+    <state x="488" y="79" key="#com.intellij.ide.util.MemberChooser" timestamp="1578441157884">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="488" y="79" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1578441157884" />
+    <state x="248" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1578428767049">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="248" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728@0.0.1366.728" timestamp="1578428767049" />
+    <state x="463" y="117" key="FileChooserDialogImpl" timestamp="1578420157635">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="117" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1578420157635" />
+    <state width="905" height="179" key="GridCell.Tab.0.bottom" timestamp="1578451502695">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="905" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1578451502695" />
+    <state width="905" height="179" key="GridCell.Tab.0.center" timestamp="1578451502695">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="905" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1578451502695" />
+    <state width="905" height="179" key="GridCell.Tab.0.left" timestamp="1578451502695">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="905" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1578451502695" />
+    <state width="905" height="179" key="GridCell.Tab.0.right" timestamp="1578451502695">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="905" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1578451502695" />
+    <state x="465" y="182" key="NewPhpClassDialog" timestamp="1578441115776">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="465" y="182" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1578441115776" />
+    <state x="517" y="286" key="NewPhpFileDialog" timestamp="1578447778580">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="517" y="286" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1578447778580" />
+    <state x="55" y="11" key="SettingsEditor" timestamp="1578439696859">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="55" y="11" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1578439696859" />
+    <state x="555" y="254" width="326" height="234" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1578441088898">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="555" y="254" width="326" height="234" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1366.728@0.0.1366.728" timestamp="1578441088898" />
+    <state x="379" y="101" width="607" height="526" key="find.popup" timestamp="1578438144267">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="379" y="101" width="607" height="526" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1578438144267" />
+    <state x="567" y="93" width="475" height="541" key="ftp.server.browser" timestamp="1578420210841">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="567" y="93" width="475" height="541" key="ftp.server.browser/0.0.1366.728@0.0.1366.728" timestamp="1578420210841" />
+    <state x="339" y="162" key="run.anything.popup" timestamp="1578446878134">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1578446878134" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1578445014290">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1578445014290" />
+  </component>
+</project>

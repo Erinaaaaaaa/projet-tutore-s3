@@ -1,0 +1,51 @@
+{% extends "base.twig" %}
+
+{% block css %}
+<style>
+    h2, h3, p {
+        text-align: center;
+    }
+
+	h3 {
+		margin: 8px 0;
+	}
+
+    .select {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        max-width: 300px;
+        margin: auto;
+    }
+
+
+</style>
+{% endblock %}
+
+{% block contenu %}
+    <h2>Bienvenue, {{ user.getPrenom() }} {{ user.getNom() }} !</h2>
+
+	<div class="select">
+		<h2>GOOD</h2>
+		<a class="button" href="groupes.php">Gestion des groupes</a>
+		<h2>BAD</h2>
+		<h3>Groupes</h3>
+	    <a class="button" href="creationGroupe.php">creationGroupe.php</a>
+		<h3>Affectations</h3>
+		<a class="button" href="listAffectations.php">listAffectations.php</a>
+		<h3>Utilisateurs</h3>
+	    <a class="button" href="listUtilisateurs.php">listUtilisateurs.php</a>
+		<h3>Séances</h3>
+		<a class="button" href="listSeance.php">listeSeance.php</a>
+		<h3>Evenements</h3>
+		<a class="button" href="listEvenement.php">listeEvenement.php</a>
+		<a class="button" href="listTypeEvenement.php">listeTypeEvenement.php</a>
+		<h3>Modules</h3>
+	    <a class="button" href="formAjouterModule.php">Ajouter Module</a>
+	    <a class="button" href="formConsultationModule.php">Consultation Module</a>
+	    <a class="button" href="debutModifierModule.php">Modifier Module</a>
+
+	</div>
+
+{% endblock %}

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="diskus@diskus.top" uuid="b534d840-3de9-489c-82b9-ac92a045cae5">
+    <data-source source="LOCAL" name="PostgreSQL - diskus2@diskus.top" uuid="64fb4808-0e00-41e3-a35c-c65ac42a871a">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://diskus.top:5432/diskus</jdbc-url>
+      <jdbc-url>jdbc:postgresql://diskus.top:5432/diskus2</jdbc-url>
     </data-source>
   </component>
 </project>
