@@ -158,6 +158,20 @@ class DB {
         $tparam = array($id,$nom,$prenom,$mdp,$role,$groupe,$oldId);
         return $this->execMaj($requete,$tparam);
     }
+	
+    public function updateMdpUtilisateur($id, $mdp)
+    {
+        $requete = "update utilisateur set mdp = ? where id_utilisateur = ?";
+        $tparam = array($mdp,$id);
+        return $this->execMaj($requete,$tparam);
+    }
+	
+    //TODO: A voir pour remplacer avec un trieur
+    public function getUtilisateurMdp($id, $mdp) {
+        $requete = 'select * from utilisateur where id_utilisateur = ? and mdp = ?';
+        $tparam = array($id, $mdp);
+        return $this->execQuery($requete,$tparam,"Utilisateur");
+    }
 
     public function deleteUtilisateur($id) {
         $requete = 'delete from utilisateur where id_utilisateur = ?';
@@ -324,10 +338,9 @@ class DB {
     }
 
     public function addEvenement($categorie, $description, $pj, $temps, $pour_le, $id_seance) {
-		echo "<div>$categorie : $description : $id_seance</div>";
-		$requete = "update seance set date_modif = ? where id_seance = ?";
-		$tparam  = array(date("Y-m-d"), $id_seance);
-		$this->execMaj($requete, $tparam);
+	$requete = "update seance set date_modif = ? where id_seance = ?";
+	$tparam  = array(date("Y-m-d"), $id_seance);
+	$this->execMaj($requete, $tparam);
         $requete = 'insert into evenement (categorie,description,pj,temps,pour_le,id_seance) values (?,?,?,?,?,?)';
         $tparam = array($categorie,$description,$pj,$temps,$pour_le,$id_seance);
         return $this->execMaj($requete,$tparam);
@@ -392,6 +405,12 @@ class DB {
     public function getTypesEvenement() {
         $requete = 'select * from typeevenements';
         return $this->execQuery($requete,null,'Typeevenement');
+    }
+	
+    public function getTypeEvenementRole($role){
+        $requete = 'select * from typeevenements where roles = ?';
+        $tparam  = array($role);
+        return $this->execQuery($requete,$tparam,'Typeevenement');
     }
 
     public function getTypeEvenement($id) {
