@@ -12,7 +12,7 @@
     <database id="3" parent="1" name="diskus2">
       <ObjectId>16774</ObjectId>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>1642</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1706</IntrospectionStateNumber>
       <Current>1</Current>
       <Relations>sequence|table|17150|17152|1
 sequence|table|17159|17161|1
@@ -84,7 +84,7 @@ sequence|table|17249|17251|1
       <Comment>standard public schema</Comment>
       <StateNumber>276</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>1643</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1707</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <access-method id="19" parent="3" name="heap">
@@ -246,7 +246,7 @@ sequence|table|17249|17251|1
     <table id="42" parent="18" name="type_seance">
       <ObjectId>17152</ObjectId>
       <Owner>diskus2</Owner>
-      <StateNumber>1558</StateNumber>
+      <StateNumber>1694</StateNumber>
     </table>
     <table id="43" parent="18" name="utilisateur">
       <ObjectId>17134</ObjectId>
@@ -257,7 +257,7 @@ sequence|table|17249|17251|1
       <ObjectId>17278</ObjectId>
       <Owner>diskus2</Owner>
       <SourceTextLength>610</SourceTextLength>
-      <StateNumber>1630</StateNumber>
+      <StateNumber>1703</StateNumber>
       <VolatilityKind>volatile</VolatilityKind>
       <ResultsDefinition>trigger</ResultsDefinition>
       <LanguageName>plpgsql</LanguageName>
@@ -763,101 +763,107 @@ seance</ColNames>
       <DefaultExpression>true</DefaultExpression>
       <TypeId>16</TypeId>
     </column>
-    <index id="113" parent="42" name="type_seance_pkey">
+    <column id="113" parent="42" name="roles">
+      <Position>4</Position>
+      <DataType>varchar(3)|0s</DataType>
+      <StateNumber>1694</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="114" parent="42" name="type_seance_pkey">
       <ObjectId>17157</ObjectId>
       <StateNumber>1554</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="114" parent="42" name="type_seance_pkey">
+    <key id="115" parent="42" name="type_seance_pkey">
       <ObjectId>17158</ObjectId>
       <StateNumber>1554</StateNumber>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>type_seance_pkey</UnderlyingIndexName>
     </key>
-    <column id="115" parent="43" name="id">
+    <column id="116" parent="43" name="id">
       <Position>1</Position>
       <DataType>varchar(15)|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>1552</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="116" parent="43" name="mdp">
+    <column id="117" parent="43" name="mdp">
       <Position>2</Position>
       <DataType>varchar(60)|0s</DataType>
       <StateNumber>1552</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="117" parent="43" name="nom">
+    <column id="118" parent="43" name="nom">
       <Position>3</Position>
       <DataType>varchar(20)|0s</DataType>
       <StateNumber>1552</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="118" parent="43" name="prenom">
+    <column id="119" parent="43" name="prenom">
       <Position>4</Position>
       <DataType>varchar(20)|0s</DataType>
       <StateNumber>1552</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="119" parent="43" name="roles">
+    <column id="120" parent="43" name="roles">
       <Position>5</Position>
       <DataType>varchar(3)|0s</DataType>
       <StateNumber>1552</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="120" parent="43" name="groupes">
+    <column id="121" parent="43" name="groupes">
       <Position>6</Position>
       <DataType>varchar(1024)|0s</DataType>
       <StateNumber>1552</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="121" parent="43" name="date_creation">
+    <column id="122" parent="43" name="date_creation">
       <Position>7</Position>
       <DataType>date|0s</DataType>
       <StateNumber>1552</StateNumber>
       <DefaultExpression>now()</DefaultExpression>
       <TypeId>1082</TypeId>
     </column>
-    <column id="122" parent="43" name="date_modification">
+    <column id="123" parent="43" name="date_modification">
       <Position>8</Position>
       <DataType>date|0s</DataType>
       <StateNumber>1552</StateNumber>
       <DefaultExpression>now()</DefaultExpression>
       <TypeId>1082</TypeId>
     </column>
-    <column id="123" parent="43" name="mdp_new">
+    <column id="124" parent="43" name="mdp_new">
       <Position>9</Position>
       <DataType>boolean|0s</DataType>
       <StateNumber>1552</StateNumber>
       <DefaultExpression>true</DefaultExpression>
       <TypeId>16</TypeId>
     </column>
-    <index id="124" parent="43" name="utilisateur_pkey">
+    <index id="125" parent="43" name="utilisateur_pkey">
       <ObjectId>17143</ObjectId>
       <StateNumber>1552</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="125" parent="43" name="utilisateur_pkey">
+    <key id="126" parent="43" name="utilisateur_pkey">
       <ObjectId>17144</ObjectId>
       <StateNumber>1552</StateNumber>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>utilisateur_pkey</UnderlyingIndexName>
     </key>
-    <trigger id="126" parent="43" name="trig_user_update">
-      <ObjectId>17279</ObjectId>
-      <StateNumber>1631</StateNumber>
-      <Turn>before-stmt</Turn>
+    <trigger id="127" parent="43" name="trig_user_update">
+      <ObjectId>17285</ObjectId>
+      <StateNumber>1705</StateNumber>
+      <Turn>before-row</Turn>
       <Events>U</Events>
       <FireMode>origin</FireMode>
       <CallRoutineId>17278</CallRoutineId>
     </trigger>
-    <argument id="127" parent="44">
+    <argument id="128" parent="44">
       <ArgumentDirection>R</ArgumentDirection>
       <DataType>trigger|0s</DataType>
     </argument>

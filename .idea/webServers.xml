@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="80105d0f-f8a2-442d-88f0-2976464ee10e" name="platea" url="https://diskus.top">
-        <fileTransfer host="platea.moe" port="22" privateKey="C:\Users\black\.ssh\googlekey" rootFolder="/home/jeremii" accessType="SFTP" keyPair="true">
+        <fileTransfer host="platea.moe" port="22" privateKey="$USER_HOME$/googlekey" rootFolder="/home/jeremii" accessType="SFTP" keyPair="true">
           <advancedOptions>
             <advancedOptions controlEncoding="utf-8" dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

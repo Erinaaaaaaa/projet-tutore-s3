@@ -163,6 +163,16 @@ class DB
 
     // ===== MODULES =====
 
+    public function getModule($code)
+    {
+        if (empty($code)) return null;
+
+        $results = $this->query("SELECT * FROM Module WHERE Code = ?", array($code), Module::class);
+
+        if (sizeof($results) == 1) return $results[0];
+        else return null;
+    }
+
     public function getModules()
     {
         return $this->query("SELECT * FROM Module", null, Module::class);
@@ -222,10 +232,67 @@ class DB
         return $this->update("DELETE FROM Seance WHERE Id = ?", array($id)) > 0;
     }
 
+    // ===== EVENEMENTS =====
+
+    public function getEvenement($id)
+    {
+        if (empty($id)) return null;
+
+        $results = $this->query("SELECT * FROM Evenement WHERE Id = ?",
+            array($id), Evenement::class);
+
+        if (sizeof($results) == 1) return $results[0];
+        else return null;
+    }
+
+    public function getEvenements()
+    {
+        return $this->query("SELECT * FROM Evenement", null, Evenement::class);
+    }
+
+    public function addEvenement($type, $libelle, $date, $duree, $seance)
+    {
+        return $this->update("INSERT INTO Evenement (type, libelle, duree, echeance, seance) VALUES (?, ?, ?, ?, ?)",
+                array($type, $libelle, $duree, $date, $seance)) > 0;
+    }
+
+    public function updateEvenement($id, $type, $libelle, $date, $duree, $seance)
+    {
+        return $this->update("UPDATE Evenement SET Type = ?, Libelle = ?, Echeance = ?, Duree = ?, Seance = ? WHERE Id = ?",
+            array($type, $libelle, $date, $duree, $seance, $id)) > 0;
+    }
+
+    public function deleteEvenement($id)
+    {
+        return $this->update("DELETE FROM Evenement WHERE Id = ?", array($id)) > 0;
+    }
+
     // ===== TYPES SEANCE =====
 
     public function getTypesSeance()
     {
         return $this->query("SELECT * FROM Type_Seance", null, TypeSeance::class);
+    }
+
+    // ===== TYPES EVENEMENT =====
+
+    public function getTypesEvenement()
+    {
+        return $this->query("SELECT * FROM Type_Evenement", null, TypeEvenement::class);
+    }
+
+    public function getTypesEvenementForRoles($roles)
+    {
+        if (strpos($roles, 'A') != -1) return $this->getTypesEvenement();
+
+        $types = [];
+
+        foreach (str_split($roles) as $char)
+        {
+            array_merge_recursive($types, $this->query("SELECT * FROM Type_Evenement WHERE Roles LIKE ?",
+                array("%$char%"), TypeEvenement::class));
+        }
+
+        return $types;
     }
 }

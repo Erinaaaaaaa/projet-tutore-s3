@@ -33,6 +33,7 @@ CREATE TABLE Type_Seance
 (
     Id      SERIAL PRIMARY KEY,
     Libelle VARCHAR(10),
+    Roles   VARCHAR(3),
     Actif   BOOL DEFAULT TRUE
 );
 

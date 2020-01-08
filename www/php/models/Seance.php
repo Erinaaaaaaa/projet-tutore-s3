@@ -13,6 +13,8 @@ class Seance
     private $groupe;
     private $utilisateur;
 
+    public $objmodule;
+
     /**
      * Seance constructor.
      * @param $id
@@ -45,5 +47,12 @@ class Seance
     public function getType(){return $this->type;}
     public function getGroupe(){return $this->groupe;}
     public function getUtilisateur(){return $this->utilisateur;}
+
+    public function getObjmodule() { return $this->objmodule; }
+
+    public function getDateFormatee($format)
+    {
+        return date_format(new DateTime($this->date), $format);
+    }
 
 }

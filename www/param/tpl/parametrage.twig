@@ -27,25 +27,14 @@
     <h2>Bienvenue, {{ user.getPrenom() }} {{ user.getNom() }} !</h2>
 
 	<div class="select">
-		<h2>GOOD</h2>
+		<a class="button" href="utilisateurs.php">Gestion des utilisateurs</a>
+		<a class="button" href="evenements.php">Gestion des évènements</a>
 		<a class="button" href="groupes.php">Gestion des groupes</a>
-		<h2>BAD</h2>
-		<h3>Groupes</h3>
-	    <a class="button" href="creationGroupe.php">creationGroupe.php</a>
-		<h3>Affectations</h3>
-		<a class="button" href="listAffectations.php">listAffectations.php</a>
-		<h3>Utilisateurs</h3>
-	    <a class="button" href="listUtilisateurs.php">listUtilisateurs.php</a>
-		<h3>Séances</h3>
-		<a class="button" href="listSeance.php">listeSeance.php</a>
-		<h3>Evenements</h3>
-		<a class="button" href="listEvenement.php">listeEvenement.php</a>
-		<a class="button" href="listTypeEvenement.php">listeTypeEvenement.php</a>
-		<h3>Modules</h3>
-	    <a class="button" href="formAjouterModule.php">Ajouter Module</a>
-	    <a class="button" href="formConsultationModule.php">Consultation Module</a>
-	    <a class="button" href="debutModifierModule.php">Modifier Module</a>
-
+		<a class="button" href="modules.php">Gestion des modules</a>
+		<a class="button" href="seances.php">Gestion des séances</a>
+		<a class="button" href="affectations.php">Gestion des affectations</a>
+		<a class="button" href="types_evenement.php">Gestion des types d'évènement</a>
+		<a class="button" href="types_seance.php">Gestion des types de séance</a>
 	</div>
 
 {% endblock %}

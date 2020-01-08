@@ -10,22 +10,21 @@ BEGIN
         AND Old.Date_Creation = New.Date_Creation
         AND Old.Date_Modification = New.Date_Modification)
     THEN
-        RAISE NOTICE 'execution du trigger % sur table % impossible car valeur identique', Tg_Name, Tg_Table_Name;
+        RAISE EXCEPTION 'execution du trigger % sur table % impossible car valeur identique', Tg_Name, Tg_Table_Name;
 
     ELSE
-
         -- update utilisateur set maj_le = now() where id_utilisateur = OLD.id_utlisateur;
-
         New.Date_Modification := now();
-
     END IF;
 
     RETURN New;
 END;
 $$ LANGUAGE plpgsql;
 
+DROP TRIGGER Trig_User_Update on Utilisateur;
+
 CREATE TRIGGER Trig_User_Update
     BEFORE UPDATE
     ON Utilisateur
-    FOR EACH STATEMENT
+    FOR EACH ROW
 EXECUTE PROCEDURE trig_user_Update();
