@@ -11,7 +11,7 @@ Twig_Autoloader::register();
 $twig = new Twig_Environment(new Twig_Loader_Filesystem("./tpl"));
 $tpl = $twig->resolveTemplate("ajoutEvenement.twig");
 
-$typesSeance = getTypesEvenement();
+$typeevenement = getTypesEvenement();
 $message = null;
 
 /*
@@ -39,6 +39,30 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 
 }
+//Colonne Role dans la table Type Event
+$user = getUtilisateur($_SESSION['login']);
+$roleUser = $user->getRole(); //1
+$length = strlen($roleUser); //2
+
+
+$tabRoles = array();
+for ($i=0; $i < $length; $i++) { 
+    array_push($tabRoles, $roleUser[$i]); //3
+}
+
+$type2 = array();
+$cpt = 0;
+foreach ($typeevenement as $event) {
+    $typeEvent = $event->getRoles();
+    while ($cpt < $length) { 
+        if( $tabRoles[$cpt] == $typeEvent ){
+            array_push($type2, $event);
+        }
+        $cpt++;
+    }
+    
+    $cpt=0;
+}
 
 $dateMax = new DateTime('06/30');
 $crea    = getUtilisateur($_SESSION['login'])->getCreeLe();
@@ -50,10 +74,11 @@ $dateMin = new DateTime();
 
 echo $tpl->render(array(
     "titre"=>"Inscription d'un évènement",
-    "types"=>$typesSeance,
+    "tabTypes"=>$type2,
     "dateMin"=>$dateMin->format("Y-m-d"),
     "dateMax"=>$dateMax->format("Y-m-d"),
     "date"=>date("Y-m-d"),
+    "user"=>$_SESSION['login'],
     "message"=>$message
     
 ));

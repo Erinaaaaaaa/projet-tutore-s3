@@ -411,6 +411,12 @@ class DB {
         return $this->execQuery($requete,null,'Typeevenement');
     }
 
+    public function getTypeEvenementRole($role){
+        $requete = 'select * from typeevenements where roles = ?';
+        $tparam  = array($role);
+        return $this->execQuery($requete,$tparam,'Typeevenement');
+    }
+
     public function getTypeEvenement($id) {
         $requete = 'select * from typeevenements where id_typeevenement = ?';
         $tmp = $this->execQuery($requete,array($id),'Typeevenement');

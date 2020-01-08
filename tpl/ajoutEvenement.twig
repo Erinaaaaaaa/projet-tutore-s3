@@ -27,8 +27,8 @@
                     </td>
                     <td>
                         <select name="Categorie">
-                            {% for type in types %}
-                                <option value="{{ type.GetIdTypeEvenement() }}" {% if categorie == type.GetIdTypeEvenement() %} selected {% endif %}> {{ type.libelle }}</option>
+                            {% for typeE in tabTypes %}
+                                <option value="{{ typeE.GetIdTypeEvenement() }}" {% if categorie == typeE.GetIdTypeEvenement() %} selected {% endif %}>{{ typeE.libelle }}</option>
                             {% endfor %}
                         </select>
                     </td>
