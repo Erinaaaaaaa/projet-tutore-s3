@@ -1,0 +1,70 @@
+{% extends "base.twig"%}
+
+{% block css %}
+    <style>
+        table {border: solid 5px lightseagreen;
+            border-collapse: collapse;
+            font-size: medium;
+            empty-cells: show;
+        }
+
+        th, td {
+            padding: 2px 8px;
+            border: solid 1px lightseagreen;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #FFC; /* jaune */
+        }
+
+        table img {
+            height: 12px;
+        }
+    </style>
+{% endblock %}
+
+{% block js %}
+    <script>
+        function verifSuppression(id) {
+            if (confirm('Voulez-vous vraiment supprimer la seance d\'identifiant "' + id + '"?')) {
+                alert("ok deleting " + id);
+                document.location.href = "PHP/deleteSeance.php?id=" + id;
+            } else {
+                alert("Annuler");
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block contenu %}
+	<a class="button" href="formAjouterSeance.php">Ajouter un seance</a>
+    <table>
+        <tr>
+            <th>Module</th>
+            <th>Date de création</th>
+			<th>Date de modification</th>
+            <th>Type</th>
+            <th>Groupe</th>
+            <th>Professeur</th>
+        </tr>
+
+
+        {% for seance in tabSeance %}
+            <tr>
+                <td>{{ tabNomsModules[seance.getModule()] }}</td>
+                <td>{{ seance.getDateCreation() }}</td>
+				<td>{{ seance.getDateModif() }}</td>
+              <!--  <td>{{ seance.getPj() }}</td> -->
+                <td>{{ tabTypesSeance[seance.getType()] }}</td>
+                <td>{{ seance.getGroupe() }}</td>
+                <td>{{ nomPrenomProf }}</td>
+                <td><a href="updateSeance.php?id_seance={{seance.getIdSeance()}}"><img src="images/edit.png" alt="Modifier l'seance"/></a></td>
+                <!-- deleteseance.php?id={{seance.getIdseance()}} -->
+                <td><a href="javascript:verifSuppression('{{seance.getIdSeance()}}')"><img src="images/delete.jpeg" alt="Supprimer l'seance"/></a></td>
+                <!-- Ajouter bouton pour modifier la row (update)-->
+				<td><a href="gererEvenements.php?id_seance={{seance.getIdSeance()}}">->Evènements<-</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
