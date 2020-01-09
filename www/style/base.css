@@ -129,6 +129,11 @@ nav .options {
     overflow-y: scroll;
 }
 
+nav .options a {
+    color: black;
+    font-weight: revert;
+}
+
 /* Shade */
 
 .shade {

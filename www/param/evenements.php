@@ -1,11 +1,10 @@
 <?php
 
 require_once "__inc.php";
-require_once ROOT_PATH."php/func.php";
+require_once ROOT_PATH . "php/func.php";
 
 
-if ($_SERVER['REQUEST_METHOD'] == "POST")
-{
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $id = $_POST['id'];
     $type = $_POST['Categorie'];
@@ -41,28 +40,28 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
             $seance->objmodule = $db->getModule($seance->getModule());
 
         echo $tpl->render(array(
-            "user"=>$db->getUtilisateur($_SESSION['login']),
-            "titre"=>($ev == null ? "Création":"Modification")." d'un évènement",
-            "sections"=>getSidebarSections($_SESSION['login']),
-            "evenement"=>$ev,
-            "types"=>$db->getTypesEvenementForRoles($db->getUtilisateur($_SESSION["login"])->getRoles()),
-            "dateMin"=>date("Y-m-d"),
-            "dateMax"=>getCurrentPeriode()[1]->format("Y-m-d"),
-            "date"=>($ev == null ? date("Y-m-d") : $ev->getEcheance()),
-            "seances"=>$seances,
+            "user" => $db->getUtilisateur($_SESSION['login']),
+            "titre" => ($ev == null ? "Création" : "Modification") . " d'un évènement",
+            "sections" => getSidebarSections($_SESSION['login']),
+            "options" => getSidebarOptions("param"),
+            "evenement" => $ev,
+            "types" => $db->getTypesEvenementForRoles($db->getUtilisateur($_SESSION["login"])->getRoles()),
+            "dateMin" => date("Y-m-d"),
+            "dateMax" => getCurrentPeriode()[1]->format("Y-m-d"),
+            "date" => ($ev == null ? date("Y-m-d") : $ev->getEcheance()),
+            "seances" => $seances,
             "message" => "Une erreur est survenue lors de l'application des changements."
         ));
         die();
 
     } else {
         // Modification avec succès
-        header("Location: ".basename(__FILE__));
+        header("Location: " . basename(__FILE__));
     }
 }
 
 
-if (isset($_GET['id']))
-{
+if (isset($_GET['id'])) {
     $tpl = $twig->resolveTemplate("creation-evenement.twig");
 
     /* @var $ev Evenement */
@@ -77,20 +76,19 @@ if (isset($_GET['id']))
         $seance->objmodule = $db->getModule($seance->getModule());
 
     echo $tpl->render(array(
-        "user"=>$db->getUtilisateur($_SESSION['login']),
-        "titre"=>($ev == null ? "Création":"Modification")." d'un évènement",
-        "sections"=>getSidebarSections($_SESSION['login']),
-        "evenement"=>$ev,
-        "types"=>$db->getTypesEvenementForRoles($db->getUtilisateur($_SESSION["login"])->getRoles()),
-        "dateMin"=>date("Y-m-d"),
-        "dateMax"=>getCurrentPeriode()[1]->format("Y-m-d"),
-        "date"=>($ev == null ? date("Y-m-d") : $ev->getEcheance()),
-        "seances"=>$seances
+        "user" => $db->getUtilisateur($_SESSION['login']),
+        "titre" => ($ev == null ? "Création" : "Modification") . " d'un évènement",
+        "sections" => getSidebarSections($_SESSION['login']),
+        "options" => getSidebarOptions("param"),
+        "evenement" => $ev,
+        "types" => $db->getTypesEvenementForRoles($db->getUtilisateur($_SESSION["login"])->getRoles()),
+        "dateMin" => date("Y-m-d"),
+        "dateMax" => getCurrentPeriode()[1]->format("Y-m-d"),
+        "date" => ($ev == null ? date("Y-m-d") : $ev->getEcheance()),
+        "seances" => $seances
         // "types"=>$db->getTypesSeance()
     ));
-}
-else
-{
+} else {
 
     $tpl = $twig->resolveTemplate("liste-evenements.twig");
 
@@ -98,7 +96,8 @@ else
         array(
             "titre" => "Évènements",
             "user" => $db->getUtilisateur($_SESSION['login']),
-            "sections"=>getSidebarSections($_SESSION['login']),
+            "sections" => getSidebarSections($_SESSION['login']),
+            "options" => getSidebarOptions("param"),
             "tabEvent" => $db->getEvenements(),
         )
     );

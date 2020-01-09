@@ -4,7 +4,7 @@ require_once "__inc.php";
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-    $prof   = $_POST['Enseignant'];
+    $prof = $_POST['Enseignant'];
     $module = $_POST['Module'];
 
     $result = $db->addAffectation($prof, $module);
@@ -15,8 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         echo $tpl->render(array(
             "user" => $db->getUtilisateur($_SESSION['login']),
             "titre" => ($user == null ? "Création" : "Modification") . " d'un utilisateur",
-            "sections"=>getSidebarSections($_SESSION['login']),
-            "profs" => array_filter($db->getUtilisateurs(), function($user){return strpos($user->getRoles(), "E") != -1;}),
+            "sections" => getSidebarSections($_SESSION['login']),
+            "options" => getSidebarOptions("param"),
+            "profs" => array_filter($db->getUtilisateurs(), function ($user) {
+                return strpos($user->getRoles(), "E") != -1;
+            }),
             "modules" => $db->getModules(),
             "ErreurInscription" => "Une erreur est survenue lors de l'application des changements."
         ));
@@ -36,8 +39,7 @@ if (isset($_GET['id'])) {
 
     $profs = [];
 
-    foreach ($utilisateurs as $user)
-    {
+    foreach ($utilisateurs as $user) {
         if (strpos($user->getRoles(), "E") > -1)
             $profs[] = $user;
     }
@@ -45,7 +47,8 @@ if (isset($_GET['id'])) {
     echo $tpl->render(array(
         "user" => $db->getUtilisateur($_SESSION['login']),
         "titre" => "Ajout d'une affectation",
-        "sections"=>getSidebarSections($_SESSION['login']),
+        "sections" => getSidebarSections($_SESSION['login']),
+        "options" => getSidebarOptions("param"),
         "profs" => $profs,
         "modules" => $db->getModules(),
     ));
@@ -58,8 +61,7 @@ if (isset($_GET['id'])) {
     $libs = [];
 
     /* @var $m Module */
-    foreach ($modules as $m)
-    {
+    foreach ($modules as $m) {
         $libs[$m->getCode()] = $m->getLibelle();
     }
 
@@ -67,7 +69,8 @@ if (isset($_GET['id'])) {
         array(
             "titre" => "Affectations",
             "user" => $db->getUtilisateur($_SESSION['login']),
-            "sections"=>getSidebarSections($_SESSION['login']),
+            "sections" => getSidebarSections($_SESSION['login']),
+            "options" => getSidebarOptions("param"),
             "tabAffectations" => $db->getAffectations(),
             "tabLibModules" => $libs
         )

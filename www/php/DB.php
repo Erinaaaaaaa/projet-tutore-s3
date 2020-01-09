@@ -12,6 +12,8 @@ require_once "models/TypeEvenement.php";
 require_once "models/TypeSeance.php";
 require_once "models/Utilisateur.php";
 
+// TODO: Retourner l'identifiant de l'objet créé après sa création
+
 class DB
 {
     /**
@@ -291,9 +293,37 @@ class DB
 
     // ===== TYPES SEANCE =====
 
+    public function getTypeSeance($id)
+    {
+        if (empty($id)) return null;
+
+        $results = $this->query("SELECT * FROM Type_Seance WHERE Id = ?",
+            array($id), TypeSeance::class);
+
+        if (sizeof($results) == 1) return $results[0];
+        else return null;
+    }
+
     public function getTypesSeance()
     {
         return $this->query("SELECT * FROM Type_Seance", null, TypeSeance::class);
+    }
+
+    public function addTypeSeance($libelle, $droits)
+    {
+        return $this->update("INSERT INTO Type_Seance (libelle, roles) VALUES (?,?)",
+            array($libelle, $droits)) > 0;
+    }
+
+    public function updateTypeSeance($oldId, $libelle, $droits)
+    {
+        return $this->update("UPDATE Type_Seance SET Libelle = ?, Roles = ? WHERE Id = ?",
+            array($libelle, $droits, $oldId)) > 0;
+    }
+
+    public function deleteTypeSeance($id)
+    {
+        return $this->update("UPDATE Type_Seance SET Actif = false WHERE Id = ?", array($id)) > 0;
     }
 
     // ===== TYPES EVENEMENT =====
@@ -301,6 +331,17 @@ class DB
     public function getTypesEvenement()
     {
         return $this->query("SELECT * FROM Type_Evenement", null, TypeEvenement::class);
+    }
+
+    public function getTypeEvenement($id)
+    {
+        if (empty($id)) return null;
+
+        $results = $this->query("SELECT * FROM Type_Evenement WHERE Id = ?",
+            array($id), TypeSeance::class);
+
+        if (sizeof($results) == 1) return $results[0];
+        else return null;
     }
 
     public function getTypesEvenementForRoles($roles)
@@ -316,5 +357,22 @@ class DB
         }
 
         return $types;
+    }
+
+    public function addTypeEvenement($libelle, $droits)
+    {
+        return $this->update("INSERT INTO Type_Evenement (libelle, roles) VALUES (?,?)",
+                array($libelle, $droits)) > 0;
+    }
+
+    public function updateTypeEvenement($oldId, $libelle, $droits)
+    {
+        return $this->update("UPDATE Type_Evenement SET Libelle = ?, Roles = ? WHERE Id = ?",
+                array($libelle, $droits, $oldId)) > 0;
+    }
+
+    public function deleteTypeEvenement($id)
+    {
+        return $this->update("UPDATE Type_Evenement SET Actif = false WHERE Id = ?", array($id)) > 0;
     }
 }

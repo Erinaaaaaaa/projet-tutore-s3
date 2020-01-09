@@ -17,7 +17,21 @@ function getSidebarSections($login) {
 }
 
 function getSidebarOptions($page) {
-
+    switch ($page)
+    {
+        case "param":
+            return array(
+                array("url"=>"/param/affectations.php", "nom"=>"Affectations"),
+                array("url"=>"/param/evenements.php", "nom"=>"Evenements"),
+                array("url"=>"/param/groupes.php", "nom"=>"Groupes"),
+                array("url"=>"/param/modules.php", "nom"=>"Modules"),
+                array("url"=>"/param/seances.php", "nom"=>"Seances"),
+                array("url"=>"/param/types_evenement.php", "nom"=>"Types d'évènement"),
+                array("url"=>"/param/types_seance.php", "nom"=>"Types de séance"),
+                array("url"=>"/param/utilisateurs.php", "nom"=>"Utilisateurs"),
+            );
+        default: return array();
+    }
 }
 
 function getCurrentPeriode($date = null) {

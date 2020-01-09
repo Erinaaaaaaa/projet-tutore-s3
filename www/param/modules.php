@@ -20,16 +20,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         echo $twig->resolveTemplate("creation-module.twig")->render(array(
             "user" => $db->getUtilisateur($_SESSION['login']),
-            "sections"=>getSidebarSections($_SESSION['login']),
-            "titre" => ($module == null ? "Création":"Modification")." d'un module",
+            "sections" => getSidebarSections($_SESSION['login']),
+            "options" => getSidebarOptions("param"),
+            "titre" => ($module == null ? "Création" : "Modification") . " d'un module",
             "module" => $module,
             "message" => "Une erreur est survenue lors de l'application des changements"
         ));
-    }
-    else
-        header("Location: ".basename(__FILE__));
-}
-else {
+    } else
+        header("Location: " . basename(__FILE__));
+} else {
     if (isset($_GET['id'])) {
 
         $id = $_GET['id'];
@@ -42,15 +41,17 @@ else {
 
         echo $twig->resolveTemplate("creation-module.twig")->render(array(
             "user" => $db->getUtilisateur($_SESSION['login']),
-            "titre" => ($module == null ? "Création":"Modification")." d'un module",
-            "sections"=>getSidebarSections($_SESSION['login']),
+            "titre" => ($module == null ? "Création" : "Modification") . " d'un module",
+            "sections" => getSidebarSections($_SESSION['login']),
+            "options" => getSidebarOptions("param"),
             "module" => $module
         ));
     } else {
         echo $twig->resolveTemplate("liste-modules.twig")->render(array(
             "user" => $db->getUtilisateur($_SESSION['login']),
             "titre" => "Gestion des modules",
-            "sections"=>getSidebarSections($_SESSION['login']),
+            "sections" => getSidebarSections($_SESSION['login']),
+            "options" => getSidebarOptions("param"),
             "modules" => $db->getModules()
         ));
     }

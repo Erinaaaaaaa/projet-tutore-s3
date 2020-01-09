@@ -9,19 +9,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $droits = implode($_POST['droits']);
 
     if (!empty($oldId))
-        $result = $db->updateTypeSeance($oldId, $libelle, $droits);
+        $result = $db->updateTypeEvenement($oldId, $libelle, $droits);
     else
-        $result = $db->addTypeSeance($libelle, $droits);
+        $result = $db->addTypeEvenement($libelle, $droits);
 
     if (!$result) {
-        $ts = $db->getTypeSeance($oldId);
+        $te = $db->getTypeEvenement($oldId);
 
         echo $twig->resolveTemplate("creation-type.twig")->render(array(
             "user" => $db->getUtilisateur($_SESSION['login']),
             "sections" => getSidebarSections($_SESSION['login']),
             "options" => getSidebarOptions("param"),
-            "titre" => ($ts == null ? "Création" : "Modification") . " d'un type de séance",
-            "type" => $ts,
+            "titre" => ($te == null ? "Création" : "Modification") . " d'un type d'évènement",
+            "type" => $te,
             "message" => "Une erreur est survenue lors de l'application des changements"
         ));
     } else
@@ -31,26 +31,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         $id = $_GET['id'];
 
-        $ts = null;
+        $te = null;
 
         if ($id != "new") {
-            $ts = $db->getTypeSeance($id);
+            $te = $db->getTypeEvenement($id);
         }
 
         echo $twig->resolveTemplate("creation-type.twig")->render(array(
             "user" => $db->getUtilisateur($_SESSION['login']),
-            "titre" => ($ts == null ? "Création" : "Modification") . " d'un type de séance",
+            "titre" => ($te == null ? "Création" : "Modification") . " d'un type d'évènement",
             "sections" => getSidebarSections($_SESSION['login']),
             "options" => getSidebarOptions("param"),
-            "type" => $ts
+            "type" => $te
         ));
     } else {
-        echo $twig->resolveTemplate("liste-typeseance.twig")->render(array(
+        echo $twig->resolveTemplate("liste-typeevenement.twig")->render(array(
             "user" => $db->getUtilisateur($_SESSION['login']),
-            "titre" => "Gestion des types de séance",
+            "titre" => "Gestion des types d'évènement",
             "sections" => getSidebarSections($_SESSION['login']),
             "options" => getSidebarOptions("param"),
-            "tabTypes" => $db->getTypesSeance()
+            "tabTypes" => $db->getTypesEvenement(),
+            "vardump" => var_export($db->getTypesEvenement(), true)
         ));
     }
 }

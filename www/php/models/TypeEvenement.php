@@ -27,5 +27,5 @@ class TypeEvenement
     public function getId(){return $this->id;}
     public function getLibelle(){return $this->libelle;}
     public function getRoles(){return $this->roles;}
-    public function estActif(){return $this->actif;}
+    public function getActif(){return $this->actif;}
 }

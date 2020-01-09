@@ -3,12 +3,11 @@
 require_once "__inc.php";
 
 
-if ($_SERVER['REQUEST_METHOD'] == "POST")
-{
-    $id     = $_POST['id'];
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $id = $_POST['id'];
     $module = $_POST['Module'];
-    $date   = $_POST['Date'];
-    $type   = $_POST['Type'];
+    $date = $_POST['Date'];
+    $type = $_POST['Type'];
     $groupe = $_POST['Groupe'];
 
     $seance = $db->getSeance($id);
@@ -24,27 +23,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
         $tpl = $twig->resolveTemplate("creation-seance.twig");
 
         echo $tpl->render(array(
-            "user"=>$db->getUtilisateur($_SESSION['login']),
-            "titre"=>($seance == null ? "Création":"Modification")." d'une seance",
-            "sections"=>getSidebarSections($_SESSION['login']),
-            "modules"=>$db->getModules(),
-            "types"=>$db->getTypesSeance(),
-            "seance"=>$seance,
-            "groupes"=>$db->getGroupes(),
-            "date"=>date("Y-m-d"),
+            "user" => $db->getUtilisateur($_SESSION['login']),
+            "titre" => ($seance == null ? "Création" : "Modification") . " d'une seance",
+            "sections" => getSidebarSections($_SESSION['login']),
+            "options" => getSidebarOptions("param"),
+            "modules" => $db->getModules(),
+            "types" => $db->getTypesSeance(),
+            "seance" => $seance,
+            "groupes" => $db->getGroupes(),
+            "date" => date("Y-m-d"),
             "message" => "Une erreur est survenue lors de l'application des changements."
         ));
         die();
 
     } else {
         // Modification avec succès
-        header("Location: ".basename(__FILE__));
+        header("Location: " . basename(__FILE__));
     }
 }
 
 
-if (isset($_GET['id']))
-{
+if (isset($_GET['id'])) {
     $tpl = $twig->resolveTemplate("creation-seance.twig");
 
     $seance = null;
@@ -53,35 +52,32 @@ if (isset($_GET['id']))
         $seance = $db->getSeance($_GET['id']);
 
     echo $tpl->render(array(
-        "user"=>$db->getUtilisateur($_SESSION['login']),
-        "titre"=>($seance == null ? "Création":"Modification")." d'une seance",
-        "sections"=>getSidebarSections($_SESSION['login']),
-        "modules"=>$db->getModules(),
-        "types"=>$db->getTypesSeance(),
-        "seance"=>$seance,
-        "groupes"=>$db->getGroupes(),
-        "date"=>date("Y-m-d"),
+        "user" => $db->getUtilisateur($_SESSION['login']),
+        "titre" => ($seance == null ? "Création" : "Modification") . " d'une seance",
+        "sections" => getSidebarSections($_SESSION['login']),
+        "options" => getSidebarOptions("param"),
+        "modules" => $db->getModules(),
+        "types" => $db->getTypesSeance(),
+        "seance" => $seance,
+        "groupes" => $db->getGroupes(),
+        "date" => date("Y-m-d"),
     ));
-}
-else
-{
+} else {
 
     $tpl = $twig->resolveTemplate("liste-seances.twig");
 
     $users = $db->getUtilisateurs();
     $profs = [];
     /* @var $u Utilisateur */
-    foreach ($users as $u)
-    {
-        $profs[$u->getId()] = $u->getPrenom()." ".$u->getNom();
+    foreach ($users as $u) {
+        $profs[$u->getId()] = $u->getPrenom() . " " . $u->getNom();
     }
 
     $ts = $db->getTypesSeance();
     $types = [];
 
-    /* @var $t TypeSeance*/
-    foreach ($ts as $t)
-    {
+    /* @var $t TypeSeance */
+    foreach ($ts as $t) {
         $types[$t->getId()] = $t->getLibelle();
     }
 
@@ -91,8 +87,7 @@ else
     $libs = [];
 
     /* @var $m Module */
-    foreach ($modules as $m)
-    {
+    foreach ($modules as $m) {
         $libs[$m->getCode()] = $m->getLibelle();
     }
 
@@ -100,7 +95,8 @@ else
         array(
             "titre" => "Séances",
             "user" => $db->getUtilisateur($_SESSION['login']),
-            "sections"=>getSidebarSections($_SESSION['login']),
+            "sections" => getSidebarSections($_SESSION['login']),
+            "options" => getSidebarOptions("param"),
             "tabSeance" => $db->getSeances(),
             "tabTypesSeance" => $types,
             "tabNomsModules" => $libs,

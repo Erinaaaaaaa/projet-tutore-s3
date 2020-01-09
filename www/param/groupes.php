@@ -3,11 +3,10 @@
 require_once "__inc.php";
 
 
-if ($_SERVER['REQUEST_METHOD'] == "POST")
-{
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-    $groupe       = $_POST['nomGroupe'];
-    $groupeP      = $_POST['groupePere'];
+    $groupe = $_POST['nomGroupe'];
+    $groupeP = $_POST['groupePere'];
     $oldNomGroupe = $_POST['oldNomGroupe'];
 
     $result = false;
@@ -21,10 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
         $tpl = $twig->resolveTemplate("creation-groupe.twig");
 
         echo $tpl->render(array(
-            "titre"=>"Modification d'un groupe",
-            "user"=>$db->getUtilisateur($_SESSION['login']),
-            "sections"=>getSidebarSections($_SESSION['login']),
-            "gp"=>$groupe,
+            "titre" => "Modification d'un groupe",
+            "user" => $db->getUtilisateur($_SESSION['login']),
+            "sections" => getSidebarSections($_SESSION['login']),
+            "options" => getSidebarOptions("param"),
+            "gp" => $groupe,
             "allGroupes" => $db->getGroupes(),
             "ErreurInscription" => "Une erreur est survenue lors de l'application des changements."
         ));
@@ -32,13 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
 
     } else {
         // Modification avec succès
-        header("Location: ".basename(__FILE__));
+        header("Location: " . basename(__FILE__));
     }
 }
 
 
-if (isset($_GET['id']))
-{
+if (isset($_GET['id'])) {
     $tpl = $twig->resolveTemplate("creation-groupe.twig");
 
     $grp = null;
@@ -47,15 +46,14 @@ if (isset($_GET['id']))
         $grp = $db->getGroupe($_GET['id']);
 
     echo $tpl->render(array(
-        "user"=>$db->getUtilisateur($_SESSION['login']),
-        "titre"=>($grp == null ? "Création":"Modification")." d'un groupe",
-        "sections"=>getSidebarSections($_SESSION['login']),
-        "gp"=>$grp,
-        "allGroupes"=>$db->getGroupes()
+        "user" => $db->getUtilisateur($_SESSION['login']),
+        "titre" => ($grp == null ? "Création" : "Modification") . " d'un groupe",
+        "sections" => getSidebarSections($_SESSION['login']),
+        "options" => getSidebarOptions("param"),
+        "gp" => $grp,
+        "allGroupes" => $db->getGroupes()
     ));
-}
-else
-{
+} else {
 
     $tpl = $twig->resolveTemplate("liste-groupes.twig");
 
@@ -63,7 +61,8 @@ else
         array(
             "titre" => "Groupes",
             "user" => $db->getUtilisateur($_SESSION['login']),
-            "sections"=>getSidebarSections($_SESSION['login']),
+            "sections" => getSidebarSections($_SESSION['login']),
+            "options" => getSidebarOptions("param"),
             "groupes" => $db->getGroupes(),
         )
     );
