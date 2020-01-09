@@ -178,6 +178,23 @@ class DB
         return $this->query("SELECT * FROM Module", null, Module::class);
     }
 
+    public function addModule($code, $libelle, $couleur, $droits)
+    {
+        try {
+            return $this->update("INSERT INTO Module (code, libelle, couleur, droits) VALUES (?,?,?,?)",
+                array($code, $libelle, $couleur, $droits)) > 0;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    public function updateModule($oldCode, $code, $libelle, $color, $droits)
+    {
+        return $this->update("UPDATE Module SET Code = ?, Libelle = ?, Couleur = ?, Droits = ?, 
+                  Date_Modification = now() WHERE Code = ?",
+            array( $code, $libelle, $color, $droits, $oldCode)) > 0;
+    }
+
     public function deleteModule($code)
     {
         return $this->update("DELETE FROM Module WHERE Code = ?", array($code)) > 0;

@@ -25,6 +25,8 @@
 {% endblock %}
 
 {% block contenu %}
+    <p><a class="button" href="?id=new">Créer un module</a></p>
+
     <table>
         <thead>
             <tr>
@@ -42,8 +44,8 @@
             <tr>
                 <td>{{ module.code }}</td>
                 <td>{{ module.libelle }}</td>
-                <td>#{{ module.couleur }}</td>
-                <td style="background-color: {{ "#"~module.couleur }}">&ensp;</td>
+                <td>{{ module.couleur }}</td>
+                <td style="background-color: {{ module.couleur }}">&ensp;</td>
                 <td>{{ module.droits }}</td>
                 <td>{{ module.getDateCreation() }}</td>
                 <td>{{ module.getDateModification() }}</td>
