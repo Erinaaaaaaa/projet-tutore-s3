@@ -74,12 +74,10 @@ $typesEvenement = getTypesEvenement();
 $date = new DateTime(date("Y-m-d"));
 
 $dateMin = new DateTime('09/01');
-$dateMin->setDate(date("Y"), date('m'), 1);
 if (intval($date->diff($dateMin)->format("%R%d")) > 0)
 	$dateMin->setDate(intval($dateMin->format("Y"))-1, 9, 1);
 
 $dateMax = new DateTime('06/30');
-$dateMax->setDate(date("Y"), date('m'), 1);
 if (intval($date->diff($dateMax)->format("%R%d")) < 0)
 	$dateMax->setDate(intval($dateMax->format("Y"))+1, 6, 30);
 
