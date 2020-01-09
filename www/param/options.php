@@ -20,6 +20,6 @@ echo $twig->render("options.twig", array(
     "options"=>getSidebarOptions("param"),
     "seancesMax"=>$param["SeanceMaxParFiltre"],
     "eventsMax"=>$param["EvenementMaxParActivite"],
-    "pjMax"=>$param["PjMaxParEvenement"],
-    "vardump"=>$db->getParametre("SeanceMaxParFiltre")
+    "pjMax"=>$param["PjMaxParEvenement"]
+
 ));

@@ -61,7 +61,7 @@ class DB
 
     }
 
-    private function query($requete, $param, $nomClasse)
+    private function query($requete, $param, $nomClasse, $customFetchMode = null)
     {
         $req = $this->pdo->prepare($requete);
 
@@ -72,8 +72,10 @@ class DB
 
         if (!is_null($nomClasse))
             return $req->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $nomClasse);
+        else if (!is_null($customFetchMode))
+            return $req->fetchAll($customFetchMode);
         else
-            return $req->fetchAll(PDO::FETCH_KEY_PAIR);
+            return $req->fetchAll();
     }
 
     private function update($ordre, $param)
@@ -380,11 +382,12 @@ class DB
 
     public function getParametre($parametre)
     {
-        return $this->query("SELECT valeur FROM Parametres WHERE Param = ?", array($parametre), null);
+        return $this->query("SELECT valeur FROM Parametres WHERE Param = ?", array($parametre),
+            null)[0][0];
     }
 
     public function getParametres() {
-        return $this->query("SELECT * FROM Parametres", null, null);
+        return $this->query("SELECT * FROM Parametres", null, null, PDO::FETCH_KEY_PAIR);
     }
 
     public function updateParametres($params) {

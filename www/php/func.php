@@ -7,7 +7,7 @@ function getSidebarSections($login) {
     $roles = $db->getUtilisateur($login)->getRoles();
 
     $liens = array(
-        array("nom"=>"Profil", "url"=>"javascript:alert('Non implémenté')"),
+        array("nom"=>"Profil", "url"=>"/profil.php"),
         array("nom"=>"Etat", "url"=>"javascript:alert('Non implémenté')"),
         array("nom"=>"Journal de bord", "url"=>"javascript:alert('Non implémenté')"),
         array("nom"=>"Paramétrage", "url"=>"/param/index.php")

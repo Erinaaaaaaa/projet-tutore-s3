@@ -18,20 +18,7 @@ $user = DB::getInstance()->getUtilisateur($login);
 
 
 echo $tpl->render(array("user"=>$user, "titre"=>"Accueil",
-    "sections"=>array(
-        array(
-            "nom"=>"Visualiser",
-            "url"=>"https://hooooooooo.com/"
-        ),
-        array(
-            "nom"=>"Etat",
-            "url"=>"https://www.ebay.com/p/1942719?iid=182754789929"
-        ),
-        array(
-            "nom"=>"Parametrage",
-            "url"=>"/param/"
-        )
-    ),
+    "sections"=>getSidebarSections($_SESSION['login']),
     "options"=>array(
         array(
             "nom", "Google",
