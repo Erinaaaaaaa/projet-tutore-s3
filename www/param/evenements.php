@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
         echo $tpl->render(array(
             "user"=>$db->getUtilisateur($_SESSION['login']),
             "titre"=>($ev == null ? "Création":"Modification")." d'un évènement",
+            "sections"=>getSidebarSections($_SESSION['login']),
             "evenement"=>$ev,
             "types"=>$db->getTypesEvenementForRoles($db->getUtilisateur($_SESSION["login"])->getRoles()),
             "dateMin"=>date("Y-m-d"),
@@ -78,6 +79,7 @@ if (isset($_GET['id']))
     echo $tpl->render(array(
         "user"=>$db->getUtilisateur($_SESSION['login']),
         "titre"=>($ev == null ? "Création":"Modification")." d'un évènement",
+        "sections"=>getSidebarSections($_SESSION['login']),
         "evenement"=>$ev,
         "types"=>$db->getTypesEvenementForRoles($db->getUtilisateur($_SESSION["login"])->getRoles()),
         "dateMin"=>date("Y-m-d"),
@@ -96,6 +98,7 @@ else
         array(
             "titre" => "Évènements",
             "user" => $db->getUtilisateur($_SESSION['login']),
+            "sections"=>getSidebarSections($_SESSION['login']),
             "tabEvent" => $db->getEvenements(),
         )
     );

@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
         echo $tpl->render(array(
             "titre"=>"Modification d'un groupe",
             "user"=>$db->getUtilisateur($_SESSION['login']),
+            "sections"=>getSidebarSections($_SESSION['login']),
             "gp"=>$groupe,
             "allGroupes" => $db->getGroupes(),
             "ErreurInscription" => "Une erreur est survenue lors de l'application des changements."
@@ -48,6 +49,7 @@ if (isset($_GET['id']))
     echo $tpl->render(array(
         "user"=>$db->getUtilisateur($_SESSION['login']),
         "titre"=>($grp == null ? "Création":"Modification")." d'un groupe",
+        "sections"=>getSidebarSections($_SESSION['login']),
         "gp"=>$grp,
         "allGroupes"=>$db->getGroupes()
     ));
@@ -61,6 +63,7 @@ else
         array(
             "titre" => "Groupes",
             "user" => $db->getUtilisateur($_SESSION['login']),
+            "sections"=>getSidebarSections($_SESSION['login']),
             "groupes" => $db->getGroupes(),
         )
     );

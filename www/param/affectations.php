@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         echo $tpl->render(array(
             "user" => $db->getUtilisateur($_SESSION['login']),
             "titre" => ($user == null ? "Création" : "Modification") . " d'un utilisateur",
+            "sections"=>getSidebarSections($_SESSION['login']),
             "profs" => array_filter($db->getUtilisateurs(), function($user){return strpos($user->getRoles(), "E") != -1;}),
             "modules" => $db->getModules(),
             "ErreurInscription" => "Une erreur est survenue lors de l'application des changements."
@@ -44,6 +45,7 @@ if (isset($_GET['id'])) {
     echo $tpl->render(array(
         "user" => $db->getUtilisateur($_SESSION['login']),
         "titre" => "Ajout d'une affectation",
+        "sections"=>getSidebarSections($_SESSION['login']),
         "profs" => $profs,
         "modules" => $db->getModules(),
     ));
@@ -65,6 +67,7 @@ if (isset($_GET['id'])) {
         array(
             "titre" => "Affectations",
             "user" => $db->getUtilisateur($_SESSION['login']),
+            "sections"=>getSidebarSections($_SESSION['login']),
             "tabAffectations" => $db->getAffectations(),
             "tabLibModules" => $libs
         )

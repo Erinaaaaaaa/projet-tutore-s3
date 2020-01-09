@@ -1,9 +1,19 @@
 <?php
 
-// require_once ROOT_PATH."php/DB.php";
+require_once "DB.php";
 
 function getSidebarSections($login) {
+    global $db;
+    $roles = $db->getUtilisateur($login)->getRoles();
 
+    $liens = array(
+        array("nom"=>"Profil", "url"=>"javascript:alert('Non implémenté')"),
+        array("nom"=>"Etat", "url"=>"javascript:alert('Non implémenté')"),
+        array("nom"=>"Journal de bord", "url"=>"javascript:alert('Non implémenté')"),
+        array("nom"=>"Paramétrage", "url"=>"/param/index.php")
+    );
+
+    return $liens;
 }
 
 function getSidebarOptions($page) {

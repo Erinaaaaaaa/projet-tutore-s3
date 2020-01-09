@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
         echo $tpl->render(array(
             "user"=>$db->getUtilisateur($_SESSION['login']),
             "titre"=>($seance == null ? "Création":"Modification")." d'une seance",
+            "sections"=>getSidebarSections($_SESSION['login']),
             "modules"=>$db->getModules(),
             "types"=>$db->getTypesSeance(),
             "seance"=>$seance,
@@ -54,6 +55,7 @@ if (isset($_GET['id']))
     echo $tpl->render(array(
         "user"=>$db->getUtilisateur($_SESSION['login']),
         "titre"=>($seance == null ? "Création":"Modification")." d'une seance",
+        "sections"=>getSidebarSections($_SESSION['login']),
         "modules"=>$db->getModules(),
         "types"=>$db->getTypesSeance(),
         "seance"=>$seance,
@@ -98,6 +100,7 @@ else
         array(
             "titre" => "Séances",
             "user" => $db->getUtilisateur($_SESSION['login']),
+            "sections"=>getSidebarSections($_SESSION['login']),
             "tabSeance" => $db->getSeances(),
             "tabTypesSeance" => $types,
             "tabNomsModules" => $libs,

@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         echo $tpl->render(array(
             "user" => $db->getUtilisateur($_SESSION['login']),
+            "sections"=>getSidebarSections($_SESSION['login']),
             "titre" => ($user == null ? "Création" : "Modification") . " d'un utilisateur",
             "usrEdit" => $user,
             "ErreurInscription" => "Une erreur est survenue lors de l'application des changements."
@@ -55,6 +56,7 @@ if (isset($_GET['id'])) {
 
     echo $tpl->render(array(
         "user" => $db->getUtilisateur($_SESSION['login']),
+        "sections"=>getSidebarSections($_SESSION['login']),
         "titre" => ($user == null ? "Création" : "Modification") . " d'un utilisateur",
         "usrEdit" => $user,
     ));
@@ -66,6 +68,7 @@ if (isset($_GET['id'])) {
         array(
             "titre" => "Utilisateurs",
             "user" => $db->getUtilisateur($_SESSION['login']),
+            "sections"=>getSidebarSections($_SESSION['login']),
             "tabUser" => $db->getUtilisateurs(),
         )
     );
