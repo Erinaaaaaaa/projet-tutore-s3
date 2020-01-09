@@ -146,6 +146,13 @@ class DB {
             return null;
     }
 
+    public function updateMdpUtilisateur($id, $mdp)
+    {
+        $requete = "update utilisateur set mdp = ? where id_utilisateur = ?";
+        $tparam = array($mdp,$id);
+        return $this->execMaj($requete,$tparam);
+    }
+
     public function addUtilisateur($id_utilisateur, $nom, $prenom, $mdp, $role, $groupe) {
         $requete = 'insert into utilisateur values(?,?,?,?,?,?,now(),now())';
         $tparam = array($id_utilisateur,$nom,$prenom,$mdp,$role,$groupe);
@@ -158,14 +165,15 @@ class DB {
         $tparam = array($id,$nom,$prenom,$mdp,$role,$groupe,$oldId);
         return $this->execMaj($requete,$tparam);
     }
-	
-    public function updateMdpUtilisateur($id, $mdp)
+
+
+    public function updateProfil($id,$nom,$prenom)
     {
-        $requete = "update utilisateur set mdp = ? where id_utilisateur = ?";
-        $tparam = array($mdp,$id);
+        $requete = "update utilisateur set nom= ?, prenom=? where id_utilisateur = ?";
+        $tparam = array($nom,$prenom,$id);
         return $this->execMaj($requete,$tparam);
     }
-	
+    
     //TODO: A voir pour remplacer avec un trieur
     public function getUtilisateurMdp($id, $mdp) {
         $requete = 'select * from utilisateur where id_utilisateur = ? and mdp = ?';
@@ -496,6 +504,12 @@ class DB {
     public function deleteSemaphoresForSeance($id_seance) {
         $requete = 'delete from semaphore where id_seance = ?';
         $tparam = array($id_seance);
+        return $this->execMaj($requete,$tparam);
+    }
+	
+    public function deleteSemaphoresForUtilisateur($id_utilisateur) {
+        $requete = 'delete from semaphore where id_utilisateur = ?';
+        $tparam = array($id_utilisateur);
         return $this->execMaj($requete,$tparam);
     }
 

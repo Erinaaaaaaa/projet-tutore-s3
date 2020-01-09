@@ -11,7 +11,7 @@ require_once("PHP/Twig/lib/Twig/Autoloader.php");
 
 Twig_Autoloader::register();
 $twig = new Twig_Environment( new Twig_Loader_Filesystem("./tpl"));
-$tpl = $twig->resolveTemplate( "modifierMDP.twig" );
+$tpl = $twig->resolveTemplate( "profil.twig" );
 
 $db = DB::getInstance();
 
@@ -58,6 +58,7 @@ if (isset($_POST['oldPass']) && isset($_POST['newPass1']) && isset($_POST['newPa
 				if($cptMin >=2 && $cptMaj>=2 && $cptOth>=2)
 				{
 					$db -> updateMdpUtilisateur($_SESSION['login'], password_hash($_POST['newPass1'], PASSWORD_DEFAULT));
+					header("Location: parametrage.php");
 				}
 			}
 			else

@@ -12,6 +12,7 @@ require_once 'PHP/DB/DB.inc.php';
         echo "Impossible de se connecter &agrave; la base de donneeacute;es !";
     } else {
         try {
+            $db->deleteSemaphoresForUtilisateur($_GET['id']);
             $db->deleteUtilisateur($_GET['id']);
             echo '<meta http-equiv="refresh" content="0;URL=../listUtilisateurs.php">';
 

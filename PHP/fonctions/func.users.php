@@ -79,9 +79,6 @@ echo "exception".$e->getMessage();
  * @param string $id      Nouvel identifiant de l'utilisateur
  * @param string $nom     Nouveau nom de l'utilisateur
  * @param string $prenom  Nouveau prénom de l'utilisateur
- * @param string $mdp     Nouveau mot de passe (non haché) de l'utilisateur
- * @param string $role    Nouveau(x) rôle(s) de l'utilisateur
- * @param string $groupe  Nouveau groupe de l'utilisateur
  * @return bool           true si utilisateur mis à jour, false sinon
  */
 function updateUtilisateur(string $oldId, string $id, string $nom,
@@ -100,6 +97,63 @@ function updateUtilisateur(string $oldId, string $id, string $nom,
     }
     try {
         $db->updateUtilisateur($oldId, $id, $nom, $prenom, $mdp, $role, $groupe);
+    } catch (PDOException $e) {
+echo "exception".$e->getMessage();
+        return false;
+    }
+
+    return true;
+}
+
+/**
+ * @param string $id      Identifiant de l'utilisateur
+ * @param string $nom     Nouveau nom de l'utilisateur
+ * @param string $prenom  Nouveau prénom de l'utilisateur
+ * @return bool           true si utilisateur mis à jour, false sinon
+ */
+function updateProfil(string $id, string $nom, string $prenom) {
+    $db = DB::getInstance();
+    $user = $db->getUtilisateur($id);
+
+    if ($user == null) {
+        return false;
+        echo 'user null';
+    }
+
+    try {
+        $db->updateProfil($id, $nom, $prenom);
+    } catch (PDOException $e) {
+        echo "exception".$e->getMessage();
+        return false;
+    }
+    return true;
+}
+
+/**
+ * @param string $oldId   Identifiant courant de l'utilisateur
+ * @param string $id      Nouvel identifiant de l'utilisateur
+ * @param string $nom     Nouveau nom de l'utilisateur
+ * @param string $prenom  Nouveau prénom de l'utilisateur
+ * @param string $mdp     Nouveau mot de passe (non haché) de l'utilisateur
+ * @param string $role    Nouveau(x) rôle(s) de l'utilisateur
+ * @param string $groupe  Nouveau groupe de l'utilisateur
+ * @return bool           true si utilisateur mis à jour, false sinon
+ */
+function GenererMDP(string $id, string $mdp) {
+    $db = DB::getInstance();
+    $user = $db->getUtilisateur($id);
+
+    if ($user == null) {
+        return false;
+    }
+
+    if ($mdp == null) {
+        $mdp = $user->getMdp();
+    } else {
+        $mdp = password_hash($mdp, PASSWORD_DEFAULT);
+    }
+    try {
+        $db->genererMdpUtilisateur($id, $mdp);
     } catch (PDOException $e) {
 echo "exception".$e->getMessage();
         return false;

@@ -1,3 +1,20 @@
+<?php
+	session_start();
+
+	require_once "PHP/fonctions/func.users.php";
+	require_once("PHP/Twig/lib/Twig/Autoloader.php");
+
+	// Vérification de session
+	if (!isset($_SESSION['login'])) {
+		header("Location: index.php");
+	}
+	else {
+		if (strpos(getUtilisateur($_SESSION['login'])->getRole(), "A") === false) {
+			header("Location: accueil.php");
+		}
+	}
+ ?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,8 +25,6 @@
 	<body>
 		<header><h1 align="center">Consultation de la table modules</h1></header>
 		<?php
-			include "PHP/DB/DB.inc.php";
-			
 			echo "<table align=\"center\">";
 			echo "<tr>";
 			echo "<th> id_module </th>";
@@ -31,7 +46,7 @@
 				echo "<td>", $module -> getDateModif(), "</td>";
 				echo "</tr>";
 			}
-			
+
 			echo "</table>";
 		?>
 	</body>

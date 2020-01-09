@@ -24,7 +24,7 @@ if ($db == null) {
 				$db->deleteEvenementsForSeance($_GET['id']);
 				$db->deleteSemaphoresForSeance($_GET['id']);
 				$db->deleteSeance($_GET['id']);
-    		    echo '<meta http-equiv="refresh" content="0;URL=../listSeance.php">';
+    		   		echo '<meta http-equiv="refresh" content="0;URL=../listSeancesUtilisateur.php">';
 	
 	    	} catch (Exception $e) {
 	    		echo "ça MARCHE PAS: " . $e->getMessage();
@@ -32,7 +32,6 @@ if ($db == null) {
     		}
 		}
 	}
-	echo '<meta http-equiv="refresh" content="0;URL=../listSeance.php">';
 
 }
 $db->close();

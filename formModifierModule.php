@@ -1,3 +1,20 @@
+<?php
+	session_start();
+
+	require_once "PHP/fonctions/func.users.php";
+	require_once("PHP/Twig/lib/Twig/Autoloader.php");
+
+	// Vérification de session
+	if (!isset($_SESSION['login'])) {
+		header("Location: index.php");
+	}
+	else {
+		if (strpos(getUtilisateur($_SESSION['login'])->getRole(), "A") === false) {
+			header("Location: accueil.php");
+		}
+	}
+ ?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -11,9 +28,9 @@
 			<table align="center">
 				<form action="modifierModule.php" method="get">
 					<tr>
-						<td colspan="2" align="center"> 
+						<td colspan="2" align="center">
 							<?php
-								include "PHP/DB/DB.inc.php";
+								require_once "PHP/DB/DB.inc.php";
 								$db = DB::getInstance();
 								echo "<input type=\"hidden\" name=\"oldModule\" maxlength=\"8\" value=\"", $db -> getModule($_GET['Module'])[0] -> getIdModule(), "\">";
 							?>
@@ -54,12 +71,12 @@
 								echo "<input type=\"checkbox\" name=\"droit[]\" value=\"A\" $checked> Administrateur <br/>";
 							else
 								echo "<input type=\"checkbox\" name=\"droit[]\" value=\"A\"> Administrateur <br/>";
-								
+
 							if (!(strpos($droit,"E")===false))
 								echo "<input type=\"checkbox\" name=\"droit[]\" value=\"E\" $checked> Enseignant <br/>";
 							else
 								echo "<input type=\"checkbox\" name=\"droit[]\" value=\"E\"> Enseignant <br/>";
-								
+
 							if (!(strpos($droit,"T")===false))
 								echo "<input type=\"checkbox\" name=\"droit[]\" value=\"T\" $checked> Tuteur <br/>";
 							else
