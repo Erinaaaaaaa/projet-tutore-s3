@@ -1,13 +1,18 @@
 <?php
 
+require_once "PHP/fonctions/func.users.php";
+require_once("PHP/Twig/lib/Twig/Autoloader.php");
+
 session_start();
 
 if (!isset($_SESSION['login'])) {
     header("Location: index.php"); die();
 }
-
-require_once "PHP/fonctions/func.users.php";
-require_once("PHP/Twig/lib/Twig/Autoloader.php");
+else {
+	if (strpos(getUtilisateur($_SESSION['login'])->getRole(), "A") === false) {
+		header("Location: accueil.php");
+	}
+}
 
 Twig_Autoloader::register();
 $twig = new Twig_Environment( new Twig_Loader_Filesystem("./tpl"));
