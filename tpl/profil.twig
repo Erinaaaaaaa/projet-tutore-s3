@@ -1,0 +1,52 @@
+{% extends "base.twig"%}
+
+{% block css %}
+{% endblock %}
+
+
+{% block contenu %}
+
+<form action="" method="POST" class="block">
+    <input type="hidden" name="form" value="nom">
+    <fieldset>
+        <legend>Profil</legend>
+        <fieldset>
+            <table>
+                <legend>Données personnelles</legend>
+                <tr>
+                    <th align = "left">nom</th>
+                    <th align = "left">prenom</th>
+                </tr>
+                <tr>
+                    <td><input type="text"     name="nom" value="{{ nom }}"></td>
+                    <td><input type="text"     name="prenom" value="{{ prenom }}"></td>
+                </tr>
+                <tr>
+                <td><input type="submit" name="ok" value="Valider"></td>
+                <td><input type="reset" name="renit" value="Effacer"></td>
+                <td>{{ErreurInscription}}</td>
+            </tr>
+            </table>           
+        </fieldset>
+</form>
+<form action="modifierMDP.php" method="POST" class="block">
+    <input type="hidden" name="form" value="mdp">
+    <fieldset>
+    <legend>Mot de Passe</legend>
+            <div class="select" align="center">
+            <p>Mot de passe actuel</p>
+            <input type="password" name="oldPass">
+            <p>Nouveau Mot de passe</p>
+            <input type="password" name="newPass1">
+            <p>Confirmer le nouveau Mot de passe</p>
+            <input type="password" name="newPass2">
+            <span style="color:red">{{erreur}}</span>
+            <p>
+                <input type="submit" name="ok" value="OK">
+                <input type="reset"  name="annuler" value="Annuler">
+            </p>
+        </div>
+    </fieldset>
+</form>
+
+{% endblock %}

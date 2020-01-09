@@ -146,6 +146,13 @@ class DB {
             return null;
     }
 
+    public function updateMdpUtilisateur($id, $mdp)
+    {
+        $requete = "update utilisateur set mdp = ? where id_utilisateur = ?";
+        $tparam = array($mdp,$id);
+        return $this->execMaj($requete,$tparam);
+    }
+
     public function addUtilisateur($id_utilisateur, $nom, $prenom, $mdp, $role, $groupe) {
         $requete = 'insert into utilisateur values(?,?,?,?,?,?,now(),now())';
         $tparam = array($id_utilisateur,$nom,$prenom,$mdp,$role,$groupe);
@@ -158,8 +165,16 @@ class DB {
         $tparam = array($id,$nom,$prenom,$mdp,$role,$groupe,$oldId);
         return $this->execMaj($requete,$tparam);
     }
+
+    public function updateProfil($id,$nom,$prenom)
+    {
+        $requete = "update utilisateur set nom= ?, prenom=? where id_utilisateur = ?";
+        $tparam = array($nom,$prenom,$id);
+        return $this->execMaj($requete,$tparam);
+    }
+ 
     
-    public function updateMdpUtilisateur($id, $mdp)
+    public function genererMdpUtilisateur($id, $mdp)
     {
         $requete = "update utilisateur set mdp = ? where id_utilisateur = ?";
         $tparam = array($mdp,$id);
