@@ -461,6 +461,12 @@ class DB {
         $tparam = array($id_seance);
         return $this->execMaj($requete,$tparam);
     }
+	
+    public function deleteSemaphoresForUtilisateur($id_utilisateur) {
+        $requete = 'delete from semaphore where id_utilisateur = ?';
+        $tparam = array($id_utilisateur);
+        return $this->execMaj($requete,$tparam);
+    }
 
 	public function updateSemaphore($id_seance, $id_utilisateur, $etat) {
         $requete = 'update semaphore set etat = ? where id_seance = ? and id_utilisateur = ?';
