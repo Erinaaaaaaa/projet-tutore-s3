@@ -42,28 +42,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             "ErreurInscription" => "Une erreur est survenue lors de l'application des changements."));
 
     }
-    else
-        header("Location: listEvenement.php");
+    else {
+		$idSeance = $_GET['id_seance'];
+        header("Location: gererEvenements.php?id_seance=$idSeance");
+	}
 
 } else {
     if(isset($_GET['id'])) {
 
         $evenement = getEvenement($_GET['id'])[0];
-        $idseance = $evenement->getIdSeance();
-        $seance->getSeance($idseance)[0];
-        
-        if( $seance->getIdUtilisateur() === $_SESSION['login']) {
+
+
+
 
         echo $tpl->render(array("id" => $_GET['id'], "categorie" => $evenement->getCategorie(), "types" => getTypesEvenement(),
-        "description" => $evenement->getDescription(), "temps" => $evenement->getTemps(),"pour_le"=>$evenement->getPourLe()
-         ));
-        }
-        else
-        {
-            header("Location: listEvenement.php");
-        }
+            "description" => $evenement->getDescription(), "temps" => $evenement->getTemps(),"pour_le"=>$evenement->getPourLe()
+           ));
+
     } else {
         echo $tpl->render(array());
     }
 }
-

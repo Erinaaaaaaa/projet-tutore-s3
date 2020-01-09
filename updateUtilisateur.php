@@ -8,6 +8,11 @@ require_once("PHP/Twig/lib/Twig/Autoloader.php");
 if (!isset($_SESSION['login'])) {
     header("Location: index.php");
 }
+else {
+	if (strpos(getUtilisateur($_SESSION['login'])->getRole(), "A") === false) {
+		header("Location: accueil.php");
+	}
+}
 
 Twig_Autoloader::register();
 $twig = new Twig_Environment(new Twig_Loader_Filesystem("./tpl"));
@@ -61,4 +66,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo $tpl->render(array());
     }
 }
-

@@ -25,10 +25,15 @@
 
 {% block js %}
     <script>
-        function verifSuppression(id) {
-            if (confirm('Voulez-vous vraiment supprimer l\'evenement d\'identifiant "' + id + '"?')) {
+        function verifSuppression(id, id_seance) {
+            if (confirm('Voulez-vous vraiment supprimer l\'evenement d\'identifiant "' + id_seance + '"?')) {
                 alert("ok deleting " + id);
-                document.location.href = "PHP/deleteEvenement.php?id=" + id;
+				if (id_seance === "") {
+					document.location.href = "PHP/deleteEvenement.php?id=" + id;
+				}
+				else {
+					document.location.href = "PHP/deleteEvenement.php?id=" + id + "&id_seance=" + id_seance;
+				}
             } else {
                 alert("Annuler");
             }
@@ -57,15 +62,15 @@
                 <td>{{ even.getTemps() }}</td>
                 <td>{{ even.getPourLe() }}</td>
                 <td>{{ even.getIdSeance() }}</td>
-                <td><a href="updateEvenement.php?id={{even.getIdEvenement()}}"><img src="images/edit.png" alt="Modifier l'evenement"/></a></td>
+                <td><a href="updateEvenement.php?id={{even.getIdEvenement()}}{% if idSeance is not null %}&id_seance={{idSeance}}{% endif %}"><img src="images/edit.png" alt="Modifier l'evenement"/></a></td>
                 <!-- deleteEvenement.php?id={{even.getIdEvenement()}} -->
-                <td><a href="javascript:verifSuppression('{{even.getIdEvenement()}}')"><img src="images/delete.jpeg" alt="Supprimer l'evenement"/></a></td>
+                <td><a href="javascript:verifSuppression('{{even.getIdEvenement()}}','{% if idSeance is not null %}{{idSeance}}{% else %}{% endif %}')"><img src="images/delete.jpeg" alt="Supprimer l'evenement"/></a></td>
                 <!-- Ajouter bouton pour modifier la row (update)-->
 
             </tr>
         {% endfor %}
     </table>
 
-    <a class="button" href="formAjouterEvenement.php">Ajouter un evenement</a>
-    <p>Durée totale des évenements : {{duree}}</p>
+    <a class="button" href="formAjouterEvenement.php{% if idSeance is not null %}?id_seance={{idSeance}}{% endif %}">Ajouter un evenement</a>
+
 {% endblock %}

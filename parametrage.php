@@ -1,14 +1,19 @@
 <?php
 session_start();
 
+// INCLUDES
+require_once "PHP/fonctions/func.users.php";
+require_once "PHP/Twig/lib/Twig/Autoloader.php" ;
+
 // VERIFICATION SESSION
 if (!isset($_SESSION['login'])) {
     header("Location: index.php");
 }
-
-// INCLUDES
-require_once "PHP/fonctions/func.users.php";
-require_once "PHP/Twig/lib/Twig/Autoloader.php" ;
+else {
+	if (strpos(getUtilisateur($_SESSION['login'])->getRole(), "A") === false) {
+		header("Location: accueil.php");
+	}
+}
 
 // PREPARATION TWIG
 Twig_Autoloader::register();
