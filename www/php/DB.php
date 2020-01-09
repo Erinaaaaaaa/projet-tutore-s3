@@ -1,5 +1,7 @@
 <?php
 
+// TODO: classes, ajouter des attributs pour les entités liées
+
 require_once "models/Affectation.php";
 require_once "models/EtatSemaphore.php";
 require_once "models/Evenement.php";
@@ -13,6 +15,7 @@ require_once "models/TypeSeance.php";
 require_once "models/Utilisateur.php";
 
 // TODO: Retourner l'identifiant de l'objet créé après sa création
+
 
 class DB
 {
@@ -61,19 +64,16 @@ class DB
     private function query($requete, $param, $nomClasse)
     {
         $req = $this->pdo->prepare($requete);
-        $req->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $nomClasse);
 
         if (is_null($param))
             $req->execute();
         else
             $req->execute($param);
 
-        $tab = [];
-
-        while ($tuple = $req->fetch())
-            $tab[] = $tuple;
-
-        return $tab;
+        if (!is_null($nomClasse))
+            return $req->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $nomClasse);
+        else
+            return $req->fetchAll(PDO::FETCH_KEY_PAIR);
     }
 
     private function update($ordre, $param)
@@ -374,5 +374,24 @@ class DB
     public function deleteTypeEvenement($id)
     {
         return $this->update("UPDATE Type_Evenement SET Actif = false WHERE Id = ?", array($id)) > 0;
+    }
+
+    // ===== PARAMETRES =====
+
+    public function getParametre($parametre)
+    {
+        return $this->query("SELECT valeur FROM Parametres WHERE Param = ?", array($parametre), null);
+    }
+
+    public function getParametres() {
+        return $this->query("SELECT * FROM Parametres", null, null);
+    }
+
+    public function updateParametres($params) {
+        foreach ($params as $key=>$value)
+        {
+            $this->update("insert into Parametres values (?,?)
+                on conflict (Param) do update set Valeur = Excluded.Valeur", array($key, $value));
+        }
     }
 }

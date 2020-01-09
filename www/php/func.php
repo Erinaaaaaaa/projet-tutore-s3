@@ -21,6 +21,7 @@ function getSidebarOptions($page) {
     {
         case "param":
             return array(
+                array("url"=>"/param/options.php", "nom"=>"Options générales"),
                 array("url"=>"/param/affectations.php", "nom"=>"Affectations"),
                 array("url"=>"/param/evenements.php", "nom"=>"Evenements"),
                 array("url"=>"/param/groupes.php", "nom"=>"Groupes"),

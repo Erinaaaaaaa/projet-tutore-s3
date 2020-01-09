@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS Evenement CASCADE;
 DROP TABLE IF EXISTS Piece_Jointe CASCADE;
 DROP TABLE IF EXISTS Semaphore CASCADE;
 DROP TABLE IF EXISTS Etat_Semaphore CASCADE;
+DROP TABLE IF EXISTS Parametres CASCADE;
 
 CREATE TABLE Utilisateur
 (
@@ -104,5 +105,11 @@ CREATE TABLE Etat_Semaphore
     Seance      INT REFERENCES Seance,
     Etat        INT REFERENCES Semaphore,
     PRIMARY KEY (Utilisateur, Seance)
+);
+
+CREATE TABLE Parametres
+(
+    Param  VARCHAR(64) PRIMARY KEY,
+    Valeur INT
 );
 
