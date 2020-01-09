@@ -9,6 +9,7 @@ require_once "PHP/Twig/lib/Twig/Autoloader.php";
 require_once "PHP/fonctions/func.typeevenement.php";
 require_once "PHP/fonctions/func.evenement.php";
 require_once "PHP/fonctions/func.users.php";
+require_once "PHP/fonctions/func.piece_jointe.php";
 
 // PREPARATION TWIG
 Twig_Autoloader::register();
@@ -22,6 +23,7 @@ $message = null;
  * Champs POST
  * - Categorie
  * - Description
+ * - PJ
  * - Temps
  * - Date
  */
@@ -30,13 +32,36 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     // TODO: Listing des séances de l'utilisateur courant
     // TODO: Investiguer les pièces jointes dans la méthode d'ajout
-    if (!addEvenement($_POST['Categorie'], $_POST['Description'], null, $_POST['Temps'], $_POST['Date'],$_GET['id_seance'])) {
+
+    $id_evenement = addEvenement($_POST['Categorie'], $_POST['Description'],null, $_POST['Temps'], $_POST['Date'],$_GET['id_seance']);
+
+    if ($id_evenement != -1) {
         $message = "Impossible d'ajouter cet évènement";
     } else {
         $message = "Évènement enregistré avec succès!";
-        header("Location: listSeancesUtilisateur.php");
-        die();
     }
+
+    if(isset($_FILES["PJ"]))
+    {
+        // PRÉREQUIS POUR WOODY: chmod -R 777 public_html
+        // (Généralement le 777 est pas recommandé mais bon avec woody...)
+
+        // Récupérer le chemin d'un dossier "uploaded" dans le dossier courant
+        list($scriptPath) = get_included_files();
+        $folder = pathinfo($scriptPath, PATHINFO_DIRNAME) . "/upload";
+
+        // Dépacer le fichier dans le dossier uploaded
+        move_uploaded_file($_FILES["PJ"]["tmp_name"], "$folder/" . $_FILES["PJ"]["name"]);
+
+        if(!addPiece_jointe($_FILES["PJ"]["name"], "$folder/" . $_FILES["PJ"]["name"], $id_evenement)){
+            $message = "";
+        } else {
+            $message = "";
+        }
+    }
+
+
+
 
 
 }

@@ -43,10 +43,20 @@ echo "exception".$e->getMessage();
 
 function deleteTypeEvenement(int $id) {
     try {
-        DB::getInstance()->deleteTypeEvenement($id);
+        DB::getInstance()->deleteTypeEvenementParSceance($id);
         return true;
     } catch (PDOException $e) {
 echo "exception".$e->getMessage();
+        return false;
+    }
+}
+
+function updateTypeEvenement($id,$libelle,$roles){
+    try {
+        $result = DB::getInstance()->updateTypeEvenement($id,$libelle,$roles);
+        return true;
+    } catch (PDOException $e) {
+        echo "exception" . $e->getMessage();
         return false;
     }
 }

@@ -341,9 +341,19 @@ class DB {
 	$requete = "update seance set date_modif = ? where id_seance = ?";
 	$tparam  = array(date("Y-m-d"), $id_seance);
 	$this->execMaj($requete, $tparam);
+
+	$this->connect->beginTransaction();
+
         $requete = 'insert into evenement (categorie,description,pj,temps,pour_le,id_seance) values (?,?,?,?,?,?)';
         $tparam = array($categorie,$description,$pj,$temps,$pour_le,$id_seance);
-        return $this->execMaj($requete,$tparam);
+        $this->execMaj($requete,$tparam);
+
+        $lastid = $this->connect->lastInsertId();
+
+    $this->connect->commit();
+
+    return $lastid;
+
     }
 
     public function deleteEvenement($id_ev) {
@@ -427,10 +437,37 @@ class DB {
         return $this->execMaj($requete,$tparam);
     }
 
-    public function deleteTypeEvenement($id) {
-        $requete = 'delete from typeevenements where id_typeevenement = ?';
+    public function deleteTypeEvenementParSceance($id) {
+        $requete = 'delete from typeevenements where id_typeseance = ?';
         $tparam = array($id);
         return $this->execMaj($requete,$tparam);
+    }
+
+    public function deleteTypeEvenement($id){
+        $requete = 'delete from typeevenements where id_typeevenement= ?';
+        $tparam = array($id);
+        return $this->execMaj($requete,$tparam);
+    }
+
+    //TODO: faire update type even -> .
+    public function updateTypeEvenement($id,$libelle,$roles){
+        $requete = "update evenement set libelle = ?, roles= ? where id_typeevenement = ?";
+        $tparam = array($libelle,$roles,$id);
+        return $this->execMaj($requete,$tparam);
+    }
+
+    //Gestion des piece_jointe
+
+    public function getPjPourEvenement($id){
+        $requete = "select * from piece_jointe where evenement=?";
+        $tparam  = array($id);
+        return $this->execQuery($requete,$tparam,"piece_jointe");
+    }
+
+    public function addPiece_jointe($nom_fichier, $chemin,$id_evenement){
+        $requete = "insert into piece_jointe (nom_fichier, chemin, evenement) values (?,?,?)";
+        $tparam  = array($nom_fichier,$chemin,$id_evenement);
+        return $this->execQuery($requete,$tparam,"piece_jointe");
     }
 
 	//Gestion des Sémaphores

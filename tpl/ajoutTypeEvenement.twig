@@ -1,0 +1,46 @@
+{% extends "base.twig" %}
+
+{% block css %}
+    <style>
+        span.obligatoire {
+            color: red;
+        }
+    </style>
+{% endblock %}
+
+{% block contenu %}
+    <form action="" method="post">
+        <fieldset>
+            <span>{{ message }}</span>
+            <table>
+                <tr>
+                    <td><input type=hidden name="id_typeevenement" value="{{ id_typeevenement }}" > </td>
+                </tr>
+                <tr>
+                    <td>
+                        Libelle de l'evenement <span class="obligatoire">*</span>
+                    </td>
+                    <td>
+                        <input type="text" name="libelle" value="{{ libelle }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Roles:
+                    </td>
+                    <td>
+                        <input type="text" name="roles" value="{{ roles }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        (<span class="obligatoire">*</span> champs obligatoires)
+                    </td>
+                    <td>
+                        <input type="submit" name="valider" value="Valider">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+{% endblock %}

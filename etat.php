@@ -119,12 +119,13 @@ if (intval($date->diff($echeanceMax)->format("%R%d")) < 0)
 
 
 
-$tabModules    = array();
-$tabGroupes    = array();
-$tabTypes      = array();
-$tabTypesEv    = array();
-$tabCreateurs  = array();
-$tabSemaphores = array();
+$tabModules      = array();
+$tabGroupes      = array();
+$tabTypes        = array();
+$tabTypesEv      = array();
+$tabCreateurs    = array();
+$tabSemaphores   = array();
+$tabPiece_jointe = array();
 
 if (isset($_POST['DateCreaMin'])) {
 	$dateCreaMin = new DateTime($_POST['DateCreaMin']);
@@ -223,6 +224,7 @@ foreach ($seancesFiltrees as $seance)
     foreach ($seance->evenements as $event)
     {
         $event->nom_type = getTypeEvenement($event->getCategorie())->getLibelle();
+        $event->pj = getPjPourEvenement($event->getIdEvenement());
     }
 
     $seance->nom_type   = getTypeSeance($seance->getType())->getLibelle();
@@ -309,6 +311,7 @@ echo $tpl->render(array("titre"=>"Accueil",
 	"tabGroupes"     => $tabGroupes,
 	"tabCreateurs"   => $tabCreateurs,
 	"tabSemaphores"  => $tabSemaphores,
+	"tabPiece_jointe"=> $tabPiece_jointe,
 	"debutAnnee"     => strval($dateMin->format("Y-m-d")),
 	"finAnnee"       => strval($dateMax->format("Y-m-d")),
 	"dateCreaMinMois"=> strval($dateCreaMinMois->format("Y-m-d")),

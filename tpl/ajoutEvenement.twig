@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block contenu %}
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         <fieldset>
             <span>{{ message }}</span>
             <table>
@@ -32,6 +32,14 @@
                     </td>
                     <td>
                         <input type="text" name="Description" value="{{ description }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        PJ:
+                    </td>
+                    <td>
+                        <input type="file" name="PJ">
                     </td>
                 </tr>
                 <tr>
@@ -60,7 +68,6 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        Vous pourrez ajouter des pièces jointes une fois l'évènement créé
                     </td>
                 </tr>
             </table>

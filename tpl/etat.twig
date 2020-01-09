@@ -178,7 +178,7 @@
 				                    <div class="row">
 				                        <div class="td">{{ e.nom_type }}</div>
 				                        <div class="td">{{ e.description }}</div>
-				                        <div class="td"></div>
+				                        <div class="td">{% for pj in e.pj %}{{ pj["nom_fichier"] }}{% endfor %}</div>
 				                        <div class="td">{{ e.temps }}</div>
 				                        <div class="td">{{ e.getPourLe() }}</div>
 				                    </div>

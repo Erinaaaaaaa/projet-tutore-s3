@@ -49,11 +49,10 @@ function getEvenementsPourSeance(int $id_seance) {
 // TODO: type hints
 function addEvenement($categorie,$description,$pj,$temps,$pour_le,$id_seance) {
     try {
-        DB::getInstance()->addEvenement($categorie,$description,$pj,$temps,$pour_le,$id_seance);
-        return true;
+        return DB::getInstance()->addEvenement($categorie,$description,$pj,$temps,$pour_le,$id_seance);
     } catch (PDOException $e) {
         echo "exception".$e->getMessage();
-        return false;
+        return -1;
     }
 }
 
@@ -78,6 +77,15 @@ function updateEvenement($id,$categorie,$description,$temps,$pour_le){
     } catch (PDOException $e) {
         echo "exception" . $e->getMessage();
         return false;
+    }
+}
+
+function getPjPourEvenement(int $id){
+    try{
+        return DB::getInstance()->getPjPourEvenement($id);
+    }catch(PDOException $e){
+        echo "exception".$e->getMessage();
+        return array();
     }
 }
 

@@ -6,12 +6,12 @@ class Evenement {
     private $id_evenement;
     private $categorie;
     private $description;
-	private $pj;
     private $temps;
     private $pour_le;
     private $id_seance;
 
     public $nom_type;
+    public $pj;
 
 
     /* Les méthodes qui commencent par __ sont des methodes magiques */

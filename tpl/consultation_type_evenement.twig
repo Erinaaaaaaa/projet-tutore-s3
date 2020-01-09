@@ -1,0 +1,64 @@
+{% extends "base.twig"%}
+
+{% block css %}
+    <style>
+        table {border: solid 5px lightseagreen;
+            border-collapse: collapse;
+            font-size: medium;
+            empty-cells: show;
+        }
+
+        th, td {
+            padding: 2px 8px;
+            border: solid 1px lightseagreen;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #FFC; /* jaune */
+        }
+
+        table img {
+            height: 12px;
+        }
+    </style>
+{% endblock %}
+
+{% block js %}
+    <script>
+        function verifSuppression(id) {
+            if (confirm('Voulez-vous vraiment supprimer le type d\'evenement d\'identifiant "' + id + '"?')) {
+                alert("ok deleting " + id);
+                document.location.href = "PHP/deleteTypeEvenement.php?id=" + id;
+            } else {
+                alert("Annuler");
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block contenu %}
+    <table>
+        <tr>
+            <th>id_typeevennement</th>
+            <th>libelle</th>
+            <th>roles</th>
+        </tr>
+
+
+        {% for type in tabTypeEven %}
+            <tr>
+                <td>{{ type.id_typeevenement }}</td>
+                <td>{{ type.libelle }}</td>
+                <td>{{ type.roles }}</td>
+                <td><a href="updateTypeEvenement.php?id={{type.id_typeevenement}}"><img src="images/edit.png" alt="Modifier le type d'evenement"/></a></td>
+                <!-- deleteEvenement.php?id={{type.id_typeevenement}} -->
+                <td><a href="javascript:verifSuppression('{{type.id_typeevenement}}')"><img src="images/delete.jpeg" alt="Supprimer le type d'evenement"/></a></td>
+                <!-- Ajouter bouton pour modifier la row (update)-->
+
+            </tr>
+        {% endfor %}
+    </table>
+
+    <a class="button" href="formAjouterTypeEvenement.php">Ajouter un type d'evenement</a>
+
+{% endblock %}
