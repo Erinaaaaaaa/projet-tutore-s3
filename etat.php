@@ -278,7 +278,7 @@ if (isset($_POST['save'])) {
 	}
 }
 
-echo $tpl->render(array("titre"=>"Accueil",
+echo $tpl->render(array("titre"=>"Etat des séances",
     "sections"=>array(
         array(
             "nom"=>"Visualiser",
