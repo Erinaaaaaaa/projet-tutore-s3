@@ -289,7 +289,7 @@ class DB {
 	}
 
 	public function getSeances() {
-        $requete = 'select * from seance';
+        $requete = 'select * from seance order by date_creation';
         return $this->execQuery($requete,null,'Seance');
     }
 
