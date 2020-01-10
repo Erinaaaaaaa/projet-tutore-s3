@@ -10,7 +10,6 @@ BEGIN
         AND Old.Date_Creation = New.Date_Creation
         AND Old.Date_Modification = New.Date_Modification)
     THEN
-        RAISE EXCEPTION 'execution du trigger % sur table % impossible car valeur identique', Tg_Name, Tg_Table_Name;
 
     ELSE
         -- update utilisateur set maj_le = now() where id_utilisateur = OLD.id_utlisateur;

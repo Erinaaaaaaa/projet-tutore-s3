@@ -155,6 +155,12 @@ class DB
         else return null;
     }
 
+    public function getGroupesPourUtilisateur($login) {
+        $user = $this->getUtilisateur($login);
+
+        return explode(":", $user->getGroupes());
+    }
+
     public function addGroupe($nom, $pere)
     {
         return $this->update("INSERT INTO Groupe VALUES (?, ?)", array($nom, $pere)) > 0;
@@ -191,6 +197,16 @@ class DB
     public function getModules()
     {
         return $this->query("SELECT * FROM Module", null, Module::class);
+    }
+
+    public function getModulesPourUtilisateur($login)
+    {
+        if (strpos($this->getUtilisateur($login)->getRoles(), "A") != -1)
+            return $this->getModules();
+
+        return $this->query("SELECT * FROM Module WHERE Code in 
+                           (Select Module from Affectation WHERE Utilisateur = ?)",
+            array($login), Module::class);
     }
 
     public function addModule($code, $libelle, $couleur, $droits)
@@ -253,14 +269,18 @@ class DB
 
     public function addSeance($module, $date, $type, $groupe, $utilisateur)
     {
-        return $this->update("INSERT INTO Seance(module, date, type, groupe, utilisateur) VALUES (?,?,?,?,?)",
-            array($module, $date, $type, $groupe, $utilisateur)) > 0;
+        $this->pdo->beginTransaction();
+        $this->update("INSERT INTO Seance(module, date, type, groupe, utilisateur) VALUES (?,?,?,?,?)",
+            array($module, $date, $type, $groupe, $utilisateur));
+        $id = $this->pdo->lastInsertId();
+        $this->pdo->commit();
+        return $id;
     }
 
     // TODO: Ajouter trigger pour date de modification
     public function updateSeance($id, $module, $date, $type, $groupe)
     {
-        return $this->update("UPDATE Seance SET Module = ?, Date = ?, Type = ?, Groupe = ? WHERE Id = ?",
+        return $this->update("UPDATE Seance SET Module = ?, Date = ?, Type = ?, Groupe = ?, Date_Modification = now() WHERE Id = ?",
             array($module, $date, $type, $groupe, $id)) > 0;
     }
 
@@ -337,7 +357,30 @@ class DB
 
     public function getTypesSeance()
     {
-        return $this->query("SELECT * FROM Type_Seance", null, TypeSeance::class);
+        return $this->query("SELECT * FROM Type_Seance ", null, TypeSeance::class);
+    }
+
+    public function getTypesSeancePourUtilisateur($login) {
+
+        $user = $this->getUtilisateur($login);
+
+        return $this->getTypesSeanceForRoles($user->getRoles());
+    }
+
+
+    public function getTypesSeanceForRoles($roles)
+    {
+        if (strpos($roles, 'A') != -1) return $this->query("SELECT * FROM Type_Seance WHERE Actif = true",null, TypeSeance::class);
+
+        $types = [];
+
+        foreach (str_split($roles) as $char)
+        {
+            array_merge_recursive($types, $this->query("SELECT * FROM Type_Seance WHERE actif != false and Roles LIKE ?",
+                array("%$char%"), TypeSeance::class));
+        }
+
+        return $types;
     }
 
     public function addTypeSeance($libelle, $droits)
@@ -364,6 +407,13 @@ class DB
         return $this->query("SELECT * FROM Type_Evenement", null, TypeEvenement::class);
     }
 
+    public function getTypesEvenementPourUtilisateur($login) {
+
+        $user = $this->getUtilisateur($login);
+
+        return $this->getTypesEvenementForRoles($user->getRoles());
+    }
+
     public function getTypeEvenement($id)
     {
         if (empty($id)) return null;
@@ -377,13 +427,13 @@ class DB
 
     public function getTypesEvenementForRoles($roles)
     {
-        if (strpos($roles, 'A') != -1) return $this->getTypesEvenement();
+        if (strpos($roles, 'A') != -1) return $this->query("SELECT * FROM Type_Evenement WHERE Actif = true",null, TypeEvenement::class);
 
         $types = [];
 
         foreach (str_split($roles) as $char)
         {
-            array_merge_recursive($types, $this->query("SELECT * FROM Type_Evenement WHERE Roles LIKE ?",
+            array_merge_recursive($types, $this->query("SELECT * FROM Type_Evenement WHERE Actif = false and Roles LIKE ?",
                 array("%$char%"), TypeEvenement::class));
         }
 

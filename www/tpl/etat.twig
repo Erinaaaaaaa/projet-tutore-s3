@@ -19,7 +19,7 @@
 
     <form action="" method="post">
         <div class="block month">
-            <input type="hidden" name="month" value={{chiffreMois}}/>
+            <input type="hidden" name="month" value={{chiffreMois}} />
             <input type="hidden" name="year" value={{chiffreAnnee}} />
             <input type="submit" name="month-" value="Précédent" data-tag="prev"/>
             <h2>{{moisActuel}}</h2>
@@ -139,7 +139,7 @@
         {% for numSemaine,seances in tabSeances %}
             <div class="block week">
                 <div class="number">
-                    {{numSemaine}}
+                    {{"%02d"|format(numSemaine)}}
                 </div>
                 <div class="seances">
                     {% for s in seances %}
@@ -149,7 +149,7 @@
                                     <span class="icon">&#x26AB;</span>
                                     {{ s.obj_module.libelle }}
                                 </div>
-                                <span>{{ s.getDateCreation() }}</span>
+                                <span>{{ s.getDateFormatee("d/m/Y") }}</span>
                                 <span class="small">{{s.nom_type}}</span>
                                 <span class="small">{{ s.groupe }}</span>
                                 <span>{{s.obj_user.prenom ~ " " ~ s.obj_user.nom}}</span>
@@ -179,7 +179,7 @@
                                                     <span class="tooltiptext">{{ pj.getNomFichier() }}</span>
                                                         <img src="/images/file.png" width="24px"></a>
                                                 {% endfor %}</div>
-                                            <div class="td">{{ e.duree }}</div>
+                                            <div class="td">{{ e.getDureeFormat() }}</div>
                                             <div class="td">{{ e.getEcheance() }}</div>
                                         </div>
                                     {% endif %}

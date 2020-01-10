@@ -182,27 +182,27 @@
         <div>
         <label for="module">Module : </label>
         <select name="module" id="module">
-            <option>a</option>
-            <option>b</option>
-            <option>c</option>
+            {% for module in modules %}
+                <option value="{{ module.code }}">{{ module.libelle }}</option>
+            {% endfor %}
         </select>
         </div>
 
         <div>
         <label for="type_s">Type : </label>
         <select name="type_s" id="type_s">
-            <option>a</option>
-            <option>b</option>
-            <option>c</option>
+            {% for type in typeSeances %}
+                <option value="{{ type.id }}">{{ type.libelle }}</option>
+            {% endfor %}
         </select>
         </div>
 
         <div>
             <label for="groupe">Groupe : </label>
             <select name="groupe" id="groupe">
-                <option>a</option>
-                <option>b</option>
-                <option>c</option>
+                {% for groupe in groupes %}
+                    <option value="{{ groupe }}">{{ groupe }}</option>
+                {% endfor %}
             </select>
         </div>
 
@@ -214,7 +214,7 @@
             </div>
 
             <input type="button" onclick="addEvent()" id="evt_new" value="Nouvel évènement">
-            Maximum: {{ maxEvent     }}
+            Maximum: {{ maxEvent }}
         </fieldset>
 
         <input type="submit" id="submit" value="Enregistrer">

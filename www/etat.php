@@ -9,7 +9,7 @@ $tpl = $twig->resolveTemplate("etat.twig");
 
 if (!isset($_POST['month+']) && !isset($_POST['month-']))
 {
-    $moisActuel    = intval(date('n'))-1;
+    $moisActuel    = intval(date('m'))-1;
     $anneeActuelle = intval(date('Y'));
 }
 else
@@ -39,6 +39,9 @@ if ($moisActuel > 11)
     $moisActuel    = 0;
     $anneeActuelle = $anneeActuelle+1;
 }
+
+
+
 
 ///////////////////////////////////////////////////////
 
@@ -169,7 +172,7 @@ $seancesFiltrees = array();
 
 /* @var $s Seance */
 foreach ($allSeances as $s) {
-    $dateCrea = new DateTime($s->getDateCreation());
+    $dateCrea = new DateTime($s->getDate());
     if ( intval($dateCrea->diff($dateCreaMin)->format("%R%d")) <= 0 &&
         intval($dateCrea->diff($dateCreaMax)->format("%R%d")) >= 0 &&
         (in_array($s->getModule(),      $tabModules  ) || empty($tabModules  )) &&
@@ -222,13 +225,13 @@ $tabSeancesFiltrees = array();
 
 /* @var $seance Seance */
 foreach ($seancesFiltrees as $seance) {
-    if (!array_key_exists(date($seance->getDateCreation()), $tabSeancesFiltrees)) {
-        $date = new DateTime(date($seance->getDateCreation()));
-        $numSemaine     = $date->format("W");
+    if (!array_key_exists(date($seance->getDate()), $tabSeancesFiltrees)) {
+        $date = new DateTime(date($seance->getDate()));
+        $numSemaine     = intval($date->format("W"));
         $seancesSemaine = array();
 
         foreach ($seancesFiltrees as $s) {
-            $dateSeance       = new DateTime(date($s->getDateCreation()));
+            $dateSeance       = new DateTime(date($s->getDate()));
             $numSemaineSeance = $dateSeance->format("W");
             if ($numSemaineSeance == $numSemaine) {
                 array_push($seancesSemaine, $s);
@@ -238,6 +241,9 @@ foreach ($seancesFiltrees as $seance) {
         $tabSeancesFiltrees[$numSemaine] = $seancesSemaine;
     }
 }
+
+ksort($tabSeancesFiltrees, SORT_NUMERIC);
+$tabSeancesFiltrees = array_reverse($tabSeancesFiltrees, true);
 
 /* sauvegarde des sémaphores */
 
