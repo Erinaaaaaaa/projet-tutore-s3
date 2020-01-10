@@ -79,7 +79,7 @@
                                     <select name="Groupes[]" multiple size="2">
 
                                         {% for groupe in groupes %}
-                                            <option value="{{ groupe.nom }}" {% if groupe.getNom() in tabGroupes %}selected{% endif %}>{{ groupe.groupe }}</option>
+                                            <option value="{{ groupe.nom }}" {% if groupe.getNom() in tabGroupes %}selected{% endif %}>{{ groupe.nom }}</option>
                                         {% endfor %}
                                     </select>
                                 </td>

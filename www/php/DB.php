@@ -120,6 +120,18 @@ class DB
                 array($id,$nom,$prenom,$mdp,$role,$groupe,$oldId)) > 0;
     }
 
+    public function updateProfil($id, $nom, $prenom)
+    {
+        return $this->update("UPDATE Utilisateur SET Nom = ?, Prenom = ? WHERE Id = ?",
+            array($nom, $prenom, $id)) > 0;
+    }
+
+    public function updateMdp($id, $mdp)
+    {
+        return $this->update("UPDATE Utilisateur SET Mdp = ? WHERE Id = ?",
+            array($mdp, $id)) > 0;
+    }
+
     public function deleteUtilisateur($id)
     {
         return $this->update("DELETE FROM Utilisateur WHERE Id = ?", array($id)) > 0;

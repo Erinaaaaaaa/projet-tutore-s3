@@ -31,7 +31,8 @@
                 $button.prop('disabled', 'disabled');
 
                 $file_upload.on('change', function () {
-                    var number_of_images = $(this)[0].files.length;
+                    let number_of_images = $(this)[0].files.length;
+                    $("input#filecount").val(number_of_images);
                     if (number_of_images > max_file_number) {
                         alert(`Vous pouvez uniquement sélectionner un maximum de ${max_file_number} fichiers.`);
                         $(this).val('');
@@ -56,6 +57,7 @@
 
 {% block contenu %}
     <form action="" method="post" enctype="multipart/form-data">
+        <input type="hidden" id="filecount" name="filecount" value="0">
         <fieldset>
             <span>{{ message }}</span>
             <table>

@@ -31,21 +31,34 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $tmpDate = new DateTime($date);
 
     $dossier = "/documents/".$tmpDate->format("Y")."/".$tmpDate->format("m");
-    mkdir(ROOT_PATH.$dossier, 0777, true);
+    if (!file_exists(ROOT_PATH.$dossier))
+        mkdir(ROOT_PATH.$dossier, 0777, true);
 
     $fileresult = true;
 
-    foreach ($_FILES["pj"]["error"] as $key=>$error)
-    {
-        if ($error == UPLOAD_ERR_OK) {
-            $tmp_name = $_FILES["pj"]["tmp_name"][$key];
+    if ($_POST['filecount'] == 1) {
+        if ($_FILES["pj"]["error"][0] == UPLOAD_ERR_OK) {
+            $tmp_name = $_FILES["pj"]["tmp_name"][0];
             // basename() peut empêcher les attaques de système de fichiers;
             // la validation/assainissement supplémentaire du nom de fichier peut être approprié
-            $name = basename($_FILES["pj"]["name"][$key]);
+            $name = basename($_FILES["pj"]["name"][0]);
             $fileresult &= move_uploaded_file($tmp_name, ROOT_PATH."$dossier/$name");
         }
 
-        $db->addPJ(basename($_FILES["pj"]["name"][$key]), "$dossier/$name", $newId);
+        $db->addPJ(basename($_FILES["pj"]["name"][0]), "$dossier/$name", $newId);
+    }
+    else {
+        foreach ($_FILES["pj"]["error"] as $key => $error) {
+            if ($error == UPLOAD_ERR_OK) {
+                $tmp_name = $_FILES["pj"]["tmp_name"][$key];
+                // basename() peut empêcher les attaques de système de fichiers;
+                // la validation/assainissement supplémentaire du nom de fichier peut être approprié
+                $name = basename($_FILES["pj"]["name"][$key]);
+                $fileresult &= move_uploaded_file($tmp_name, ROOT_PATH . "$dossier/$name");
+            }
+
+            $db->addPJ(basename($_FILES["pj"]["name"][$key]), "$dossier/$name", $newId);
+        }
     }
 
     if (!$newId || !$fileresult) {
@@ -73,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     } else {
         // Modification avec succès
-        header("Location: " . basename(__FILE__));
+        // header("Location: " . basename(__FILE__));
     }
 }
 
