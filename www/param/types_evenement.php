@@ -50,7 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             "titre" => "Gestion des types d'évènement",
             "sections" => getSidebarSections($_SESSION['login']),
             "options" => getSidebarOptions("param"),
-            "tabTypes" => $db->getTypesEvenement()
+            "tabTypes" => $db->getTypesEvenement(),
+
         ));
     }
 }

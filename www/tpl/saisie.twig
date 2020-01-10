@@ -1,0 +1,118 @@
+{% extends "base.twig" %}
+
+{% block css %}
+<style>
+    #saisie {
+        padding: 8px;
+    }
+
+    #saisie label {
+        display: inline-block;
+        width: 200px;
+    }
+
+    #saisie input, #saisie select {
+        width: 200px;
+    }
+
+    #saisie input[type="number"] {
+        width: 50px;
+    }
+
+    #saisie input[type="file"] {
+        width: 400px;
+    }
+
+    #saisie > div:not(:last-of-type) {
+        margin-bottom: 8px;
+    }
+
+    .evenement {
+        border: 1px solid silver;
+    }
+
+    fieldset {
+        border-radius: 4px;
+    }
+
+    fieldset div div {
+        padding: 4px;
+        border-radius: 4px;
+    }
+</style>
+{% endblock %}
+
+{% block contenu %}
+    <form id="saisie" class="block" method="post" action="" enctype="multipart/form-data">
+        <div>
+        <label for="date">Date :</label>
+        <input type="date" name="date" id="date">
+        </div>
+
+        <div>
+        <label for="module">Module : </label>
+        <select name="module" id="module">
+            <option>a</option>
+            <option>b</option>
+            <option>c</option>
+        </select>
+        </div>
+
+        <div>
+        <label for="type_s">Type : </label>
+        <select name="type_s" id="type_s">
+            <option>a</option>
+            <option>b</option>
+            <option>c</option>
+        </select>
+        </div>
+
+        <div>
+            <label for="groupe">Groupe : </label>
+            <select name="groupe" id="groupe">
+                <option>a</option>
+                <option>b</option>
+                <option>c</option>
+            </select>
+        </div>
+
+        <fieldset style="padding-bottom: 8px">
+            <legend>Évènements</legend>
+
+            <div id="evt_inputs" style="padding-bottom: 8px">
+                <div id="evt0" class="evenement">
+                    <div>
+                        <label for="type_e0">Type d'évènement : </label>
+                        <select name="type_e0" id="type_e0">
+                            <option>a</option>
+                            <option>b</option>
+                            <option>c</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="libelle0">Libellé : </label>
+                        <input name="libelle0" id="libelle0">
+                    </div>
+                    <div>
+                        <label for="pj0">Pièces jointes : </label>
+                        <input name="pj0[]" id="pj0" type="file" multiple>
+                    </div>
+                    <div>
+                        <label for="duree0">Durée : </label>
+                        <input name="duree0" id="duree0" class="duree" type="number" min="0" step="0.25">
+                        heures (<span id="duree0-heures">0:00</span>)
+                    </div>
+                    <div>
+                        <label for="date0">Echéance : </label>
+                        <input name="date0" id="date0" type="date">
+                    </div>
+                    <input style="margin-top: 8px;" type="button" id="evt0_del" value="Supprimer l'évènement">
+                </div>
+            </div>
+
+            <input type="button" id="evt_new" value="Nouvel évènement">
+        </fieldset>
+
+        <input type="submit" value="Enregistrer">
+    </form>
+{% endblock %}

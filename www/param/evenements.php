@@ -36,27 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $fileresult = true;
 
-    if ($_POST['filecount'] == 1) {
-        if ($_FILES["pj"]["error"][0] == UPLOAD_ERR_OK) {
-            $tmp_name = $_FILES["pj"]["tmp_name"][0];
+    foreach ($_FILES["pj"]["error"] as $key => $error) {
+        if ($error == UPLOAD_ERR_OK) {
+            $tmp_name = $_FILES["pj"]["tmp_name"][$key];
             // basename() peut empêcher les attaques de système de fichiers;
             // la validation/assainissement supplémentaire du nom de fichier peut être approprié
-            $name = basename($_FILES["pj"]["name"][0]);
-            $fileresult &= move_uploaded_file($tmp_name, ROOT_PATH."$dossier/$name");
-        }
-
-        $db->addPJ(basename($_FILES["pj"]["name"][0]), "$dossier/$name", $newId);
-    }
-    else {
-        foreach ($_FILES["pj"]["error"] as $key => $error) {
-            if ($error == UPLOAD_ERR_OK) {
-                $tmp_name = $_FILES["pj"]["tmp_name"][$key];
-                // basename() peut empêcher les attaques de système de fichiers;
-                // la validation/assainissement supplémentaire du nom de fichier peut être approprié
-                $name = basename($_FILES["pj"]["name"][$key]);
-                $fileresult &= move_uploaded_file($tmp_name, ROOT_PATH . "$dossier/$name");
-            }
-
+            $name = basename($_FILES["pj"]["name"][$key]);
+            $fileresult &= move_uploaded_file($tmp_name, ROOT_PATH . "$dossier/$name");
             $db->addPJ(basename($_FILES["pj"]["name"][$key]), "$dossier/$name", $newId);
         }
     }
@@ -80,13 +66,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             "dateMax" => getCurrentPeriode()[1]->format("Y-m-d"),
             "date" => ($ev == null ? date("Y-m-d") : $ev->getEcheance()),
             "seances" => $seances,
-            "message" => "Une erreur est survenue lors de l'application des changements."
+            "message" => "Une erreur est survenue lors de l'application des changements.",
         ));
-        die();
 
     } else {
         // Modification avec succès
-        // header("Location: " . basename(__FILE__));
+        header("Location: " . basename(__FILE__));
     }
 }
 
@@ -115,8 +100,7 @@ if (isset($_GET['id'])) {
         "dateMin" => date("Y-m-d"),
         "dateMax" => getCurrentPeriode()[1]->format("Y-m-d"),
         "date" => ($ev == null ? date("Y-m-d") : $ev->getEcheance()),
-        "seances" => $seances
-        // "types"=>$db->getTypesSeance()
+        "seances" => $seances,
     ));
 } else {
 

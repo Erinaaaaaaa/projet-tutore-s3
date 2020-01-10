@@ -8,7 +8,6 @@ DROP TABLE IF EXISTS Seance CASCADE;
 DROP TABLE IF EXISTS Evenement CASCADE;
 DROP TABLE IF EXISTS Piece_Jointe CASCADE;
 DROP TABLE IF EXISTS Semaphore CASCADE;
-DROP TABLE IF EXISTS Etat_Semaphore CASCADE;
 DROP TABLE IF EXISTS Parametres CASCADE;
 
 CREATE TABLE Utilisateur
@@ -95,15 +94,9 @@ CREATE TABLE Piece_Jointe
 
 CREATE TABLE Semaphore
 (
-    Id      SERIAL PRIMARY KEY,
-    Libelle VARCHAR(32)
-);
-
-CREATE TABLE Etat_Semaphore
-(
     Utilisateur VARCHAR(15) REFERENCES Utilisateur,
     Seance      INT REFERENCES Seance,
-    Etat        INT REFERENCES Semaphore,
+    Marque      BOOLEAN,
     PRIMARY KEY (Utilisateur, Seance)
 );
 

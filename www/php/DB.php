@@ -3,13 +3,12 @@
 // TODO: classes, ajouter des attributs pour les entités liées
 
 require_once "models/Affectation.php";
-require_once "models/EtatSemaphore.php";
+require_once "models/Semaphore.php";
 require_once "models/Evenement.php";
 require_once "models/Groupe.php";
 require_once "models/PieceJointe.php";
 require_once "models/Module.php";
 require_once "models/Seance.php";
-require_once "models/Semaphore.php";
 require_once "models/TypeEvenement.php";
 require_once "models/TypeSeance.php";
 require_once "models/Utilisateur.php";
@@ -440,5 +439,38 @@ class DB
             $this->update("insert into Parametres values (?,?)
                 on conflict (Param) do update set Valeur = Excluded.Valeur", array($key, $value));
         }
+    }
+
+    // ===== SEMAPHORES =====
+
+    public function getSemaphores()
+    {
+        return $this->query("SELECT * FROM Semaphore", null, Semaphore::class);
+    }
+
+    public function getSemaphore($seance, $utilisateur, $null = false) {
+        if (empty($seance)) return null;
+        if (empty($utilisateur)) return null;
+
+        $results = $this->query("SELECT * FROM Semaphore WHERE Utilisateur = ? and Seance = ?", array($utilisateur, $seance),
+            Semaphore::class);
+
+        if (sizeof($results) == 0) {
+            if (!$null)
+                return new Semaphore($utilisateur, $seance, false);
+            else
+                return null;
+        }
+        return $results[0];
+    }
+
+    public function updateSemaphore($seance, $utilisateur, $etat)
+    {
+        if ($this->getSemaphore($seance, $utilisateur, true) != null)
+            return $this->update("UPDATE Semaphore SET Marque = ? WHERE Utilisateur = ? and Seance = ?",
+                array($etat, $utilisateur, $seance)) > 0;
+        else
+            return $this->update("INSERT INTO Semaphore(Marque, Utilisateur, Seance) values (?,?,?)",
+                array($etat, $utilisateur, $seance)) > 0;
     }
 }

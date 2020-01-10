@@ -4,20 +4,23 @@
 class Semaphore
 {
     // Attributs pour PDO
-    private $id;
-    private $libelle;
+    private $utilisateur;
+    private $seance;
+    private $marque;
 
-    /**
-     * Semaphore constructor.
-     * @param int $id
-     * @param string $libelle
-     */
-    public function __construct($id = -1, $libelle = "")
+    public function __construct($utilisateur = "", $seance = -1, $marque = false)
     {
-        $this->id = $id;
-        $this->libelle = $libelle;
+        $this->utilisateur = $utilisateur;
+        $this->seance = $seance;
+        $this->marque = $marque;
     }
 
-    public function getId(){return $this->id;}
-    public function getLibelle(){return $this->libelle;}
+    public function getUtilisateur(){return $this->utilisateur;}
+    public function getSeance(){return $this->seance;}
+    public function getMarque(){return $this->marque;}
+
+    public function setEtat($etat)
+    {
+        $this->marque = $etat;
+    }
 }

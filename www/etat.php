@@ -211,8 +211,9 @@ foreach ($seancesFiltrees as $seance)
 
     $seance->nom_type   = $db->getTypeSeance($seance->getType())->getLibelle();
     $seance->obj_user   = $db->getUtilisateur($seance->getUtilisateur());
+    $seance->semaphore  = $db->getSemaphore($seance->getId(), $_SESSION['login']);
 
-    // TODO: array_push($tabSemaphores, $db->getSemaphoreSeUs($seance->getIdSeance(), $_SESSION['login']));
+    $tabSemaphores[] = $seance->semaphore;
 }
 
 /* association des séances avec leur numero de semaine */
@@ -240,27 +241,27 @@ foreach ($seancesFiltrees as $seance) {
 
 /* sauvegarde des sémaphores */
 
-/* TODO:
 if (isset($_POST['save'])) {
+    /* @var $semaphore Semaphore */
     foreach ($tabSemaphores as $semaphore) {
         if ($semaphore !== null) {
             if (isset($_POST['sem'])) {
-                if (in_array($semaphore->getIdSeance(), $_POST['sem'])) {
-                    updateSemaphore($semaphore->getIdSeance(), $_SESSION['login'], "t");
-                    $semaphore->setEtat("t");
+                if (in_array($semaphore->getSeance(), $_POST['sem'])) {
+                    $db->updateSemaphore($semaphore->getSeance(), $_SESSION['login'], "t");
+                    $semaphore->setEtat(true);
                 }
                 else {
-                    updateSemaphore($semaphore->getIdSeance(), $_SESSION['login'], "f");
-                    $semaphore->setEtat("f");
+                    $db->updateSemaphore($semaphore->getSeance(), $_SESSION['login'], "f");
+                    $semaphore->setEtat(false);
                 }
             }
             else {
-                updateSemaphore($semaphore->getIdSeance(), $_SESSION['login'], "f");
-                $semaphore->setEtat("f");
+                $db->updateSemaphore($semaphore->getSeance(), $_SESSION['login'], "t");
+                $semaphore->setEtat(false);
             }
         }
     }
-}*/
+}
 
 echo $tpl->render(array("titre"=>"Etat des séances",
     "sections"=>getSidebarSections($_SESSION['login']),

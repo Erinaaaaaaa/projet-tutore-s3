@@ -18,6 +18,7 @@ class Seance
     public $evenements;
     public $nom_type;
     public $obj_user;
+    public $semaphore;
 
     /**
      * Seance constructor.

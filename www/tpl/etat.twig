@@ -132,7 +132,7 @@
         </div>
     </div>
 
-    <form action="etat.php" method="post">
+    <form action="" method="post">
         <div align="right">
             <input class="button" name="save" type="submit" value="enregistrer le marquage">
         </div>
@@ -154,14 +154,10 @@
                                 <span class="small">{{ s.groupe }}</span>
                                 <span>{{s.obj_user.prenom ~ " " ~ s.obj_user.nom}}</span>
                                 <span class="small">
-								{% for semaphore in tabSemaphores %}
-                                    {% if semaphore.getIdSeance() == s.getIdSeance() %}
-                                        <label class="container">
-										<input type="checkbox" name="sem[] "value="{{s.getIdSeance()}}" {% if semaphore.getEtat == "t" %}checked="checked"{% endif %}>
-										<span class="checkmark"></span>
-										</label>
-                                    {% endif %}
-                                {% endfor %}
+                                <label class="container">
+                                    <input type="checkbox" name="sem[]" value="{{s.id}}" {% if s.semaphore.marque %}checked="checked"{% endif %}>
+                                    <span class="checkmark"></span>
+                                </label>
 							</span>
                                 <a href="#" class="expander">Détails</a>
                             </div>

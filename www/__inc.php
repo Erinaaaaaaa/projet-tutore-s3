@@ -4,7 +4,7 @@ if (!isset($_SESSION)) session_start();
 
 define('ROOT_PATH', realpath(dirname(__FILE__)."/")."/");
 
-require_once ROOT_PATH . "twig/lib/Twig/Autoloader.php";
+require_once ROOT_PATH."twig/lib/Twig/Autoloader.php";
 Twig_Autoloader::register();
 $twig = new Twig_Environment(new Twig_Loader_Filesystem([ROOT_PATH."tpl", "./tpl"]));
 
