@@ -20,6 +20,7 @@ else
 
 $tabMois = array("Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre");
 
+/* Pour changer le mois courant */
 if (isset($_POST['month+']))
 {
     $moisActuel = $moisActuel+1;
@@ -28,7 +29,9 @@ if (isset($_POST['month-']))
 {
     $moisActuel = $moisActuel-1;
 }
+/*------------------------------*/
 
+/* Pour changer l'année si besoin */
 if ($moisActuel < 0)
 {
     $moisActuel    = 11;
@@ -39,7 +42,7 @@ if ($moisActuel > 11)
     $moisActuel    = 0;
     $anneeActuelle = $anneeActuelle+1;
 }
-
+/*------------------------------*/
 
 
 
@@ -57,6 +60,7 @@ $typesEvenement = $db->getTypesEvenement();
 
 $date = new DateTime(date("Y-m-d"));
 
+/* Dates de début et de fin d'année */
 $dateMin = new DateTime('09/01');
 if (intval($date->diff($dateMin)->format("%R%d")) > 0)
     $dateMin->setDate(intval($dateMin->format("Y"))-1, 9, 1);
@@ -65,6 +69,7 @@ $dateMax = new DateTime('06/30');
 if (intval($date->diff($dateMax)->format("%R%d")) < 0)
     $dateMax->setDate(intval($dateMax->format("Y"))+1, 6, 30);
 
+/* (Filtres) Dates de début et fin de mois */
 $dateCreaMinMois = new DateTime();
 $dateCreaMinMois->setDate($anneeActuelle, $moisActuel+1, 1);
 
@@ -76,23 +81,29 @@ list($year,$month,$day) = explode('-', $crea);
 $date2 = new DateTime();
 $date2->setDate( $year, 9, 1);
 
-/* De façon à ne pas pourvoir entrer une date incohérente : */
 
+/* (Filtres) Dates de création minimales et maximales */
 $dateCreaMin  = new DateTime();
 $dateCreaMin->setDate(date("Y"), date('m'), 1);
+/* De façon à ne pas pourvoir entrer une date incohérente : */
 if (intval($date->diff($dateCreaMin)->format("%R%d")) > 0)
     $dateCreaMin->setDate(intval($dateCreaMin->format("Y"))-1, 9, 1);
 
 $dateCreaMax  = new DateTime();
 $dateCreaMax->setDate(date("Y"), date('m')+1, 1);
+/* De façon à ne pas pourvoir entrer une date incohérente : */
 if (intval($date->diff($dateCreaMax)->format("%R%d")) < 0)
     $dateCreaMax->setDate(intval($dateCreaMax->format("Y"))+1, 6, 30);
 
+
+/* (Filtres) Dates d'échéance minimales et maximales */
 $echeanceMin  = new DateTime('09/01');
+/* De façon à ne pas pourvoir entrer une date incohérente : */
 if (intval($date->diff($echeanceMin)->format("%R%d")) > 0)
     $echeanceMin->setDate(intval($echeanceMin->format("Y"))-1, 9, 1);
 
 $echeanceMax  = new DateTime('06/30');
+/* De façon à ne pas pourvoir entrer une date incohérente : */
 if (intval($date->diff($echeanceMax)->format("%R%d")) < 0)
     $echeanceMax->setDate(intval($echeanceMax->format("Y"))+1, 6, 30);
 
@@ -100,7 +111,7 @@ if (intval($date->diff($echeanceMax)->format("%R%d")) < 0)
 
 
 
-
+/* Initialisation des filtres à vide */
 $tabModules      = array();
 $tabGroupes      = array();
 $tabTypes        = array();
@@ -109,6 +120,7 @@ $tabCreateurs    = array();
 $tabSemaphores   = array();
 $tabPiece_jointe = array();
 
+/* Si le filtre a été renseigné, alors sa valeur est prise */
 if (isset($_POST['DateCreaMin'])) {
     $dateCreaMin = new DateTime($_POST['DateCreaMin']);
 }
@@ -191,7 +203,6 @@ foreach ($seancesFiltrees as $seance)
     $seance->allEvenements = $db->getEvenementsPourSeance($seance->getId());
 
     /* Selection des évènements par rapport aux filtres */
-
     $seance->evenements = array();
 
 
@@ -204,6 +215,7 @@ foreach ($seancesFiltrees as $seance)
             array_push($seance->evenements, $e);
         }
     }
+    /*--------------------------------------------------*/
 
     /* @var $event Evenement */
     foreach ($seance->evenements as $event)
