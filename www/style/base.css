@@ -169,9 +169,9 @@ footer {
 
 /* =========== WIDESCREEN ========== */
 
-@media screen and (min-width: 960px) {
+@media screen and (min-width: 1280px) {
     #content {
-        max-width: 960px;
+        max-width: 1280px;
         margin-left: auto;
         margin-right: auto;
     }

@@ -124,11 +124,18 @@ if (isset($_GET['id'])) {
 
     $events = $db->getEvenements();
 
+    $heures = 0;
+
     foreach ($events as $event)
     {
         /* @var $event Evenement */
         $event->pj =$db->getPJpourEvenement($event->getId());
+        $heures += $event->getDuree();
     }
+
+    $duree = sprintf("%d:%02d", floor($heures), (($heures - floor($heures)) * 60));
+
+
 
     echo $tpl->render(
         array(
@@ -137,6 +144,7 @@ if (isset($_GET['id'])) {
             "sections" => getSidebarSections($_SESSION['login']),
             "options" => getSidebarOptions("param"),
             "tabEvent" => $events,
+            "duree" => $duree,
         )
     );
 

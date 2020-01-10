@@ -42,7 +42,7 @@
                 <td>{{ event.id }}</td>
                 <td>{{ event.type }}</td>
                 <td>{{ event.libelle }}</td>
-                <td>{{ event.duree }}</td>
+                <td>{{ event.getDureeFormat() }}</td>
                 <td>{{ event.echeance }}</td>
                 <td>{{ event.seance }}</td>
                 <td>{% for pj in event.pj %}

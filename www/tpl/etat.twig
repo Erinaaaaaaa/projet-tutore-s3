@@ -17,13 +17,13 @@
 
 {% block contenu %}
 
-    <form action="etat.php" method="post">
+    <form action="" method="post">
         <div class="block month">
-            <input type="hidden" name="month" value={{chiffreMois}} />
+            <input type="hidden" name="month" value={{chiffreMois}}/>
             <input type="hidden" name="year" value={{chiffreAnnee}} />
-            <input type="submit" name="month-" value="Précédent" />
+            <input type="submit" name="month-" value="Précédent" data-tag="prev"/>
             <h2>{{moisActuel}}</h2>
-            <input type="submit" name="month+" value="Suivant" />
+            <input type="submit" name="month+" value="Suivant" data-tag="next"/>
         </div>
     </form>
 

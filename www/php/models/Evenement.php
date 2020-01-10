@@ -40,4 +40,11 @@ class Evenement
     public function getEcheance(){return $this->echeance;}
     public function getSeance(){return $this->seance;}
 
+    public function getDureeFormat() {
+        if ($this->duree == null) return null;
+
+        $heures = $this->duree;
+        return sprintf("%d:%02d", floor($heures), (($heures - floor($heures)) * 60));
+    }
+
 }
