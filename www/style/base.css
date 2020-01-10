@@ -1,5 +1,6 @@
 @import url('https://rsms.me/inter/inter.css');
 @import url('items.css');
+@import url('tooltip.css');
 
 html {
     font-family: 'Inter', sans-serif;
@@ -108,7 +109,7 @@ body.menu nav {
 }
 
 nav div > * {
-    padding: 16px;
+    padding: 8px 8px 8px 16px;
     display: block;
 }
 

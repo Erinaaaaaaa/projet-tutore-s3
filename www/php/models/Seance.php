@@ -13,7 +13,11 @@ class Seance
     private $groupe;
     private $utilisateur;
 
-    public $objmodule;
+    public $obj_module;
+    public $allEvenements;
+    public $evenements;
+    public $nom_type;
+    public $obj_user;
 
     /**
      * Seance constructor.

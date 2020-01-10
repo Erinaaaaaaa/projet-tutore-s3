@@ -1,7 +1,6 @@
 <?php
 
 require_once "__inc.php";
-require_once ROOT_PATH . "php/func.php";
 
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -13,11 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $duree = $_POST['duree'];
     $seance = $_POST['seance'];
 
-    if (empty($date))
-        $date = null;
+    if (empty($date)) $date = null;
 
-    if (empty($duree))
-        $duree = null;
+    if (empty($duree)) $duree = null;
 
     $ev = null;
 
@@ -27,11 +24,31 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $result = false;
 
     if (!empty($id))
-        $result = $db->updateEvenement($id, $type, $libelle, $date, $duree, $seance);
+        $newId = $db->updateEvenement($id, $type, $libelle, $date, $duree, $seance);
     else
-        $result = $db->addEvenement($type, $libelle, $date, $duree, $seance);
+        $newId = $db->addEvenement($type, $libelle, $date, $duree, $seance);
 
-    if (!$result) {
+    $tmpDate = new DateTime($date);
+
+    $dossier = "/documents/".$tmpDate->format("Y")."/".$tmpDate->format("m");
+    mkdir(ROOT_PATH.$dossier, 0777, true);
+
+    $fileresult = true;
+
+    foreach ($_FILES["pj"]["error"] as $key=>$error)
+    {
+        if ($error == UPLOAD_ERR_OK) {
+            $tmp_name = $_FILES["pj"]["tmp_name"][$key];
+            // basename() peut empêcher les attaques de système de fichiers;
+            // la validation/assainissement supplémentaire du nom de fichier peut être approprié
+            $name = basename($_FILES["pj"]["name"][$key]);
+            $fileresult &= move_uploaded_file($tmp_name, ROOT_PATH."$dossier/$name");
+        }
+
+        $db->addPJ(basename($_FILES["pj"]["name"][$key]), "$dossier/$name", $newId);
+    }
+
+    if (!$newId || !$fileresult) {
         $tpl = $twig->resolveTemplate("creation-evenement.twig");
 
         $seances = $db->getSeances();
@@ -92,13 +109,21 @@ if (isset($_GET['id'])) {
 
     $tpl = $twig->resolveTemplate("liste-evenements.twig");
 
+    $events = $db->getEvenements();
+
+    foreach ($events as $event)
+    {
+        /* @var $event Evenement */
+        $event->pj =$db->getPJpourEvenement($event->getId());
+    }
+
     echo $tpl->render(
         array(
             "titre" => "Évènements",
             "user" => $db->getUtilisateur($_SESSION['login']),
             "sections" => getSidebarSections($_SESSION['login']),
             "options" => getSidebarOptions("param"),
-            "tabEvent" => $db->getEvenements(),
+            "tabEvent" => $events,
         )
     );
 

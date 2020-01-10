@@ -17,5 +17,6 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-if (!isset($_SESSION['login']))
+if (!isset($_SESSION['login']) ||
+    strpos($db->getUtilisateur($_SESSION['login'])->getRoles(), "A") === false)
     header("Location: /index.php");

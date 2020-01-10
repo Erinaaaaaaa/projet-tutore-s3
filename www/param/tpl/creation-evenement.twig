@@ -8,9 +8,6 @@
         #heure {
             width:11%;
         }
-        #minute {
-            width:11%;
-        }
     </style>
 {% endblock %}
 
@@ -18,6 +15,32 @@
     <script>
         $(document).ready(function() {
             updateHeure({{ evenement.duree }});
+
+            $(function() {
+
+                var // Define maximum number of files.
+                    max_file_number = 3,
+                    // Define your form id or class or just tag.
+                    $form = $('form'),
+                    // Define your upload field class or id or tag.
+                    $file_upload = $('#pj', $form),
+                    // Define your submit class or id or tag.
+                    $button = $('#valider', $form);
+
+                // Disable submit button on page ready.
+                $button.prop('disabled', 'disabled');
+
+                $file_upload.on('change', function () {
+                    var number_of_images = $(this)[0].files.length;
+                    if (number_of_images > max_file_number) {
+                        alert(`Vous pouvez uniquement sélectionner un maximum de ${max_file_number} fichiers.`);
+                        $(this).val('');
+                        $button.prop('disabled', 'disabled');
+                    } else {
+                        $button.prop('disabled', false);
+                    }
+                });
+            });
         });
 
         function updateHeure(input) {
@@ -26,11 +49,13 @@
             let minute = (val - heure) * 60;
             $("span#full").html(""+heure+":"+(minute < 10 ? "0" + minute : minute));
         }
+
+
     </script>
 {% endblock %}
 
 {% block contenu %}
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         <fieldset>
             <span>{{ message }}</span>
             <table>
@@ -68,15 +93,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Pièce jointe:</td>
-                    <td><input type="file" name="pj"></td>
+                    <td>Pièces jointes:</td>
+                    <td><input id="pj" type="file" multiple name="pj[]"></td>
                 </tr>
                 <tr>
                     <td>
                         Durée:
                     </td>
                     <td>
-                        <input id="heure" type="number" value="{{ evenement.duree }}" onchange="updateHeure($(this).val())" step="0.25" name="duree" min="0" style="width: 50px"> heure(s)
+                        <input id="heure" type="number" value="{{ evenement == null ? 0 : evenement.duree }}" onchange="updateHeure($(this).val())" step="0.25" name="duree" min="0" style="width: 50px"> heure(s)
                         (<span id="full">0:00</span>)
                     </td>
                 </tr>
@@ -93,7 +118,7 @@
                         (<span class="obligatoire">*</span> champs obligatoires)
                     </td>
                     <td>
-                        <input type="submit" name="valider" value="Valider">
+                        <input id="valider" type="submit" name="valider" value="Valider">
                     </td>
                 </tr>
             </table>

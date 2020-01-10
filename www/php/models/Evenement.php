@@ -11,6 +11,9 @@ class Evenement
     private $echeance;
     private $seance;
 
+    public $pj;
+    public $nom_type;
+
     /**
      * Evenement constructor.
      * @param $id

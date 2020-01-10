@@ -8,7 +8,7 @@ function getSidebarSections($login) {
 
     $liens = array(
         array("nom"=>"Profil", "url"=>"/profil.php"),
-        array("nom"=>"Etat", "url"=>"javascript:alert('Non implémenté')"),
+        array("nom"=>"Etat", "url"=>"/etat.php"),
         array("nom"=>"Journal de bord", "url"=>"javascript:alert('Non implémenté')"),
         array("nom"=>"Paramétrage", "url"=>"/param/index.php")
     );
@@ -30,6 +30,10 @@ function getSidebarOptions($page) {
                 array("url"=>"/param/types_evenement.php", "nom"=>"Types d'évènement"),
                 array("url"=>"/param/types_seance.php", "nom"=>"Types de séance"),
                 array("url"=>"/param/utilisateurs.php", "nom"=>"Utilisateurs"),
+            );
+        case "etat":
+            return array(
+                array("url"=>"/etat.php","nom"=>"Réinitialiser les filtres")
             );
         default: return array();
     }
@@ -54,5 +58,5 @@ function getCurrentPeriode($date = null) {
 }
 
 function getPeriode($anneeDebut) {
-
+    return getCurrentPeriode(new DateTime("09/01/$anneeDebut"));
 }

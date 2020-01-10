@@ -271,6 +271,11 @@ class DB
         else return null;
     }
 
+    public function getEvenementsPourSeance($seance)
+    {
+        return $this->query("SELECT * FROM Evenement WHERE Seance = ?", array($seance), Evenement::class);
+    }
+
     public function getEvenements()
     {
         return $this->query("SELECT * FROM Evenement", null, Evenement::class);
@@ -278,19 +283,32 @@ class DB
 
     public function addEvenement($type, $libelle, $date, $duree, $seance)
     {
-        return $this->update("INSERT INTO Evenement (type, libelle, duree, echeance, seance) VALUES (?, ?, ?, ?, ?)",
-                array($type, $libelle, $duree, $date, $seance)) > 0;
+        $this->pdo->beginTransaction();
+        $this->update("INSERT INTO Evenement (type, libelle, duree, echeance, seance) VALUES (?, ?, ?, ?, ?)",
+                array($type, $libelle, $duree, $date, $seance));
+        $id = $this->pdo->lastInsertId();
+        $this->pdo->commit();
+        return $id;
     }
 
     public function updateEvenement($id, $type, $libelle, $date, $duree, $seance)
     {
-        return $this->update("UPDATE Evenement SET Type = ?, Libelle = ?, Echeance = ?, Duree = ?, Seance = ? WHERE Id = ?",
-            array($type, $libelle, $date, $duree, $seance, $id)) > 0;
+        $this->update("UPDATE Evenement SET Type = ?, Libelle = ?, Echeance = ?, Duree = ?, Seance = ? WHERE Id = ?",
+            array($type, $libelle, $date, $duree, $seance, $id));
+        return $id;
     }
 
     public function deleteEvenement($id)
     {
-        return $this->update("DELETE FROM Evenement WHERE Id = ?", array($id)) > 0;
+        try {
+            $this->pdo->beginTransaction();
+            $this->update("DELETE FROM Piece_Jointe WHERE Evenement = ?", array($id));
+            $this->update("DELETE FROM Evenement WHERE Id = ?", array($id));
+            $this->pdo->commit();
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
     }
 
     // ===== TYPES SEANCE =====
@@ -376,6 +394,20 @@ class DB
     public function deleteTypeEvenement($id)
     {
         return $this->update("UPDATE Type_Evenement SET Actif = false WHERE Id = ?", array($id)) > 0;
+    }
+
+    // ===== PIECES JOINTES =====
+
+    public function getPjPourEvenement($evenement)
+    {
+        return $this->query("SELECT * FROM Piece_Jointe WHERE Evenement = ?",
+            array($evenement), PieceJointe::class);
+    }
+
+    public function addPJ($filename, $chemin, $evenement)
+    {
+        return $this->update("INSERT INTO Piece_Jointe (nom_fichier, chemin, evenement) VALUES (?,?,?)",
+            array($filename, $chemin, $evenement))>0;
     }
 
     // ===== PARAMETRES =====

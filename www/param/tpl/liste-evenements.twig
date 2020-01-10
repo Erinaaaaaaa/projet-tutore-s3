@@ -32,6 +32,7 @@
             <th>duree</th>
             <th>echeance</th>
             <th>seance</th>
+            <th>Pièces jointes</th>
             <th colspan="2">Actions</th>
         </tr>
 
@@ -44,6 +45,10 @@
                 <td>{{ event.duree }}</td>
                 <td>{{ event.echeance }}</td>
                 <td>{{ event.seance }}</td>
+                <td>{% for pj in event.pj %}
+                <a href="{{ pj.chemin }}" class="tooltip">{{ pj.getNomFichier() }}</a><br>
+                {% endfor %}
+                </td>
                 <td><a href="?id={{event.id}}"><img src="/images/edit.png" alt="Modifier l'evenement"/></a></td>
                 <!-- deleteEvenement.php?id={{event.getIdEvenement()}} -->
                 <td><a href="javascript:verifSuppression('{{event.id}}')"><img src="/images/delete.jpeg" alt="Supprimer l'evenement"/></a></td>

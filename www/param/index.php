@@ -10,5 +10,5 @@ echo $twig->resolveTemplate("parametrage.twig")
         "user" => $user,
         "titre" => "Paramétrage",
         "sections" => getSidebarSections($_SESSION['login']),
-        "options" => getSidebarOptions("param"),
+        "options" => getSidebarOptions("param")
     ));

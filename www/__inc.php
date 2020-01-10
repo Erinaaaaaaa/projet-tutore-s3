@@ -17,5 +17,5 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-//if (!isset($_SESSION['login']) && basename(__FILE__) != "index.php")
-  //  header("Location: /index.php");
+if (!isset($_SESSION['login']) && basename($_SERVER['SCRIPT_NAME']) != "index.php")
+    header("Location: /index.php");
